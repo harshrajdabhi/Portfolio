@@ -1,29 +1,23 @@
 {
   "profile": {
-    "name": "John Doe",
+    "name": "Harsh Dabhi",
     "title": "AI & ML Engineer",
     "bio": "Passionate AI Engineer with extensive experience in developing intelligent systems that solve real-world problems.",
     "location": "San Francisco, CA",
     "availability": "Open to opportunities",
     "image": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&h=400&fit=crop",
     "social": {
-      "github": "https://github.com",
-      "linkedin": "https://linkedin.com",
-      "email": "mailto:contact@example.com",
-      "twitter": "https://twitter.com"
+      "github": "https://github.com/harshrajdabhi",
+      "linkedin": "https://www.linkedin.com/in/harshrajdabhi/",
+      "email": "harshrajdabhir@gmail.com",
+      "twitter": "https://x.com/DabhiHarshraj"
     },
     "education": [
       {
-        "degree": "Master of Science in Computer Science",
-        "school": "Stanford University",
-        "year": "2018-2020",
-        "focus": "Machine Learning & AI"
-      },
-      {
         "degree": "Bachelor of Engineering",
-        "school": "MIT",
-        "year": "2014-2018",
-        "focus": "Computer Science"
+        "school": "Gujarat Technological University",
+        "year": "2016-2020",
+        "focus": "Computer Engineer"
       }
     ]
   },
