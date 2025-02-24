@@ -1,0 +1,121 @@
+{
+  "profile": {
+    "name": "John Doe",
+    "title": "AI & ML Engineer",
+    "bio": "Passionate AI Engineer with extensive experience in developing intelligent systems that solve real-world problems.",
+    "location": "San Francisco, CA",
+    "availability": "Open to opportunities",
+    "image": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&h=400&fit=crop",
+    "social": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "email": "mailto:contact@example.com",
+      "twitter": "https://twitter.com"
+    },
+    "education": [
+      {
+        "degree": "Master of Science in Computer Science",
+        "school": "Stanford University",
+        "year": "2018-2020",
+        "focus": "Machine Learning & AI"
+      },
+      {
+        "degree": "Bachelor of Engineering",
+        "school": "MIT",
+        "year": "2014-2018",
+        "focus": "Computer Science"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "title": "Senior AI Engineer",
+      "company": "TechCorp AI",
+      "location": "San Francisco, CA",
+      "period": "2021 - Present",
+      "description": "Leading the development of large language models and computer vision systems.",
+      "achievements": [
+        "Developed a state-of-the-art NLP model improving accuracy by 35%",
+        "Led a team of 5 engineers in implementing real-time object detection",
+        "Reduced model inference time by 60% through optimization"
+      ]
+    },
+    {
+      "title": "Machine Learning Engineer",
+      "company": "AI Solutions Inc",
+      "location": "Boston, MA",
+      "period": "2019 - 2021",
+      "description": "Worked on computer vision and natural language processing projects.",
+      "achievements": [
+        "Implemented image recognition system with 95% accuracy",
+        "Developed automated data pipeline reducing processing time by 70%",
+        "Published 2 research papers in top AI conferences"
+      ]
+    },
+    {
+      "title": "AI Research Intern",
+      "company": "Research Labs",
+      "location": "Seattle, WA",
+      "period": "2018 - 2019",
+      "description": "Conducted research in deep learning and reinforcement learning.",
+      "achievements": [
+        "Developed novel reinforcement learning algorithms",
+        "Published research paper at ICML conference",
+        "Created open-source ML library with 1000+ stars on GitHub"
+      ]
+    }
+  ],
+  "stats": [
+    { "value": "5+", "label": "Years Experience" },
+    { "value": "50+", "label": "Projects Completed" },
+    { "value": "20+", "label": "Open Source Contributions" },
+    { "value": "10+", "label": "Research Papers" }
+  ],
+  "skills": {
+    "AI/ML": ["TensorFlow", "PyTorch", "Scikit-learn", "OpenCV", "LLMs", "NLP"],
+    "Languages": ["Python", "JavaScript", "SQL", "R"],
+    "Cloud": ["AWS", "GCP", "Azure", "Docker", "Kubernetes"],
+    "Tools": ["Git", "REST APIs", "GraphQL", "Jupyter", "VS Code"]
+  },
+  "projects": [
+    {
+      "title": "AI-Powered Chatbot",
+      "description": "Advanced NLP-based conversational AI using transformer architecture",
+      "tags": ["Python", "TensorFlow", "NLP", "Docker"],
+      "image": "https://images.unsplash.com/photo-1676299081847-5c7fe8b15015?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "99.9% uptime",
+        "50,000+ daily users",
+        "Multi-language support"
+      ]
+    },
+    {
+      "title": "Image Classifier",
+      "description": "CNN model for real-time object recognition with 95% accuracy",
+      "tags": ["Python", "PyTorch", "OpenCV", "Deep Learning"],
+      "image": "https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "95% accuracy",
+        "Real-time processing",
+        "Mobile-optimized"
+      ]
+    },
+    {
+      "title": "Workflow Automation",
+      "description": "Python scripts for automating repetitive tasks and data processing",
+      "tags": ["Python", "Automation", "APIs"],
+      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "70% time savings",
+        "100+ automated workflows",
+        "Enterprise adoption"
+      ]
+    }
+  ]
+}
