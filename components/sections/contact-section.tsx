@@ -11,7 +11,7 @@ import portfolioData from "@/data/portfolio.json"
 export function ContactSection() {
   const contactInfo = [
     { icon: Mail, text: portfolioData.profile.social.email, label: "Email" },
-    { icon: Phone, text: "+1 (555) 123-4567", label: "Phone" },
+    { icon: Phone, text: portfolioData.profile.contact_number , label: "Phone" },
     { icon: MapPin, text: portfolioData.profile.location, label: "Location" }
   ]
 
