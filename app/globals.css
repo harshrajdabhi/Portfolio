@@ -55,6 +55,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
@@ -105,9 +106,11 @@ html {
 /* AI Circuit Animation */
 .circuit-line {
   position: absolute;
-  height: 1px;
+  height: 2px;
+  width: 100%;
   background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
   animation: circuit-line 3s linear infinite;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
 }
 
 @keyframes circuit-line {
@@ -120,4 +123,25 @@ html {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+/* Glowing effect for interactive elements */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, rgba(59, 130, 246, 0.5), rgba(34, 211, 238, 0.5));
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.glow-effect:hover::after {
+  opacity: 1;
 }

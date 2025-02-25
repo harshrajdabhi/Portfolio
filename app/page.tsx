@@ -29,39 +29,66 @@ export default function Home() {
         />
         <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
           {/* AI Circuit Lines */}
-          <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
             {[...Array(5)].map((_, i) => (
               <motion.div
                 key={i}
                 className="circuit-line"
                 style={{
                   top: `${20 * (i + 1)}%`,
-                  animationDelay: `${i * 0.5}s`
+                  animationDelay: `${i * 0.5}s`,
+                  opacity: 0.3
                 }}
               />
             ))}
           </div>
 
-          <Navigation />
-          <section id="home">
-            <HeroSection />
-          </section>
-          <section id="about">
-            <AboutSection />
-          </section>
-          <section id="experience">
-            <ExperienceSection />
-          </section>
-          <section id="skills">
-            <SkillsSection />
-          </section>
-          <section id="projects">
-            <ProjectsSection />
-          </section>
-          <section id="contact">
-            <ContactSection />
-          </section>
-          <Footer />
+          {/* Background Particles */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={`particle-${i}`}
+                className="absolute h-2 w-2 rounded-full bg-blue-500/30"
+                style={{
+                  left: `${(i * 7) % 100}%`,
+                  top: `${(i * 5) % 100}%`
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 2 + (i % 3),
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Main Content */}
+          <div className="relative z-10">
+            <Navigation />
+            <section id="home">
+              <HeroSection />
+            </section>
+            <section id="about">
+              <AboutSection />
+            </section>
+            <section id="experience">
+              <ExperienceSection />
+            </section>
+            <section id="skills">
+              <SkillsSection />
+            </section>
+            <section id="projects">
+              <ProjectsSection />
+            </section>
+            <section id="contact">
+              <ContactSection />
+            </section>
+            <Footer />
+          </div>
         </div>
       </main>
     </div>
