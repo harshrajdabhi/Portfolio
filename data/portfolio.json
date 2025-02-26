@@ -58,6 +58,18 @@
         "Published research paper at ICML conference",
         "Created open-source ML library with 1000+ stars on GitHub"
       ]
+    },
+    {
+      "title": "Machine Learning Engineer",
+      "company": "AI Solutions Inc",
+      "location": "Boston, MA",
+      "period": "2019 - 2021",
+      "description": "Worked on computer vision and natural language processing projects.",
+      "achievements": [
+        "Implemented image recognition system with 95% accuracy",
+        "Developed automated data pipeline reducing processing time by 70%",
+        "Published 2 research papers in top AI conferences"
+      ]
     }
   ],
   "stats": [
@@ -104,8 +116,21 @@
       "description": "Python scripts for automating repetitive tasks and data processing",
       "tags": ["Python", "Automation", "APIs"],
       "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-      "github": "#",
+      "github": "",
       "demo": "#",
+      "highlights": [
+        "70% time savings",
+        "100+ automated workflows",
+        "Enterprise adoption"
+      ]
+    },
+    {
+      "title": "Workflow Automation 2",
+      "description": "Python scripts for automating repetitive tasks and data processing",
+      "tags": ["Python", "Automation", "APIs"],
+      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+      "github": "https://github.com/harshrajdabhi/harshrajdabhi",
+      "demo": "https://www.google.co.in/",
       "highlights": [
         "70% time savings",
         "100+ automated workflows",

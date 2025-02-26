@@ -145,3 +145,17 @@ html {
 .glow-effect:hover::after {
   opacity: 1;
 }
+
+/* AI Circuit Pattern Animation */
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.circuit-pattern {
+  animation: circuit-pulse 3s ease-in-out infinite;
+}

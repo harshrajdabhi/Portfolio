@@ -30,14 +30,23 @@ export default function Home() {
         <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
           {/* AI Circuit Lines */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-            {[...Array(5)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
                 className="circuit-line"
                 style={{
-                  top: `${20 * (i + 1)}%`,
-                  animationDelay: `${i * 0.5}s`,
+                  top: `${(i + 1) * 12}%`,
+                  animationDelay: `${i * 0.3}s`,
                   opacity: 0.3
+                }}
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 0.3, scaleX: 1 }}
+                transition={{
+                  duration: 2,
+                  delay: i * 0.2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
                 }}
               />
             ))}
@@ -45,7 +54,7 @@ export default function Home() {
 
           {/* Background Particles */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(30)].map((_, i) => (
               <motion.div
                 key={`particle-${i}`}
                 className="absolute h-2 w-2 rounded-full bg-blue-500/30"
@@ -56,14 +65,27 @@ export default function Home() {
                 animate={{
                   scale: [1, 1.5, 1],
                   opacity: [0.3, 0.6, 0.3],
+                  y: [0, -20, 0]
                 }}
                 transition={{
                   duration: 2 + (i % 3),
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
+                  delay: i * 0.1
                 }}
               />
             ))}
+          </div>
+
+          {/* Neural Network Grid */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+            <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5 }}
+            />
           </div>
 
           {/* Main Content */}
