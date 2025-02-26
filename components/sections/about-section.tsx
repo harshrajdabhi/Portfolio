@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card"
 import { useRef, useEffect, useState } from "react"
 import portfolioData from "@/data/portfolio.json"
 
-function CountUpAnimation({ end, duration = 2000 }) {
+function CountUpAnimation({ end, duration = 2000 }: { end: number; duration?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef(null)
   const inView = useInView(ref)
