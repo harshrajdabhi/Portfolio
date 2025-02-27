@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import portfolioData from "@/data/portfolio.json"
-
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -28,6 +28,8 @@ export function Sidebar() {
       animate={{ x: 0 }}
       transition={{ type: "spring", damping: 20 }}
     >
+    <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="harshrajdabhi" data-version="v1"><a className="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/harshrajdabhi?trk=profile-badge">Harsh Dabhi</a></div>
+              
       {/* AI Circuit Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px] circuit-pattern" />
