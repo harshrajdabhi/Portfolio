@@ -209,10 +209,11 @@ function RadarChart() {
   
   // Calculate average skill level per category
   const getCategoryAverage = (category: string) => {
-    const skills = portfolioData.skills[category] as string[]
-    const sum = skills.reduce((acc, skill) => acc + (skillLevels[skill] || 80), 0)
-    return sum / skills.length
-  }
+    const skills = (portfolioData.skills as Record<string, string[]>)[category] || [];
+    const sum = skills.reduce((acc, skill) => acc + (skillLevels[skill] || 80), 0);
+    return sum / skills.length;
+  };
+  
   
   // Draw radar chart
   useEffect(() => {
