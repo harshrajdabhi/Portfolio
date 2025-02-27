@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card"
 import portfolioData from "@/data/portfolio.json"
 
 // Define skill levels for metrics
-const skillLevels = {
+const skillLevels: Record<string, number> = {
   "TensorFlow": 92,
   "PyTorch": 88,
   "Scikit-learn": 95,
@@ -29,8 +29,15 @@ const skillLevels = {
   "VS Code": 98
 }
 
+// Define types for props
+interface SkillCardProps {
+  skill: string;
+  index: number;
+  category: string;
+}
+
 // Skill card component with animated metrics
-function SkillCard({ skill, index, category }) {
+function SkillCard({ skill, index, category }: SkillCardProps) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-100px" })
   const [level, setLevel] = useState(0)
@@ -49,7 +56,7 @@ function SkillCard({ skill, index, category }) {
   }, [inView, index, skillLevel])
   
   // Determine color based on skill level
-  const getColor = (level) => {
+  const getColor = (level: number) => {
     if (level >= 90) return "from-blue-500 to-cyan-400"
     if (level >= 80) return "from-blue-500 to-green-400"
     if (level >= 70) return "from-blue-400 to-green-500"
@@ -143,8 +150,13 @@ function SkillCard({ skill, index, category }) {
   )
 }
 
+interface HexGridProps {
+  category: string;
+  skills: string[];
+}
+
 // Hexagonal grid for skill visualization
-function HexGrid({ category, skills }) {
+function HexGrid({ category, skills }: HexGridProps) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   
@@ -181,14 +193,14 @@ function HexGrid({ category, skills }) {
 
 // Radar chart component for skill visualization
 function RadarChart() {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   const [isRendered, setIsRendered] = useState(false)
   
   // Categories to display in radar chart
   const categories = ["AI/ML", "Languages", "Cloud", "Tools"]
-  const categoryColors = {
+  const categoryColors: Record<string, string> = {
     "AI/ML": "rgba(59, 130, 246, 0.7)",
     "Languages": "rgba(34, 211, 238, 0.7)",
     "Cloud": "rgba(16, 185, 129, 0.7)",
@@ -196,8 +208,8 @@ function RadarChart() {
   }
   
   // Calculate average skill level per category
-  const getCategoryAverage = (category) => {
-    const skills = portfolioData.skills[category]
+  const getCategoryAverage = (category: string) => {
+    const skills = portfolioData.skills[category] as string[]
     const sum = skills.reduce((acc, skill) => acc + (skillLevels[skill] || 80), 0)
     return sum / skills.length
   }
@@ -257,7 +269,7 @@ function RadarChart() {
     })
     
     // Animate drawing of skill data
-    const drawSkillData = (progress) => {
+    const drawSkillData = (progress: number) => {
       ctx.clearRect(0, 0, size, size)
       
       // Redraw background
@@ -381,7 +393,7 @@ function RadarChart() {
     }
     
     animateRadar()
-  }, [inView, isRendered])
+  }, [inView, isRendered, categories, categoryColors])
   
   return (
     <motion.div
@@ -494,7 +506,7 @@ export function SkillsSection() {
             <HexGrid 
               key={category} 
               category={category} 
-              skills={skills} 
+              skills={skills as string[]} 
             />
           ))}
         </div>
