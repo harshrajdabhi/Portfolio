@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import portfolioData from "@/data/portfolio.json"// Define types for props
 interface SkillCardProps {
-  skill: string;
+  skill: { name: string; level: number };
   index: number;
   category: string;
 }
@@ -122,7 +122,12 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
 }
 
 // Hexagonal grid for skill visualization
-function HexGrid({ category, skills }) {
+interface HexGridProps {
+  category: string;
+  skills: { name: string; level: number }[];
+}
+
+function HexGrid({ category, skills }: HexGridProps) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   
@@ -157,241 +162,241 @@ function HexGrid({ category, skills }) {
   )
 }
 
-// Radar chart component for skill visualization
-function RadarChart() {
-  const canvasRef = useRef(null)
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true })
-  const [isRendered, setIsRendered] = useState(false)
+// // Radar chart component for skill visualization
+// function RadarChart() {
+//   const canvasRef = useRef<HTMLCanvasElement>(null)
+//   const ref = useRef(null)
+//   const inView = useInView(ref, { once: true })
+//   const [isRendered, setIsRendered] = useState(false)
   
-  // Categories to display in radar chart
-  const categories = ["AI/ML", "Languages", "Cloud", "Tools"]
-  const categoryColors = {
-    "AI/ML": "rgba(59, 130, 246, 0.7)",
-    "Languages": "rgba(34, 211, 238, 0.7)",
-    "Cloud": "rgba(16, 185, 129, 0.7)",
-    "Tools": "rgba(99, 102, 241, 0.7)"
-  }
+//   // Categories to display in radar chart
+//   const categories = ["AI/ML", "Languages", "Cloud", "Tools"]
+//   const categoryColors = {
+//     "AI/ML": "rgba(59, 130, 246, 0.7)",
+//     "Languages": "rgba(34, 211, 238, 0.7)",
+//     "Cloud": "rgba(16, 185, 129, 0.7)",
+//     "Tools": "rgba(99, 102, 241, 0.7)",
+//   }
   
-  // Calculate average skill level per category
-  const getCategoryAverage = (category) => {
-    const skills = portfolioData.skills[category]
-    const sum = skills.reduce((acc, skill) => acc + skill.level, 0)
-    return sum / skills.length
-  }
+//   // Calculate average skill level per category
+//   const getCategoryAverage = (category: string) => {
+//     const skills = portfolioData.skills[category]
+//     const sum = skills.reduce((acc: number, skill:string) => acc + skill.level, 0)
+//     return sum / skills.length
+//   }
   
-  // Draw radar chart
-  useEffect(() => {
-    if (!inView || !canvasRef.current || isRendered) return
+//   // Draw radar chart
+//   useEffect(() => {
+//     if (!inView || !canvasRef.current || isRendered) return
     
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+//     const canvas = canvasRef.current
+//     const ctx = canvas.getContext('2d')
+//     if (!ctx) return
     
-    // Set canvas dimensions
-    const size = 300
-    canvas.width = size
-    canvas.height = size
-    const centerX = size / 2
-    const centerY = size / 2
-    const radius = size * 0.4
+//     // Set canvas dimensions
+//     const size = 300
+//     canvas.width = size
+//     canvas.height = size
+//     const centerX = size / 2
+//     const centerY = size / 2
+//     const radius = size * 0.4
     
-    // Draw background
-    ctx.fillStyle = 'rgba(59, 130, 246, 0.05)'
-    ctx.fillRect(0, 0, size, size)
+//     // Draw background
+//     ctx.fillStyle = 'rgba(59, 130, 246, 0.05)'
+//     ctx.fillRect(0, 0, size, size)
     
-    // Draw radar grid
-    const levels = 5
-    for (let i = 1; i <= levels; i++) {
-      const levelRadius = (radius / levels) * i
+//     // Draw radar grid
+//     const levels = 5
+//     for (let i = 1; i <= levels; i++) {
+//       const levelRadius = (radius / levels) * i
       
-      ctx.beginPath()
-      ctx.arc(centerX, centerY, levelRadius, 0, Math.PI * 2)
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)'
-      ctx.stroke()
-    }
+//       ctx.beginPath()
+//       ctx.arc(centerX, centerY, levelRadius, 0, Math.PI * 2)
+//       ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)'
+//       ctx.stroke()
+//     }
     
-    // Draw category axes
-    const angleStep = (Math.PI * 2) / categories.length
-    categories.forEach((category, i) => {
-      const angle = i * angleStep - Math.PI / 2
-      const x = centerX + Math.cos(angle) * radius
-      const y = centerY + Math.sin(angle) * radius
+//     // Draw category axes
+//     const angleStep = (Math.PI * 2) / categories.length
+//     categories.forEach((category, i) => {
+//       const angle = i * angleStep - Math.PI / 2
+//       const x = centerX + Math.cos(angle) * radius
+//       const y = centerY + Math.sin(angle) * radius
       
-      ctx.beginPath()
-      ctx.moveTo(centerX, centerY)
-      ctx.lineTo(x, y)
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)'
-      ctx.stroke()
+//       ctx.beginPath()
+//       ctx.moveTo(centerX, centerY)
+//       ctx.lineTo(x, y)
+//       ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)'
+//       ctx.stroke()
       
-      // Draw category label
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
-      ctx.font = '12px sans-serif'
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-      const labelX = centerX + Math.cos(angle) * (radius + 20)
-      const labelY = centerY + Math.sin(angle) * (radius + 20)
-      ctx.fillText(category, labelX, labelY)
-    })
+//       // Draw category label
+//       ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
+//       ctx.font = '12px sans-serif'
+//       ctx.textAlign = 'center'
+//       ctx.textBaseline = 'middle'
+//       const labelX = centerX + Math.cos(angle) * (radius + 20)
+//       const labelY = centerY + Math.sin(angle) * (radius + 20)
+//       ctx.fillText(category, labelX, labelY)
+//     })
     
-    // Animate drawing of skill data
-    const drawSkillData = (progress: number) => {
-      ctx.clearRect(0, 0, size, size)
+//     // Animate drawing of skill data
+//     const drawSkillData = (progress: number) => {
+//       ctx.clearRect(0, 0, size, size)
       
-      // Redraw background
-      ctx.fillStyle = 'rgba(59, 130, 246, 0.05)'
-      ctx.fillRect(0, 0, size, size)
+//       // Redraw background
+//       ctx.fillStyle = 'rgba(59, 130, 246, 0.05)'
+//       ctx.fillRect(0, 0, size, size)
       
-      // Redraw radar grid
-      for (let i = 1; i <= levels; i++) {
-        const levelRadius = (radius / levels) * i
+//       // Redraw radar grid
+//       for (let i = 1; i <= levels; i++) {
+//         const levelRadius = (radius / levels) * i
         
-        ctx.beginPath()
-        ctx.arc(centerX, centerY, levelRadius, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)'
-        ctx.stroke()
+//         ctx.beginPath()
+//         ctx.arc(centerX, centerY, levelRadius, 0, Math.PI * 2)
+//         ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)'
+//         ctx.stroke()
         
-        // Draw level label
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
-        ctx.font = '10px sans-serif'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        ctx.fillText(`${i * 20}%`, centerX, centerY - levelRadius)
-      }
+//         // Draw level label
+//         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+//         ctx.font = '10px sans-serif'
+//         ctx.textAlign = 'center'
+//         ctx.textBaseline = 'middle'
+//         ctx.fillText(`${i * 20}%`, centerX, centerY - levelRadius)
+//       }
       
-      // Redraw category axes
-      categories.forEach((category, i) => {
-        const angle = i * angleStep - Math.PI / 2
-        const x = centerX + Math.cos(angle) * radius
-        const y = centerY + Math.sin(angle) * radius
+//       // Redraw category axes
+//       categories.forEach((category, i) => {
+//         const angle = i * angleStep - Math.PI / 2
+//         const x = centerX + Math.cos(angle) * radius
+//         const y = centerY + Math.sin(angle) * radius
         
-        ctx.beginPath()
-        ctx.moveTo(centerX, centerY)
-        ctx.lineTo(x, y)
-        ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)'
-        ctx.stroke()
+//         ctx.beginPath()
+//         ctx.moveTo(centerX, centerY)
+//         ctx.lineTo(x, y)
+//         ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)'
+//         ctx.stroke()
         
-        // Redraw category label
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
-        ctx.font = '12px sans-serif'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        const labelX = centerX + Math.cos(angle) * (radius + 20)
-        const labelY = centerY + Math.sin(angle) * (radius + 20)
-        ctx.fillText(category, labelX, labelY)
-      })
+//         // Redraw category label
+//         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
+//         ctx.font = '12px sans-serif'
+//         ctx.textAlign = 'center'
+//         ctx.textBaseline = 'middle'
+//         const labelX = centerX + Math.cos(angle) * (radius + 20)
+//         const labelY = centerY + Math.sin(angle) * (radius + 20)
+//         ctx.fillText(category, labelX, labelY)
+//       })
       
-      // Draw skill data
-      ctx.beginPath()
-      categories.forEach((category, i) => {
-        const angle = i * angleStep - Math.PI / 2
-        const value = getCategoryAverage(category) / 100
-        const adjustedValue = value * progress
-        const x = centerX + Math.cos(angle) * radius * adjustedValue
-        const y = centerY + Math.sin(angle) * radius * adjustedValue
+//       // Draw skill data
+//       ctx.beginPath()
+//       categories.forEach((category, i) => {
+//         const angle = i * angleStep - Math.PI / 2
+//         const value = getCategoryAverage(category) / 100
+//         const adjustedValue = value * progress
+//         const x = centerX + Math.cos(angle) * radius * adjustedValue
+//         const y = centerY + Math.sin(angle) * radius * adjustedValue
         
-        if (i === 0) {
-          ctx.moveTo(x, y)
-        } else {
-          ctx.lineTo(x, y)
-        }
-      })
-      ctx.closePath()
+//         if (i === 0) {
+//           ctx.moveTo(x, y)
+//         } else {
+//           ctx.lineTo(x, y)
+//         }
+//       })
+//       ctx.closePath()
       
-      // Create gradient fill
-      const gradient = ctx.createLinearGradient(0, 0, size, size)
-      gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)')
-      gradient.addColorStop(1, 'rgba(34, 211, 238, 0.2)')
-      ctx.fillStyle = gradient
-      ctx.fill()
+//       // Create gradient fill
+//       const gradient = ctx.createLinearGradient(0, 0, size, size)
+//       gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)')
+//       gradient.addColorStop(1, 'rgba(34, 211, 238, 0.2)')
+//       ctx.fillStyle = gradient
+//       ctx.fill()
       
-      // Draw stroke
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.7)'
-      ctx.lineWidth = 2
-      ctx.stroke()
+//       // Draw stroke
+//       ctx.strokeStyle = 'rgba(59, 130, 246, 0.7)'
+//       ctx.lineWidth = 2
+//       ctx.stroke()
       
-      // Draw data points
-      categories.forEach((category, i) => {
-        const angle = i * angleStep - Math.PI / 2
-        const value = getCategoryAverage(category) / 100
-        const adjustedValue = value * progress
-        const x = centerX + Math.cos(angle) * radius * adjustedValue
-        const y = centerY + Math.sin(angle) * radius * adjustedValue
+//       // Draw data points
+//       categories.forEach((category, i) => {
+//         const angle = i * angleStep - Math.PI / 2
+//         const value = getCategoryAverage(category) / 100
+//         const adjustedValue = value * progress
+//         const x = centerX + Math.cos(angle) * radius * adjustedValue
+//         const y = centerY + Math.sin(angle) * radius * adjustedValue
         
-        // Glow effect
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, 10)
-        glow.addColorStop(0, categoryColors[category])
-        glow.addColorStop(1, 'rgba(59, 130, 246, 0)')
+//         // Glow effect
+//         const glow = ctx.createRadialGradient(x, y, 0, x, y, 10)
+//         glow.addColorStop(0, categoryColors[category as keyof typeof categoryColors])
+//         glow.addColorStop(1, 'rgba(59, 130, 246, 0)')
         
-        ctx.beginPath()
-        ctx.arc(x, y, 5, 0, Math.PI * 2)
-        ctx.fillStyle = glow
-        ctx.fill()
+//         ctx.beginPath()
+//         ctx.arc(x, y, 5, 0, Math.PI * 2)
+//         ctx.fillStyle = glow
+//         ctx.fill()
         
-        ctx.beginPath()
-        ctx.arc(x, y, 3, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
-        ctx.fill()
+//         ctx.beginPath()
+//         ctx.arc(x, y, 3, 0, Math.PI * 2)
+//         ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+//         ctx.fill()
         
-        // Draw value label
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
-        ctx.font = 'bold 10px sans-serif'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        const labelX = centerX + Math.cos(angle) * (radius * adjustedValue + 15)
-        const labelY = centerY + Math.sin(angle) * (radius * adjustedValue + 15)
-        ctx.fillText(`${Math.round(getCategoryAverage(category) )}%`, labelX, labelY)
-      })
-    }
+//         // Draw value label
+//         ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+//         ctx.font = 'bold 10px sans-serif'
+//         ctx.textAlign = 'center'
+//         ctx.textBaseline = 'middle'
+//         const labelX = centerX + Math.cos(angle) * (radius * adjustedValue + 15)
+//         const labelY = centerY + Math.sin(angle) * (radius * adjustedValue + 15)
+//         ctx.fillText(`${Math.round(getCategoryAverage(category) )}%`, labelX, labelY)
+//       })
+//     }
     
-    // Animate radar chart
-    let progress = 0
-    const animateRadar = () => {
-      progress += 0.02
-      if (progress > 1) {
-        progress = 1
-        setIsRendered(true)
-        return
-      }
+//     // Animate radar chart
+//     let progress = 0
+//     const animateRadar = () => {
+//       progress += 0.02
+//       if (progress > 1) {
+//         progress = 1
+//         setIsRendered(true)
+//         return
+//       }
       
-      drawSkillData(progress)
-      requestAnimationFrame(animateRadar)
-    }
+//       drawSkillData(progress)
+//       requestAnimationFrame(animateRadar)
+//     }
     
-    animateRadar()
-  }, [inView, isRendered])
+//     animateRadar()
+//   }, [inView, isRendered])
   
-  return (
-    <motion.div
-      ref={ref}
-      className="flex justify-center my-16"
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="relative">
-        <canvas ref={canvasRef} className="max-w-full" />
+//   return (
+//     <motion.div
+//       ref={ref}
+//       className="flex justify-center my-16"
+//       initial={{ opacity: 0 }}
+//       animate={inView ? { opacity: 1 } : { opacity: 0 }}
+//       transition={{ duration: 0.5 }}
+//     >
+//       <div className="relative">
+//         <canvas ref={canvasRef} className="max-w-full" />
         
-        {/* Animated pulse effect */}
-        <motion.div
-          className="absolute inset-0 rounded-full"
-          animate={{
-            boxShadow: [
-              "0 0 0 0 rgba(59, 130, 246, 0)",
-              "0 0 0 10px rgba(59, 130, 246, 0.1)",
-              "0 0 0 20px rgba(59, 130, 246, 0)"
-            ]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
-    </motion.div>
-  )
-}
+//         {/* Animated pulse effect */}
+//         <motion.div
+//           className="absolute inset-0 rounded-full"
+//           animate={{
+//             boxShadow: [
+//               "0 0 0 0 rgba(59, 130, 246, 0)",
+//               "0 0 0 10px rgba(59, 130, 246, 0.1)",
+//               "0 0 0 20px rgba(59, 130, 246, 0)"
+//             ]
+//           }}
+//           transition={{
+//             duration: 2,
+//             repeat: Infinity,
+//             ease: "easeInOut"
+//           }}
+//         />
+//       </div>
+//     </motion.div>
+//   )
+// }
 
 export function SkillsSection() {
   const containerRef = useRef(null)
@@ -472,7 +477,7 @@ export function SkillsSection() {
             <HexGrid 
               key={category} 
               category={category} 
-              skills={skills as string[]} 
+              skills={skills} 
             />
           ))}
         </div>
