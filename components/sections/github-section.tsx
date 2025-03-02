@@ -76,7 +76,7 @@ export function GithubSection() {
     }
     
     // Draw bars with animation
-    const drawBars = (progress) => {
+    const drawBars = (progress: number) => {
       contributionData.forEach((data, i) => {
         const x = 30 + i * barWidth + barSpacing / 2
         const barHeight = ((data.count / maxContribution) * (height - 40)) * progress
