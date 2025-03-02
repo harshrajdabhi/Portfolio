@@ -3,33 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
-import portfolioData from "@/data/portfolio.json"
-
-// Define skill levels for metrics
-const skillLevels: Record<string, number> = {
-  "TensorFlow": 92,
-  "PyTorch": 88,
-  "Scikit-learn": 95,
-  "OpenCV": 85,
-  "LLMs": 90,
-  "NLP": 87,
-  "Python": 98,
-  "JavaScript": 85,
-  "SQL": 90,
-  "R": 82,
-  "AWS": 88,
-  "GCP": 85,
-  "Azure": 80,
-  "Docker": 92,
-  "Kubernetes": 78,
-  "Git": 95,
-  "REST APIs": 90,
-  "GraphQL": 85,
-  "Jupyter": 96,
-  "VS Code": 98
-}
-
-// Define types for props
+import portfolioData from "@/data/portfolio.json"// Define types for props
 interface SkillCardProps {
   skill: string;
   index: number;
@@ -42,18 +16,15 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
   const inView = useInView(ref, { once: true, margin: "-100px" })
   const [level, setLevel] = useState(0)
   
-  // Determine skill level or default to 80
-  const skillLevel = skillLevels[skill] || 80
-  
   // Animate skill level when in view
   useEffect(() => {
     if (inView) {
       const timer = setTimeout(() => {
-        setLevel(skillLevel)
+        setLevel(skill.level)
       }, index * 100)
       return () => clearTimeout(timer)
     }
-  }, [inView, index, skillLevel])
+  }, [inView, index, skill.level])
   
   // Determine color based on skill level
   const getColor = (level: number) => {
@@ -71,7 +42,7 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="relative"
     >
-      <Card className="p-4 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 overflow-hidden group">
+      <Card className="p-5 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 overflow-hidden group card-hover">
         {/* Background circuit pattern */}
         <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" />
@@ -106,8 +77,8 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
         </div>
         
         <div className="relative z-10">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-medium text-primary">{skill}</h3>
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-medium text-primary">{skill.name}</h3>
             <div className="flex items-center">
               <motion.span 
                 className="text-sm font-mono"
@@ -122,7 +93,7 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
           
           <div className="h-2 bg-blue-500/10 rounded-full overflow-hidden">
             <motion.div
-              className={`h-full bg-gradient-to-r ${getColor(skillLevel)} rounded-full`}
+              className={`h-full bg-gradient-to-r ${getColor(skill.level)} rounded-full`}
               initial={{ width: "0%" }}
               animate={inView ? { width: `${level}%` } : { width: "0%" }}
               transition={{ duration: 1, delay: index * 0.1 }}
@@ -135,7 +106,7 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
               {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className={`h-1 w-1 rounded-full ${i < Math.floor(skillLevel / 20) ? 'bg-blue-500' : 'bg-blue-500/20'}`}
+                  className={`h-1.5 w-1.5 rounded-full ${i < Math.floor(skill.level / 20) ? 'bg-blue-500' : 'bg-blue-500/20'}`}
                   initial={{ scale: 0 }}
                   animate={inView ? { scale: 1 } : { scale: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 + i * 0.1 }}
@@ -150,13 +121,8 @@ function SkillCard({ skill, index, category }: SkillCardProps) {
   )
 }
 
-interface HexGridProps {
-  category: string;
-  skills: string[];
-}
-
 // Hexagonal grid for skill visualization
-function HexGrid({ category, skills }: HexGridProps) {
+function HexGrid({ category, skills }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   
@@ -169,7 +135,7 @@ function HexGrid({ category, skills }: HexGridProps) {
       className="relative"
     >
       <motion.h3
-        className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
+        className="text-xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
         initial={{ opacity: 0, y: -20 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
@@ -177,10 +143,10 @@ function HexGrid({ category, skills }: HexGridProps) {
         {category}
       </motion.h3>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
         {skills.map((skill, index) => (
           <SkillCard 
-            key={skill} 
+            key={skill.name} 
             skill={skill} 
             index={index} 
             category={category}
@@ -193,14 +159,14 @@ function HexGrid({ category, skills }: HexGridProps) {
 
 // Radar chart component for skill visualization
 function RadarChart() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   const [isRendered, setIsRendered] = useState(false)
   
   // Categories to display in radar chart
   const categories = ["AI/ML", "Languages", "Cloud", "Tools"]
-  const categoryColors: Record<string, string> = {
+  const categoryColors = {
     "AI/ML": "rgba(59, 130, 246, 0.7)",
     "Languages": "rgba(34, 211, 238, 0.7)",
     "Cloud": "rgba(16, 185, 129, 0.7)",
@@ -208,12 +174,11 @@ function RadarChart() {
   }
   
   // Calculate average skill level per category
-  const getCategoryAverage = (category: string) => {
-    const skills = (portfolioData.skills as Record<string, string[]>)[category] || [];
-    const sum = skills.reduce((acc, skill) => acc + (skillLevels[skill] || 80), 0);
-    return sum / skills.length;
-  };
-  
+  const getCategoryAverage = (category) => {
+    const skills = portfolioData.skills[category]
+    const sum = skills.reduce((acc, skill) => acc + skill.level, 0)
+    return sum / skills.length
+  }
   
   // Draw radar chart
   useEffect(() => {
@@ -375,7 +340,7 @@ function RadarChart() {
         ctx.textBaseline = 'middle'
         const labelX = centerX + Math.cos(angle) * (radius * adjustedValue + 15)
         const labelY = centerY + Math.sin(angle) * (radius * adjustedValue + 15)
-        ctx.fillText(`${Math.round(getCategoryAverage(category))}%`, labelX, labelY)
+        ctx.fillText(`${Math.round(getCategoryAverage(category) )}%`, labelX, labelY)
       })
     }
     
@@ -394,12 +359,12 @@ function RadarChart() {
     }
     
     animateRadar()
-  }, [inView, isRendered, categories, categoryColors])
+  }, [inView, isRendered])
   
   return (
     <motion.div
       ref={ref}
-      className="flex justify-center my-12"
+      className="flex justify-center my-16"
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.5 }}
@@ -433,7 +398,7 @@ export function SkillsSection() {
   const inView = useInView(containerRef, { once: true, margin: "-100px" })
   
   return (
-    <section className="py-20 relative overflow-hidden" ref={containerRef}>
+    <section className="section-spacing relative overflow-hidden" ref={containerRef}>
       {/* Futuristic Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
@@ -488,9 +453,9 @@ export function SkillsSection() {
         ))}
       </div>
 
-      <div className="container px-4 mx-auto relative">
+      <div className="container px-6 mx-auto relative">
         <motion.h2 
-          className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
+          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
@@ -499,10 +464,10 @@ export function SkillsSection() {
         </motion.h2>
         
         {/* Radar Chart Overview */}
-        <RadarChart />
+        {/* <RadarChart /> */}
         
         {/* Skill Categories */}
-        <div className="grid md:grid-cols-2 gap-12 mt-12">
+        <div className="grid md:grid-cols-2 gap-16 mt-16">
           {Object.entries(portfolioData.skills).map(([category, skills], index) => (
             <HexGrid 
               key={category} 
@@ -513,27 +478,27 @@ export function SkillsSection() {
         </div>
         
         {/* Skill Matrix Legend */}
-        <motion.div
-          className="mt-16 p-6 bg-card/50 backdrop-blur-sm border border-blue-500/20 rounded-lg"
+        {/* <motion.div
+          className="mt-20 p-8 bg-card/50 backdrop-blur-sm border border-blue-500/20 rounded-lg card-hover"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <h3 className="text-lg font-semibold mb-4 text-center">Skill Proficiency Matrix</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <h3 className="text-lg font-semibold mb-6 text-center">Skill Proficiency Matrix</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { level: "Expert (90-100%)", color: "bg-gradient-to-r from-blue-500 to-cyan-400" },
               { level: "Advanced (80-89%)", color: "bg-gradient-to-r from-blue-500 to-green-400" },
               { level: "Intermediate (70-79%)", color: "bg-gradient-to-r from-blue-400 to-green-500" },
               { level: "Familiar (Below 70%)", color: "bg-gradient-to-r from-blue-400 to-cyan-500" }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <div className={`h-3 w-12 rounded-full ${item.color}`}></div>
+              <div key={i} className="flex items-center gap-3">
+                <div className={`h-3 w-16 rounded-full ${item.color}`}></div>
                 <span className="text-sm text-muted-foreground">{item.level}</span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   )

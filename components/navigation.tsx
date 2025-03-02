@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { ThemeToggle } from "./theme-toggle"
 
-const navItems = ["Home", "About", "Experience", "Skills", "Projects", "Contact"]
+const navItems = ["Home", "About", "Skills", "Experience", "Projects", "Certifications", "GitHub", "Contact"]
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState("Home")
@@ -53,23 +53,23 @@ export function Navigation() {
   }
 
   return (
-    <motion.nav 
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-lg rounded-full border border-blue-500/20 px-4 py-2 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80' : 'bg-transparent'
+    <motion.nav
+      className={`fixed top-6 right-6 z-50 backdrop-blur-lg rounded-full border border-blue-500/20 px-4 py-2 transition-all duration-500 ${
+        isScrolled ? 'bg-background/80 scale-95 shadow-lg' : 'bg-background/50 scale-100'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 100, damping: 15, duration: 0.5 }}
     >
-      <div className="flex items-center space-x-2">
-        <ul className="flex space-x-2">
+      <div className="flex items-center space-x-3">
+        <ul className="flex space-x-1 overflow-x-auto scrollbar-hide">
           {navItems.map((item) => (
             <li key={item}>
               <button
                 onClick={() => scrollToSection(item.toLowerCase())}
                 className={`px-4 py-2 rounded-full text-sm transition-all duration-300 relative ${
                   activeSection === item 
-                    ? "text-primary"
+                    ? "text-primary font-medium"
                     : "text-muted-foreground hover:text-primary"
                 }`}
               >

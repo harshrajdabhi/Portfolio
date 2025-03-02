@@ -18,7 +18,7 @@ export function ExperienceSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1])
 
   return (
-    <section className="py-20 relative overflow-hidden" ref={containerRef}>
+    <section className="section-spacing relative overflow-hidden" ref={containerRef}>
       {/* Futuristic Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
@@ -50,9 +50,9 @@ export function ExperienceSection() {
         ))}
       </div>
 
-      <div className="container px-4 mx-auto relative">
+      <div className="container px-6 mx-auto relative">
         <motion.h2 
-          className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
+          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -85,8 +85,8 @@ export function ExperienceSection() {
           {portfolioData.experience.map((exp, index) => (
             <motion.div
               key={index}
-              className={`relative mb-12 ${
-                index % 2 === 0 ? 'md:pr-12 md:ml-auto md:w-1/2' : 'md:pl-12 md:w-1/2'
+              className={`relative mb-16 ${
+                index % 2 === 0 ? 'md:pr-16 md:ml-auto md:w-1/2' : 'md:pl-16 md:w-1/2'
               }`}
               initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -95,7 +95,7 @@ export function ExperienceSection() {
             >
               {/* Timeline dot with pulse effect */}
               <motion.div 
-                className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full z-10"
+                className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full z-10"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.5, 1, 0.5],
@@ -112,13 +112,13 @@ export function ExperienceSection() {
                 }}
               />
               
-              <Card className="p-6 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
+              <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group card-hover">
                 <motion.div 
                   className="flex flex-col space-y-4"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center justify-between flex-wrap gap-3">
                     <h3 className="text-xl font-bold">{exp.title}</h3>
                     <Badge variant="outline" className="border-blue-500/30">
                       <Calendar className="mr-1 h-3 w-3" />
@@ -137,7 +137,7 @@ export function ExperienceSection() {
                   
                   <p className="text-muted-foreground">{exp.description}</p>
                   
-                  <ul className="space-y-2">
+                  <ul className="space-y-3 mt-2">
                     {exp.achievements.map((achievement, i) => (
                       <motion.li
                         key={i}
@@ -148,7 +148,7 @@ export function ExperienceSection() {
                         transition={{ delay: i * 0.1 }}
                       >
                         <motion.span 
-                          className="mr-2 text-blue-500"
+                          className="mr-2 text-blue-500 mt-1"
                           animate={{
                             scale: [1, 1.2, 1],
                             opacity: [0.5, 1, 0.5]

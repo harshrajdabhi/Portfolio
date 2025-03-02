@@ -9,17 +9,17 @@ import portfolioData from "@/data/portfolio.json"
 
 export function ProjectsSection() {
   return (
-    <section className="py-20 bg-card/50 backdrop-blur-sm">
-      <div className="container px-4 mx-auto">
+    <section className="section-spacing bg-card/50 backdrop-blur-sm">
+      <div className="container px-6 mx-auto">
         <motion.h2 
-          className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
+          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           Featured Projects
         </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {portfolioData.projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -27,24 +27,25 @@ export function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8 }}
+              className="hover-lift"
             >
-              <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
+              <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group h-full flex flex-col">
                 <div className="relative">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
                   
                   {/* Project Highlights */}
                   {project.highlights && (
-                    <ul className="mb-4 space-y-1">
+                    <ul className="mb-5 space-y-2">
                       {project.highlights.map((highlight, i) => (
                         <motion.li
                           key={i}
@@ -60,7 +61,7 @@ export function ProjectsSection() {
                     </ul>
                   )}
                   
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {project.tags.map((tag) => (
                       <Badge 
                         key={tag} 
@@ -72,7 +73,7 @@ export function ProjectsSection() {
                     ))}
                   </div>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-3 mt-auto">
                     <Button 
                       variant="outline" 
                       className="flex-1 border-blue-500/30 hover:border-blue-500/60 disabled:opacity-50 disabled:cursor-not-allowed"

@@ -8,6 +8,8 @@ import { AboutSection } from "@/components/sections/about-section"
 import { ExperienceSection } from "@/components/sections/experience-section"
 import { SkillsSection } from "@/components/sections/skills-section"
 import { ProjectsSection } from "@/components/sections/projects-section"
+import { CertificationsSection } from "@/components/sections/certifications-section"
+import { GithubSection } from "@/components/sections/github-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { motion, useScroll, useSpring } from "framer-motion"
 
@@ -37,14 +39,20 @@ export default function Home() {
             <section id="about">
               <AboutSection />
             </section>
-            <section id="experience">
-              <ExperienceSection />
-            </section>
             <section id="skills">
               <SkillsSection />
             </section>
+            <section id="experience">
+              <ExperienceSection />
+            </section>
             <section id="projects">
               <ProjectsSection />
+            </section>
+            <section id="certifications">
+              <CertificationsSection />
+            </section>
+            <section id="github">
+              <GithubSection />
             </section>
             <section id="contact">
               <ContactSection />

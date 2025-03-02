@@ -79,10 +79,125 @@
     { "value": "10+", "label": "Research Papers" }
   ],
   "skills": {
-    "AI/ML": ["TensorFlow", "PyTorch", "Scikit-learn", "OpenCV", "LLMs", "NLP"],
-    "Languages": ["Python", "JavaScript", "SQL", "R"],
-    "Cloud": ["AWS", "GCP", "Azure", "Docker", "Kubernetes"],
-    "Tools": ["Git", "REST APIs", "GraphQL", "Jupyter", "VS Code"]
+    "AI/ML": [
+      {"name": "TensorFlow", "level": 92},
+      {"name": "PyTorch", "level": 88},
+      {"name": "Scikit-learn", "level": 95},
+      {"name": "OpenCV", "level": 85},
+      {"name": "LLMs", "level": 90},
+      {"name": "NLP", "level": 87}
+    ],
+    "Languages": [
+      {"name": "Python", "level": 98},
+      {"name": "JavaScript", "level": 85},
+      {"name": "SQL", "level": 90},
+      {"name": "R", "level": 82}
+    ],
+    "Cloud": [
+      {"name": "AWS", "level": 88},
+      {"name": "GCP", "level": 85},
+      {"name": "Azure", "level": 80},
+      {"name": "Docker", "level": 92},
+      {"name": "Kubernetes", "level": 78}
+    ],
+    "Tools": [
+      {"name": "Git", "level": 95},
+      {"name": "REST APIs", "level": 90},
+      {"name": "GraphQL", "level": 85},
+      {"name": "Jupyter", "level": 96},
+      {"name": "VS Code", "level": 98}
+    ]
+  },
+  "certifications": [
+    {
+      "title": "AWS Certified Machine Learning - Specialty",
+      "issuer": "Amazon Web Services",
+      "date": "2023",
+      "url": "https://aws.amazon.com/certification/certified-machine-learning-specialty/",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "title": "TensorFlow Developer Certificate",
+      "issuer": "Google",
+      "date": "2022",
+      "url": "https://www.tensorflow.org/certificate",
+      "image": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "title": "Deep Learning Specialization",
+      "issuer": "Coursera / DeepLearning.AI",
+      "date": "2021",
+      "url": "https://www.coursera.org/specializations/deep-learning",
+      "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "title": "Microsoft Certified: Azure AI Engineer Associate",
+      "issuer": "Microsoft",
+      "date": "2022",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/",
+      "image": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&q=80&w=800"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Best Paper Award - ICML Conference",
+      "description": "Recognized for groundbreaking research in reinforcement learning algorithms",
+      "year": "2022",
+      "url": "#"
+    },
+    {
+      "title": "AI Hackathon Winner",
+      "description": "First place in international AI hackathon with 500+ participants",
+      "year": "2021",
+      "url": "#"
+    },
+    {
+      "title": "Top 1% Contributor - Kaggle",
+      "description": "Ranked in the top 1% of contributors on Kaggle platform",
+      "year": "2023",
+      "url": "https://www.kaggle.com/"
+    }
+  ],
+  "githubContributions": {
+    "totalContributions": 2547,
+    "starsEarned": 3200,
+    "topRepositories": [
+      {
+        "name": "deep-learning-models",
+        "description": "Collection of state-of-the-art deep learning models implemented in TensorFlow and PyTorch",
+        "stars": 1200,
+        "forks": 450,
+        "url": "#"
+      },
+      {
+        "name": "ml-pipeline-toolkit",
+        "description": "End-to-end toolkit for building production-ready ML pipelines",
+        "stars": 850,
+        "forks": 320,
+        "url": "#"
+      },
+      {
+        "name": "nlp-transformers",
+        "description": "Implementation of transformer-based models for NLP tasks",
+        "stars": 650,
+        "forks": 280,
+        "url": "#"
+      }
+    ],
+    "contributionsByMonth": [
+      {"month": "Jan", "count": 210},
+      {"month": "Feb", "count": 180},
+      {"month": "Mar", "count": 220},
+      {"month": "Apr", "count": 195},
+      {"month": "May", "count": 240},
+      {"month": "Jun", "count": 260},
+      {"month": "Jul", "count": 230},
+      {"month": "Aug", "count": 250},
+      {"month": "Sep", "count": 270},
+      {"month": "Oct", "count": 290},
+      {"month": "Nov", "count": 220},
+      {"month": "Dec", "count": 182}
+    ]
   },
   "projects": [
     {
@@ -116,7 +231,7 @@
       "description": "Python scripts for automating repetitive tasks and data processing",
       "tags": ["Python", "Automation", "APIs"],
       "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-      "github": "",
+      "github": "#",
       "demo": "#",
       "highlights": [
         "70% time savings",
@@ -129,8 +244,8 @@
       "description": "Python scripts for automating repetitive tasks and data processing",
       "tags": ["Python", "Automation", "APIs"],
       "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-      "github": "https://github.com/harshrajdabhi/harshrajdabhi",
-      "demo": "https://www.google.co.in/",
+      "github": "#",
+      "demo": "#",
       "highlights": [
         "70% time savings",
         "100+ automated workflows",

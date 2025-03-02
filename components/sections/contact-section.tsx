@@ -22,10 +22,10 @@ export function ContactSection() {
   ]
 
   return (
-    <section className="py-20">
-      <div className="container px-4 mx-auto">
+    <section className="section-spacing">
+      <div className="container px-6 mx-auto">
         <motion.h2 
-          className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
+          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -33,16 +33,16 @@ export function ContactSection() {
           Get in Touch
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-10">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Card className="p-6 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 card-hover">
               <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Name</label>
                     <Input 
@@ -70,7 +70,7 @@ export function ContactSection() {
                   <label className="text-sm font-medium">Message</label>
                   <Textarea 
                     placeholder="Your message here..."
-                    className="min-h-[150px] bg-background/50 border-blue-500/20 focus:border-blue-500/40"
+                    className="min-h-[180px] bg-background/50 border-blue-500/20 focus:border-blue-500/40"
                   />
                 </div>
                 <Button 
@@ -88,18 +88,18 @@ export function ContactSection() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-10"
           >
-            <Card className="p-6 bg-card/50 backdrop-blur-sm border-blue-500/20">
-              <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-              <div className="space-y-4">
+            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 card-hover">
+              <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
+              <div className="space-y-6">
                 {contactInfo.map((info) => (
                   <motion.div
                     key={info.label}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-4"
                     whileHover={{ x: 5 }}
                   >
-                    <div className="p-2 rounded-full bg-blue-500/10">
+                    <div className="p-3 rounded-full bg-blue-500/10">
                       <info.icon className="h-5 w-5 text-blue-500" />
                     </div>
                     <div>
@@ -111,16 +111,16 @@ export function ContactSection() {
               </div>
             </Card>
 
-            <Card className="p-6 bg-card/50 backdrop-blur-sm border-blue-500/20">
-              <h3 className="text-xl font-semibold mb-4">Connect on Social Media</h3>
-              <div className="flex gap-4">
+            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 card-hover">
+              <h3 className="text-xl font-semibold mb-6">Connect on Social Media</h3>
+              <div className="flex gap-6">
                 {socialLinks.map((link) => (
                   <motion.a
                     key={link.label}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-blue-500/10 hover:bg-blue-500/20 transition-colors"
+                    className="p-4 rounded-full bg-blue-500/10 hover:bg-blue-500/20 transition-colors"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >

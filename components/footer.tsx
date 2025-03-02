@@ -14,7 +14,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden bg-card/50 backdrop-blur-sm border-t border-blue-500/20 py-12">
+    <footer className="relative overflow-hidden bg-card/50 backdrop-blur-sm border-t border-blue-500/20 py-16">
       {/* AI Circuit Pattern */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" />
@@ -32,11 +32,11 @@ export function Footer() {
         />
       </div>
 
-      <div className="container px-4 mx-auto relative z-10">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+      <div className="container px-6 mx-auto relative z-10">
+        <div className="grid md:grid-cols-3 gap-10 items-center">
           <div className="text-center md:text-left">
             <motion.div 
-              className="flex items-center justify-center md:justify-start gap-2 mb-4"
+              className="flex items-center justify-center md:justify-start gap-3 mb-4"
               whileHover={{ scale: 1.05 }}
             >
               <Brain className="h-6 w-6 text-blue-500" />
@@ -49,14 +49,14 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-6">
             {socialLinks.map((link) => (
               <motion.a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/10 transition-colors"
+                className="p-3 rounded-full border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/10 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >

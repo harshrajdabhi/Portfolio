@@ -148,7 +148,7 @@ export function HeroSection() {
   }, [neurons])
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
       {/* Neural Network Canvas */}
       <div className="absolute inset-0 z-0">
         <canvas 
@@ -163,14 +163,15 @@ export function HeroSection() {
         />
       </div>
       
-      <div className="container relative z-10 px-4 mx-auto text-center">
+      <div className="container relative z-10 px-6 mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
+          className="stagger-children"
         >
           <motion.div 
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-10"
             animate={{ 
               rotate: [0, 5, -5, 0],
               scale: [1, 1.1, 1]
@@ -202,12 +203,12 @@ export function HeroSection() {
             </div>
           </motion.div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient">
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient">
             {portfolioData.profile.name}
           </h1>
           
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient"
+            className="text-3xl md:text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
@@ -216,7 +217,7 @@ export function HeroSection() {
           </motion.h2>
           
           <motion.p 
-            className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -225,7 +226,7 @@ export function HeroSection() {
           </motion.p>
           
           <motion.div 
-            className="flex gap-4 justify-center"
+            className="flex gap-6 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
@@ -271,7 +272,7 @@ export function HeroSection() {
           </motion.div>
           
           {/* Floating Tech Keywords */}
-          <div className="mt-16 relative h-16 overflow-hidden">
+          <div className="mt-20 relative h-16 overflow-hidden">
             <motion.div
               className="absolute whitespace-nowrap"
               animate={{
@@ -299,7 +300,7 @@ export function HeroSection() {
                         ease: "easeInOut"
                       }}
                     >
-                      {skill}
+                      {skill.name}
                     </motion.span>
                   ))}
                 </span>

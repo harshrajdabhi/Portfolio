@@ -63,7 +63,7 @@ export function Sidebar() {
       </Button>
 
       <div className="h-full overflow-y-auto scrollbar-hide">
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-8">
           <div className="space-y-4 text-center">
             <motion.div 
               className={cn(
@@ -100,12 +100,13 @@ export function Sidebar() {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-2 overflow-hidden"
+                  className="space-y-3 overflow-hidden"
                 >
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
+                    className="space-y-2"
                   >
                     <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400">
                       {portfolioData.profile.name}
@@ -117,9 +118,19 @@ export function Sidebar() {
                       <MapPin className="h-3 w-3" />
                       {portfolioData.profile.location}
                     </div>
-                    <Badge variant="outline" className="border-green-500/30 text-green-500">
+                    <Badge variant="outline" className="border-green-500/30 text-green-500 mb-3">
                       {portfolioData.profile.availability}
                     </Badge>
+                    
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="w-full border-blue-500/30 hover:border-blue-500/60 transition-colors duration-300 mt-2"
+                      onClick={() => window.open(portfolioData.profile.resumePath, '_blank')}
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download CV
+                    </Button>
                   </motion.div>
                 </motion.div>
               )}
@@ -129,13 +140,13 @@ export function Sidebar() {
           <AnimatePresence>
             {!isCollapsed && (
               <motion.div
-                className="space-y-6"
+                className="space-y-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <h3 className="text-sm font-semibold">Connect</h3>
                   {socialLinks.map((link) => (
                     <Button
@@ -152,7 +163,7 @@ export function Sidebar() {
                   ))}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <h3 className="text-sm font-semibold">Education</h3>
                   {portfolioData.profile.education.map((edu, index) => (
                     <motion.div 
@@ -170,20 +181,12 @@ export function Sidebar() {
                     </motion.div>
                   ))}
                 </div>
-
-                <Button 
-                  variant="outline" 
-                  className="w-full border-blue-500/30 hover:border-blue-500/60 transition-colors duration-300"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Download CV
-                </Button>
               </motion.div>
             )}
           </AnimatePresence>
 
           {isCollapsed && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {socialLinks.map((link) => (
                 <motion.div
                   key={link.label}
