@@ -21,7 +21,7 @@
         "focus": "Computer Engineer"
       }
     ],
-    "resumePath":"./public/resume.pdf"
+    "resumePath": "/resume.pdf"
   },
   "experience": [
     {

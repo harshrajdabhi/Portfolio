@@ -9,22 +9,25 @@ import { useRef, useEffect } from "react"
 import portfolioData from "@/data/portfolio.json"
 
 export function GithubSection() {
-  const chartRef = useRef(null)
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
   
   // Draw contribution chart
   useEffect(() => {
-    if (!chartRef.current) return
-    
-    const canvas = chartRef.current
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    
-    // Set canvas dimensions
-    const parent = canvas.parentElement
-    const width = parent.clientWidth
-    const height = 200
-    canvas.width = width
-    canvas.height = height
+    if (!chartRef.current) return;
+  
+  const canvas = chartRef.current;
+  const ctx = canvas.getContext('2d');
+
+  if (!ctx) return;
+
+  // Set canvas dimensions
+  const parent = canvas.parentElement;
+  if (!parent) return;
+  
+  const width = parent.clientWidth;
+  const height = 200;
+  canvas.width = width;
+  canvas.height = height;
     
     // Get contribution data
     const contributionData = portfolioData.githubContributions.contributionsByMonth

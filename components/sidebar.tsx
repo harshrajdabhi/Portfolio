@@ -1,25 +1,47 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { Github, Linkedin, Mail, Twitter, MapPin, Calendar, Download, Menu, Brain } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
-import { cn } from "@/lib/utils"
-import portfolioData from "@/data/portfolio.json"
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Twitter,
+  MapPin,
+  Calendar,
+  Download,
+  Menu,
+  Brain,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import portfolioData from "@/data/portfolio.json";
 
 export function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const socialLinks = [
-    { icon: Github, href: portfolioData.profile.social.github, label: "GitHub" },
-    { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn" },
-    { icon: Twitter, href: portfolioData.profile.social.twitter, label: "Twitter" },
-    { icon: Mail, href: portfolioData.profile.social.email, label: "Email" }
-  ]
+    {
+      icon: Github,
+      href: portfolioData.profile.social.github,
+      label: "GitHub",
+    },
+    {
+      icon: Linkedin,
+      href: portfolioData.profile.social.linkedin,
+      label: "LinkedIn",
+    },
+    {
+      icon: Twitter,
+      href: portfolioData.profile.social.twitter,
+      label: "Twitter",
+    },
+    { icon: Mail, href: portfolioData.profile.social.email, label: "Email" },
+  ];
 
   return (
-    <motion.div 
+    <motion.div
       className={cn(
         "fixed left-0 top-0 h-screen bg-card/50 backdrop-blur-lg border-r border-blue-500/20 transition-all duration-500 z-50",
         isCollapsed ? "w-20" : "w-64"
@@ -39,13 +61,13 @@ export function Sidebar() {
             animate={{
               opacity: [0.2, 0.5, 0.2],
               scaleX: [0, 1, 0],
-              x: ["-100%", "0%", "100%"]
+              x: ["-100%", "0%", "100%"],
             }}
             transition={{
               duration: 3,
               delay: i * 0.5,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
             }}
           >
             <div className="h-full w-full bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
@@ -65,7 +87,7 @@ export function Sidebar() {
       <div className="h-full overflow-y-auto scrollbar-hide">
         <div className="p-6 space-y-8">
           <div className="space-y-4 text-center">
-            <motion.div 
+            <motion.div
               className={cn(
                 "relative mx-auto overflow-hidden border-2 border-blue-500/50 rounded-full",
                 isCollapsed ? "w-12 h-12" : "w-24 h-24"
@@ -82,12 +104,12 @@ export function Sidebar() {
                   className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/20"
                   animate={{
                     opacity: [0, 0.5, 0],
-                    rotate: [0, 360]
+                    rotate: [0, 360],
                   }}
                   transition={{
                     duration: 3,
                     repeat: Infinity,
-                    ease: "linear"
+                    ease: "linear",
                   }}
                 />
               </div>
@@ -118,15 +140,20 @@ export function Sidebar() {
                       <MapPin className="h-3 w-3" />
                       {portfolioData.profile.location}
                     </div>
-                    <Badge variant="outline" className="border-green-500/30 text-green-500 mb-3">
+                    <Badge
+                      variant="outline"
+                      className="border-green-500/30 text-green-500 mb-3"
+                    >
                       {portfolioData.profile.availability}
                     </Badge>
-                    
-                    <Button 
-                      variant="outline" 
+
+                    <Button
+                      variant="outline"
                       size="sm"
                       className="w-full border-blue-500/30 hover:border-blue-500/60 transition-colors duration-300 mt-2"
-                      onClick={() => window.open(portfolioData.profile.resumePath, '_blank')}
+                      onClick={() =>
+                        window.open(portfolioData.profile.resumePath, "_blank")
+                      }
                     >
                       <Download className="mr-2 h-4 w-4" />
                       Download CV
@@ -155,7 +182,11 @@ export function Sidebar() {
                       className="w-full justify-start gap-2 hover:bg-blue-500/10 transition-colors duration-300"
                       asChild
                     >
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <link.icon className="h-4 w-4" />
                         {link.label}
                       </a>
@@ -166,8 +197,8 @@ export function Sidebar() {
                 <div className="space-y-3">
                   <h3 className="text-sm font-semibold">Education</h3>
                   {portfolioData.profile.education.map((edu, index) => (
-                    <motion.div 
-                      key={index} 
+                    <motion.div
+                      key={index}
                       className="text-sm space-y-1"
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
@@ -199,7 +230,11 @@ export function Sidebar() {
                     className="w-full hover:bg-blue-500/10 transition-colors duration-300"
                     asChild
                   >
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <link.icon className="h-4 w-4" />
                     </a>
                   </Button>
@@ -210,5 +245,5 @@ export function Sidebar() {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
