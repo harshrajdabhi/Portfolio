@@ -20,7 +20,8 @@
         "year": "2016-2020",
         "focus": "Computer Engineer"
       }
-    ]
+    ],
+    "resumePath":"./public/resume.pdf"
   },
   "experience": [
     {
