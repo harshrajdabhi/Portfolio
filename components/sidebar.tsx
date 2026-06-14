@@ -151,9 +151,12 @@ export function Sidebar() {
                       variant="outline"
                       size="sm"
                       className="w-full border-blue-500/30 hover:border-blue-500/60 transition-colors duration-300 mt-2"
-                      onClick={() =>
-                        window.open(portfolioData.profile.resumePath, "_blank")
-                      }
+                      onClick={() => {
+                        const a = document.createElement("a");
+                        a.href = portfolioData.profile.resumePath;
+                        a.download = "Harsh_Dabhi_CV.pdf";
+                        a.click();
+                      }}
                     >
                       <Download className="mr-2 h-4 w-4" />
                       Download CV

@@ -1,12 +1,12 @@
 {
   "profile": {
     "name": "Harsh Dabhi",
-    "title": "AI & ML Engineer",
-    "contact_number": "+91 1234567890",
-    "bio": "Passionate AI Engineer with extensive experience in developing intelligent systems that solve real-world problems.",
-    "location": "San Francisco, CA",
+    "title": "Senior Software Engineer | AI Systems & Forward-Deployed Engineering",
+    "contact_number": "+91-7778020600",
+    "bio": "Senior Software Engineer with 5+ years shipping production AI systems, LLM applications, and the backend platforms that run them. Work spans RAG pipelines, multi-agent orchestration, and high-throughput data infrastructure — deployed for enterprise teams at Blue Yonder, Dentsu, and Select Equity Group. Currently a Forward-Deployed AI Engineer embedded directly in customer teams, converting ambiguous requirements into deployed production systems using OpenAI, Claude, and Gemini, backed by scalable services in Python, FastAPI, and Django.",
+    "location": "Gujarat, India",
     "availability": "Open to opportunities",
-    "image": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&h=400&fit=crop",
+    "image": "https://media.licdn.com/dms/image/v2/D4D03AQFYFswVnBt4sA/profile-displayphoto-crop_800_800/B4DZkyn3GMHYAI-/0/1757490935226?e=1782950400&v=beta&t=2NrgPAKuH-OeELdZmses1ThJCvrSKsmzcXerIXzeqtE",
     "social": {
       "github": "https://github.com/harshrajdabhi",
       "linkedin": "https://www.linkedin.com/in/harshrajdabhi/",
@@ -15,148 +15,168 @@
     },
     "education": [
       {
-        "degree": "Bachelor of Engineering",
+        "degree": "Bachelor of Engineering (B.E.) – Information Technology",
         "school": "Gujarat Technological University",
-        "year": "2016-2020",
-        "focus": "Computer Engineer"
+        "year": "2020",
+        "focus": "Information Technology, Government Engineering College, Bhavnagar — CGPA: 7.97/10"
       }
     ],
     "resumePath": "/resume.pdf"
   },
   "experience": [
     {
-      "title": "Senior AI Engineer",
-      "company": "TechCorp AI",
-      "location": "San Francisco, CA",
-      "period": "2021 - Present",
-      "description": "Leading the development of large language models and computer vision systems.",
+      "title": "SDE-2 (Software Development Engineer II)",
+      "company": "Calidad Infotech",
+      "location": "Gujarat, India",
+      "period": "Sep 2023 – Present",
+      "description": "Embedded within customer teams at Blue Yonder and Dentsu as a Forward-Deployed AI Engineer, shipping LLM-powered systems that automated incident response and campaign operations.",
       "achievements": [
-        "Developed a state-of-the-art NLP model improving accuracy by 35%",
-        "Led a team of 5 engineers in implementing real-time object detection",
-        "Reduced model inference time by 60% through optimization"
+        "Embedded within customer teams at Blue Yonder and Dentsu as a Forward-Deployed AI Engineer, shipping LLM-powered systems that automated incident response and campaign operations, removing recurring manual work from live engineering and ops workflows.",
+        "Architected ozar.ai, an LLM-powered test-case generation SaaS on AWS (Lambda, RDS, API Gateway, Terraform), incorporating a RAG pipeline with RLHF scoring loop, a no-code automation engine, and multi-agent orchestration that turns a Jira ticket into ready-to-run test cases.",
+        "Built testautomationx.com end to end — an isolated test execution engine backed by AWS SQS and Celery that scales to 1000+ concurrent jobs executing in parallel, deployed on Kubernetes with Docker, GitHub Actions CI/CD, Selenium, and PyTest.",
+        "Delivered two AI systems for client Data Processing Forms Pvt Ltd — a multi-LLM question generation framework (OpenAI GPT, Claude API, Gemini via LangChain) and a ResNet-based multilingual OCR classifier achieving ~80% accuracy across handwriting scripts.",
+        "Led prompt engineering and RAG pipeline design across client and internal projects, grounding OpenAI, Claude, and Gemini outputs in retrieved source data with output validation keeping responses traceable to evidence.",
+        "Migrated the internal product stack from AWS to a self-managed Hostinger Kubernetes cluster built from scratch, reducing deployment costs by 60–70% while adding centralised logging and Grafana monitoring.",
+        "Designed and shipped production marketing sites for testautomationx.com, ozar.ai, and calidadinfotech.com using AI coding assistants, delivering all three sites without a dedicated frontend engineer.",
+        "Recognised with the Code Innovator Award in both 2024 and 2025 for technical work within Calidad Infotech."
       ]
     },
     {
-      "title": "Machine Learning Engineer",
-      "company": "AI Solutions Inc",
-      "location": "Boston, MA",
-      "period": "2019 - 2021",
-      "description": "Worked on computer vision and natural language processing projects.",
+      "title": "Python Developer → Software Engineer",
+      "company": "XDuce Pvt. Ltd.",
+      "location": "India",
+      "period": "Jun 2022 – Sep 2023",
+      "description": "Built a real-time financial data ETL platform for Select Equity Group and developed ML anomaly detection models deployed behind REST APIs.",
       "achievements": [
-        "Implemented image recognition system with 95% accuracy",
-        "Developed automated data pipeline reducing processing time by 70%",
-        "Published 2 research papers in top AI conferences"
+        "Built a real-time financial data ETL platform for Select Equity Group, ingesting 10,000+ tickers per second via WebSockets into Snowflake and BigQuery, normalising data across 50 tables from 4–5 source pipelines with cross-source data quality checks.",
+        "Developed ML anomaly detection and predictive analytics models with scikit-learn, deployed behind REST APIs on Docker with Azure DevOps CI/CD, flagging outliers in incoming financial data before they reached downstream reports.",
+        "Designed complex SQL reconciliation queries across financial datasets and containerised all services on GCP with Docker, backed by comprehensive PyTest suites that caught data integrity issues before production.",
+        "Ran delivery of multiple concurrent data engineering projects in Agile sprints, coordinating across cross-functional teams to ship each on its committed timeline.",
+        "Received the Rising Star Award (2022), given in first year for delivery of the Select Equity Group ETL platform and onboarding of new pipeline technologies."
       ]
     },
     {
-      "title": "AI Research Intern",
-      "company": "Research Labs",
-      "location": "Seattle, WA",
-      "period": "2018 - 2019",
-      "description": "Conducted research in deep learning and reinforcement learning.",
+      "title": "Junior Software Engineer",
+      "company": "Riddhi Corporate Services Limited",
+      "location": "India",
+      "period": "Sep 2020 – Jun 2022",
+      "description": "Built business data automation and reporting solutions replacing recurring manual report-building with scheduled jobs.",
       "achievements": [
-        "Developed novel reinforcement learning algorithms",
-        "Published research paper at ICML conference",
-        "Created open-source ML library with 1000+ stars on GitHub"
-      ]
-    },
-    {
-      "title": "Machine Learning Engineer",
-      "company": "AI Solutions Inc",
-      "location": "Boston, MA",
-      "period": "2019 - 2021",
-      "description": "Worked on computer vision and natural language processing projects.",
-      "achievements": [
-        "Implemented image recognition system with 95% accuracy",
-        "Developed automated data pipeline reducing processing time by 70%",
-        "Published 2 research papers in top AI conferences"
+        "Built business data automation and reporting solutions with .NET, Python, SQL Server, and VBA that replaced recurring manual report-building, converting multi-hour weekly analyst tasks into scheduled jobs that ran without intervention.",
+        "Designed data visualisation dashboards and ETL scripts that consolidated feeds from multiple disconnected business systems into a single reporting view, replacing manual cross-system collation for senior management reviews.",
+        "Translated business requirements from cross-functional stakeholders into production-ready software solutions, delivering full design, development, and testing documentation for each engagement."
       ]
     }
   ],
   "stats": [
     { "value": "5+", "label": "Years Experience" },
-    { "value": "50+", "label": "Projects Completed" },
-    { "value": "20+", "label": "Open Source Contributions" },
-    { "value": "10+", "label": "Research Papers" }
+    { "value": "10+", "label": "Projects Delivered" },
+    { "value": "3", "label": "Awards & Recognition" },
+    { "value": "3", "label": "Enterprise Clients" }
   ],
   "skills": {
-    "AI/ML": [
-      {"name": "TensorFlow", "level": 92},
-      {"name": "PyTorch", "level": 88},
-      {"name": "Scikit-learn", "level": 95},
-      {"name": "OpenCV", "level": 85},
-      {"name": "LLMs", "level": 90},
-      {"name": "NLP", "level": 87}
+    "AI/LLM": [
+      {"name": "RAG Pipelines", "level": 92},
+      {"name": "LangChain", "level": 90},
+      {"name": "OpenAI API", "level": 90},
+      {"name": "Multi-Agent Orchestration", "level": 85},
+      {"name": "LangGraph", "level": 88},
+      {"name": "Claude API", "level": 88},
+      {"name": "Gemini", "level": 82},
+      {"name": "RLHF", "level": 80},
+      {"name": "Hugging Face", "level": 80},
+      {"name": "Langfuse", "level": 78}
     ],
-    "Languages": [
-      {"name": "Python", "level": 98},
-      {"name": "JavaScript", "level": 85},
-      {"name": "SQL", "level": 90},
-      {"name": "R", "level": 82}
-    ],
-    "Cloud": [
-      {"name": "AWS", "level": 88},
-      {"name": "GCP", "level": 85},
-      {"name": "Azure", "level": 80},
-      {"name": "Docker", "level": 92},
-      {"name": "Kubernetes", "level": 78}
-    ],
-    "Tools": [
-      {"name": "Git", "level": 95},
+    "Backend": [
+      {"name": "Python", "level": 95},
       {"name": "REST APIs", "level": 90},
-      {"name": "GraphQL", "level": 85},
-      {"name": "Jupyter", "level": 96},
-      {"name": "VS Code", "level": 98}
+      {"name": "FastAPI", "level": 88},
+      {"name": "Django REST Framework", "level": 85},
+      {"name": "Celery / SQS", "level": 82},
+      {"name": "WebSockets", "level": 80}
+    ],
+    "Infrastructure": [
+      {"name": "Docker", "level": 88},
+      {"name": "AWS", "level": 85},
+      {"name": "GitHub Actions", "level": 85},
+      {"name": "Kubernetes", "level": 82},
+      {"name": "GCP", "level": 80},
+      {"name": "Azure", "level": 78},
+      {"name": "Terraform", "level": 75},
+      {"name": "Grafana", "level": 75}
+    ],
+    "ML/Vision": [
+      {"name": "Pandas", "level": 90},
+      {"name": "NumPy", "level": 88},
+      {"name": "scikit-learn", "level": 85},
+      {"name": "TensorFlow", "level": 82},
+      {"name": "Keras", "level": 80},
+      {"name": "OpenCV", "level": 80},
+      {"name": "ResNet", "level": 75},
+      {"name": "Tesseract OCR", "level": 72}
+    ],
+    "Data": [
+      {"name": "SQL", "level": 88},
+      {"name": "PostgreSQL", "level": 85},
+      {"name": "Snowflake", "level": 80},
+      {"name": "BigQuery", "level": 78},
+      {"name": "NoSQL", "level": 75}
+    ],
+    "Frontend": [
+      {"name": "JavaScript", "level": 75},
+      {"name": "TypeScript", "level": 72},
+      {"name": "React", "level": 72},
+      {"name": "Next.js", "level": 70}
     ]
   },
   "certifications": [
     {
-      "title": "AWS Certified Machine Learning - Specialty",
-      "issuer": "Amazon Web Services",
+      "title": "Machine Learning from Basic to Advanced",
+      "issuer": "Online Certification",
       "date": "2023",
-      "url": "https://aws.amazon.com/certification/certified-machine-learning-specialty/",
+      "url": "#",
       "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"
     },
     {
-      "title": "TensorFlow Developer Certificate",
-      "issuer": "Google",
-      "date": "2022",
-      "url": "https://www.tensorflow.org/certificate",
+      "title": "AWS for Solution Architecture",
+      "issuer": "Amazon Web Services",
+      "date": "2023",
+      "url": "#",
       "image": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&q=80&w=800"
     },
     {
-      "title": "Deep Learning Specialization",
-      "issuer": "Coursera / DeepLearning.AI",
-      "date": "2021",
-      "url": "https://www.coursera.org/specializations/deep-learning",
+      "title": "DevOps Fundamentals",
+      "issuer": "Online Certification",
+      "date": "2022",
+      "url": "#",
       "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800"
     },
     {
-      "title": "Microsoft Certified: Azure AI Engineer Associate",
-      "issuer": "Microsoft",
+      "title": "Crash Course on Python",
+      "issuer": "Google",
       "date": "2022",
-      "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/",
+      "url": "#",
       "image": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&q=80&w=800"
     }
   ],
   "achievements": [
     {
-      "title": "Best Paper Award - ICML Conference",
-      "description": "Recognized for groundbreaking research in reinforcement learning algorithms",
+      "title": "Code Innovator Award — Calidad Infotech",
+      "description": "Awarded for building the company's LLM and RAG product capability and deploying it into client engagements at Blue Yonder and Dentsu.",
+      "year": "2025",
+      "url": "#"
+    },
+    {
+      "title": "Innovator Award — Calidad Infotech",
+      "description": "Awarded for architecting the ozar.ai and testautomationx.com internal products from the ground up.",
+      "year": "2024",
+      "url": "#"
+    },
+    {
+      "title": "Rising Star Award — XDuce Corporation",
+      "description": "Awarded in first year for delivering the Select Equity Group real-time financial ETL platform across cross-functional teams.",
       "year": "2022",
       "url": "#"
-    },
-    {
-      "title": "AI Hackathon Winner",
-      "description": "First place in international AI hackathon with 500+ participants",
-      "year": "2021",
-      "url": "#"
-    },
-    {
-      "title": "Top 1% Contributor - Kaggle",
-      "description": "Ranked in the top 1% of contributors on Kaggle platform",
-      "year": "2023",
-      "url": "https://www.kaggle.com/"
     }
   ],
   "githubContributions": {
@@ -202,55 +222,107 @@
   },
   "projects": [
     {
-      "title": "AI-Powered Chatbot",
-      "description": "Advanced NLP-based conversational AI using transformer architecture",
-      "tags": ["Python", "TensorFlow", "NLP", "Docker"],
+      "title": "AI-Powered SRE & Root Cause Analysis Platform",
+      "description": "AI-driven RCA system for Blue Yonder that reduced incident resolution time from several hours to under 20 minutes (80%+ improvement), ingesting observability data from Zabbix and AppDynamics into a RAG pipeline with LangGraph multi-agent orchestration on Azure OpenAI.",
+      "tags": ["Python", "Azure OpenAI", "LangGraph", "RAG", "Langfuse", "FastAPI", "Docker", "Azure"],
       "image": "https://images.unsplash.com/photo-1676299081847-5c7fe8b15015?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
-        "99.9% uptime",
-        "50,000+ daily users",
-        "Multi-language support"
+        "80%+ faster incident resolution",
+        "Multi-agent LangGraph orchestration",
+        "Deployed on Azure with FastAPI"
       ]
     },
     {
-      "title": "Image Classifier",
-      "description": "CNN model for real-time object recognition with 95% accuracy",
-      "tags": ["Python", "PyTorch", "OpenCV", "Deep Learning"],
+      "title": "AI Workflow Automation — Forward-Deployed Engineering",
+      "description": "Embedded within Dentsu's teams to ship LLM-powered workflow automation pipelines spanning content generation, data enrichment, and approval routing — collapsing multi-step manual processes into single triggered runs connected to CRM, ad, and analytics APIs.",
+      "tags": ["Python", "OpenAI GPT", "Claude API", "LangChain", "FastAPI", "Docker"],
+      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "Automated campaign operations",
+        "Multi-LLM pipeline (GPT + Claude)",
+        "Integrated with Dentsu's existing platforms"
+      ]
+    },
+    {
+      "title": "ozar.ai — AI Test Case Generation SaaS",
+      "description": "LLM-powered SaaS that generates context-aware test cases directly from Jira tickets using a RAG pipeline with RLHF scoring loop and no-code automation engine. Deployed serverless on AWS with Celery for async LLM processing.",
+      "tags": ["Django REST Framework", "LangGraph", "RAG", "RLHF", "AWS", "Celery", "Docker"],
       "image": "https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&q=80&w=800",
       "github": "#",
-      "demo": "#",
+      "demo": "https://ozar.ai",
       "highlights": [
-        "95% accuracy",
-        "Real-time processing",
-        "Mobile-optimized"
+        "Jira → test cases, zero manual effort",
+        "RAG + RLHF feedback loop",
+        "AWS Lambda + Celery async processing"
       ]
     },
     {
-      "title": "Workflow Automation",
-      "description": "Python scripts for automating repetitive tasks and data processing",
-      "tags": ["Python", "Automation", "APIs"],
+      "title": "testautomationx.com — Test Management Platform",
+      "description": "Full test-case management platform with an isolated execution engine on AWS SQS and Celery scaling to 1000+ concurrent parallel jobs. Deployed on Kubernetes with Docker, GitHub Actions CI/CD, Selenium, and Allure Reports.",
+      "tags": ["Python", "Django REST Framework", "AWS SQS", "Celery", "Kubernetes", "Docker", "Selenium", "PyTest"],
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "https://testautomationx.com",
+      "highlights": [
+        "1000+ concurrent parallel jobs",
+        "Kubernetes + Docker deployment",
+        "Allure Reports for analytics"
+      ]
+    },
+    {
+      "title": "GenAI Multi-LLM Question Generation Framework",
+      "description": "Multi-LLM routing framework dispatching prompts across OpenAI GPT, Claude API, and Gemini using a custom model-ranking algorithm. Built modular prompt templates for MCQ, descriptive, and scenario-based formats with Hugging Face semantic similarity scoring.",
+      "tags": ["FastAPI", "LangChain", "OpenAI", "Claude API", "Gemini", "Hugging Face", "RAG"],
+      "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "3-LLM routing (GPT + Claude + Gemini)",
+        "Automatic answer grading via Hugging Face",
+        "MCQ, descriptive & scenario formats"
+      ]
+    },
+    {
+      "title": "ResNet-Based Multilingual OCR Classifier",
+      "description": "ResNet deep learning model for multilingual handwriting classification achieving ~80% accuracy across multiple scripts. Built a full preprocessing pipeline with Tesseract OCR as baseline, evaluated with F1 score, confusion matrix, and per-class accuracy.",
+      "tags": ["Python", "TensorFlow", "Keras", "ResNet", "Tesseract OCR", "OpenCV", "scikit-learn"],
+      "image": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "~80% accuracy across multilingual scripts",
+        "ResNet + Tesseract OCR pipeline",
+        "F1 score in line with industry benchmarks"
+      ]
+    },
+    {
+      "title": "Intelligent Eye-Motion Anti-Cheating System",
+      "description": "Real-time gaze and motion detection pipeline with OpenCV and TensorFlow monitoring live online assessments and flagging suspicious behaviour. Low-latency live video streaming via Flask and WebRTC enabling real-time inference without buffering.",
+      "tags": ["Python", "OpenCV", "TensorFlow", "Flask", "WebRTC", "WebSockets"],
+      "image": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&q=80&w=800",
+      "github": "#",
+      "demo": "#",
+      "highlights": [
+        "Real-time gaze & motion detection",
+        "ML anomaly detection for live proctoring",
+        "Low-latency WebRTC video streaming"
+      ]
+    },
+    {
+      "title": "Real-Time Financial ETL & Analytics Platform",
+      "description": "Scalable ETL pipelines ingesting 10,000+ financial tickers per second via WebSockets for Select Equity Group, normalising data across 50 tables from 4–5 source systems into Snowflake and BigQuery. Automated with Jenkins/JAMS and containerised on GCP.",
+      "tags": ["Python", "Snowflake", "BigQuery", "WebSockets", "GCP", "Docker", "Pandas", "PyTest", "SQL"],
       "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
-        "70% time savings",
-        "100+ automated workflows",
-        "Enterprise adoption"
-      ]
-    },
-    {
-      "title": "Workflow Automation 2",
-      "description": "Python scripts for automating repetitive tasks and data processing",
-      "tags": ["Python", "Automation", "APIs"],
-      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
-      "github": "#",
-      "demo": "#",
-      "highlights": [
-        "70% time savings",
-        "100+ automated workflows",
-        "Enterprise adoption"
+        "10,000+ tickers/sec via WebSockets",
+        "50 normalised tables across 4–5 sources",
+        "Snowflake + BigQuery warehousing"
       ]
     }
   ]
