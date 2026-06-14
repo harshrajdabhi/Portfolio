@@ -8,7 +8,7 @@ import { Calendar, MapPin, Building2, ChevronRight } from "lucide-react"
 import { useRef, useState } from "react"
 import portfolioData from "@/data/portfolio.json"
 
-const companyColors = ["#00d4ff", "#9b59ff", "#00ff88"]
+const companyColors = ["#00E5FF", "#7C3AED", "#00FFA3"]
 
 export function ExperienceSection() {
   const [expanded, setExpanded] = useState<number | null>(0)
@@ -59,7 +59,7 @@ export function ExperienceSection() {
                     className="relative rounded-xl overflow-hidden cursor-pointer"
                     onClick={() => setExpanded(isOpen ? null : index)}
                   >
-                    <BorderBeam size={120} duration={10 + index * 2} colorFrom={color} colorTo="#9b59ff" />
+                    <BorderBeam size={120} duration={10 + index * 2} colorFrom={color} colorTo="#7C3AED" />
                     <div className="glass-card p-6">
                       {/* Header */}
                       <div className="flex items-start justify-between gap-4 flex-wrap">

@@ -30,11 +30,11 @@ const config: Config = {
       },
       colors: {
         neural: {
-          DEFAULT: '#00d4ff',
-          purple: '#9b59ff',
-          green: '#00ff88',
-          dark: '#020817',
-          card: '#0f172a',
+          DEFAULT: '#00E5FF',
+          purple: '#7C3AED',
+          green: '#00FFA3',
+          dark: '#030712',
+          card: '#0b1120',
         },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

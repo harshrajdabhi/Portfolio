@@ -13,16 +13,16 @@ import portfolioData from "@/data/portfolio.json"
 
 export function ContactSection() {
   const contactInfo = [
-    { icon: Mail, text: "harshrajdabhir@gmail.com", label: "Email", color: "#00d4ff" },
-    { icon: Phone, text: portfolioData.profile.contact_number, label: "Phone", color: "#9b59ff" },
-    { icon: MapPin, text: portfolioData.profile.location, label: "Location", color: "#00ff88" },
+    { icon: Mail, text: "harshrajdabhir@gmail.com", label: "Email", color: "#00E5FF" },
+    { icon: Phone, text: portfolioData.profile.contact_number, label: "Phone", color: "#7C3AED" },
+    { icon: MapPin, text: portfolioData.profile.location, label: "Location", color: "#00FFA3" },
   ]
 
   const socialLinks = [
     { icon: Github, href: portfolioData.profile.social.github, label: "GitHub", color: "#ffffff" },
     { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn", color: "#0ea5e9" },
     { icon: Twitter, href: portfolioData.profile.social.twitter, label: "Twitter", color: "#38bdf8" },
-    { icon: Mail, href: portfolioData.profile.social.email, label: "Email", color: "#00d4ff" },
+    { icon: Mail, href: portfolioData.profile.social.email, label: "Email", color: "#00E5FF" },
   ]
 
   return (
@@ -45,7 +45,7 @@ export function ContactSection() {
           {/* Contact Form */}
           <BlurFade delay={0.2} inView>
             <div className="relative rounded-xl overflow-hidden">
-              <BorderBeam size={200} duration={10} colorFrom="#00d4ff" colorTo="#9b59ff" />
+              <BorderBeam size={200} duration={10} colorFrom="#00E5FF" colorTo="#7C3AED" />
               <div className="glass-card p-6 space-y-5">
                 <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Send a Message</h3>
                 <form className="space-y-4">
@@ -82,7 +82,7 @@ export function ContactSection() {
                   </div>
                   <PulsatingButton
                     className="w-full bg-gradient-to-r from-neural to-neural-purple text-background font-semibold terminal-text text-sm rounded-lg py-2.5 flex items-center justify-center gap-2"
-                    pulseColor="#00d4ff"
+                    pulseColor="#00E5FF"
                   >
                     <Send className="h-4 w-4" />
                     Send Message
@@ -96,7 +96,7 @@ export function ContactSection() {
           <div className="space-y-5">
             <BlurFade delay={0.3} inView>
               <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={14} colorFrom="#9b59ff" colorTo="#00ff88" />
+                <BorderBeam size={120} duration={14} colorFrom="#7C3AED" colorTo="#00FFA3" />
                 <div className="glass-card p-6 space-y-4">
                   <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Contact Info</h3>
                   {contactInfo.map((info, i) => (
@@ -124,7 +124,7 @@ export function ContactSection() {
 
             <BlurFade delay={0.4} inView>
               <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={16} colorFrom="#00ff88" colorTo="#00d4ff" />
+                <BorderBeam size={120} duration={16} colorFrom="#00FFA3" colorTo="#00E5FF" />
                 <div className="glass-card p-6 space-y-4">
                   <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Connect</h3>
                   <div className="grid grid-cols-2 gap-3">

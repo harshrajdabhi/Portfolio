@@ -30,14 +30,14 @@ export function GithubSection() {
     const barW = (width - 60) / data.length
     const actualBW = barW - 8
 
-    ctx.strokeStyle = "rgba(0,212,255,0.2)"; ctx.lineWidth = 1
+    ctx.strokeStyle = "rgba(0,229,255,0.2)"; ctx.lineWidth = 1
     ctx.beginPath(); ctx.moveTo(30, height - 30); ctx.lineTo(width - 10, height - 30); ctx.stroke()
     ctx.beginPath(); ctx.moveTo(30, 10); ctx.lineTo(30, height - 30); ctx.stroke()
 
     for (let i = 1; i <= 5; i++) {
       const y = height - 30 - ((height - 40) / 5) * i
-      ctx.strokeStyle = "rgba(0,212,255,0.07)"; ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(width - 10, y); ctx.stroke()
-      ctx.fillStyle = "rgba(0,212,255,0.4)"; ctx.font = "10px monospace"; ctx.textAlign = "right"; ctx.textBaseline = "middle"
+      ctx.strokeStyle = "rgba(0,229,255,0.07)"; ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(width - 10, y); ctx.stroke()
+      ctx.fillStyle = "rgba(0,229,255,0.4)"; ctx.font = "10px monospace"; ctx.textAlign = "right"; ctx.textBaseline = "middle"
       ctx.fillText(Math.round((max / 5) * i).toString(), 25, y)
     }
 
@@ -51,11 +51,11 @@ export function GithubSection() {
         const x = 30 + i * barW + 4
         const y = height - 30 - barH
         const grad = ctx.createLinearGradient(x, y, x, height - 30)
-        grad.addColorStop(0, "rgba(0,212,255,0.9)")
-        grad.addColorStop(1, "rgba(155,89,255,0.4)")
+        grad.addColorStop(0, "rgba(0,229,255,0.9)")
+        grad.addColorStop(1, "rgba(124,58,237,0.4)")
         ctx.fillStyle = grad
         ctx.fillRect(x, y, actualBW, barH)
-        ctx.fillStyle = "rgba(0,212,255,0.5)"; ctx.font = "9px monospace"; ctx.textAlign = "center"; ctx.textBaseline = "top"
+        ctx.fillStyle = "rgba(0,229,255,0.5)"; ctx.font = "9px monospace"; ctx.textAlign = "center"; ctx.textBaseline = "top"
         ctx.fillText(d.month, x + actualBW / 2, height - 25)
       })
 
@@ -85,7 +85,7 @@ export function GithubSection() {
           <div className="lg:col-span-2">
             <BlurFade delay={0.2} inView>
               <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={200} duration={12} colorFrom="#00d4ff" colorTo="#9b59ff" />
+                <BorderBeam size={200} duration={12} colorFrom="#00E5FF" colorTo="#7C3AED" />
                 <div className="glass-card p-6">
                   <div className="flex items-center gap-2 mb-4">
                     <GitCommit className="h-4 w-4 text-neural" />
@@ -107,7 +107,7 @@ export function GithubSection() {
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: Star, label: "Stars", value: stats.starsEarned.toLocaleString(), color: "#f59e0b" },
-                  { icon: GitCommit, label: "Commits", value: stats.totalContributions.toLocaleString(), color: "#00d4ff" },
+                  { icon: GitCommit, label: "Commits", value: stats.totalContributions.toLocaleString(), color: "#00E5FF" },
                 ].map((s, i) => (
                   <MagicCard key={i} className="p-4 glass-card rounded-xl text-center" gradientColor={s.color} gradientOpacity={0.07}>
                     <s.icon className="h-5 w-5 mx-auto mb-1" style={{ color: s.color }} />
@@ -121,7 +121,7 @@ export function GithubSection() {
             {/* Top repos */}
             {stats.topRepositories.map((repo, i) => (
               <BlurFade key={repo.name} delay={0.4 + i * 0.08} inView>
-                <MagicCard className="p-4 glass-card rounded-xl" gradientColor="#9b59ff" gradientOpacity={0.06}>
+                <MagicCard className="p-4 glass-card rounded-xl" gradientColor="#7C3AED" gradientOpacity={0.06}>
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold text-neural terminal-text">{repo.name}</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">{repo.description}</p>

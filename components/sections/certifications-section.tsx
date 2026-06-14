@@ -7,7 +7,7 @@ import { ShineBorder } from "@/components/ui/shine-border"
 import { BlurFade } from "@/components/ui/blur-fade"
 import portfolioData from "@/data/portfolio.json"
 
-const certColors = ["#00d4ff", "#9b59ff", "#00ff88", "#f59e0b"]
+const certColors = ["#00E5FF", "#7C3AED", "#00FFA3", "#f59e0b"]
 
 export function CertificationsSection() {
   return (
@@ -33,7 +33,7 @@ export function CertificationsSection() {
             {portfolioData.certifications.map((cert, i) => (
               <BlurFade key={cert.title} delay={0.1 + i * 0.08} inView>
                 <div className="relative h-full rounded-xl glass-card p-5 flex flex-col gap-3 overflow-hidden">
-                  <ShineBorder shineColor={[certColors[i % certColors.length], "#9b59ff"]} borderWidth={1} />
+                  <ShineBorder shineColor={[certColors[i % certColors.length], "#7C3AED"]} borderWidth={1} />
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"
                     style={{ background: `${certColors[i % certColors.length]}15`, border: `1px solid ${certColors[i % certColors.length]}30` }}
@@ -61,13 +61,13 @@ export function CertificationsSection() {
               <BlurFade key={achievement.title} delay={0.2 + i * 0.1} inView>
                 <MagicCard
                   className="p-6 glass-card rounded-xl"
-                  gradientColor="#9b59ff"
+                  gradientColor="#7C3AED"
                   gradientOpacity={0.08}
                 >
                   <div className="space-y-3">
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center"
-                      style={{ background: "#9b59ff15", border: "1px solid #9b59ff30" }}
+                      style={{ background: "#7C3AED15", border: "1px solid #7C3AED30" }}
                     >
                       <Medal className="h-5 w-5 text-neural-purple" />
                     </div>

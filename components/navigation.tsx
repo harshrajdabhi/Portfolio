@@ -56,7 +56,7 @@ export function Navigation({ onMenuClick }: NavigationProps) {
 
   return (
     <motion.nav
-      className={`fixed top-4 right-4 md:top-6 md:right-6 z-50 rounded-full px-3 py-2 transition-all duration-500 relative overflow-hidden max-w-[calc(100vw-2rem)] ${
+      className={`fixed top-4 right-4 md:top-6 md:right-6 z-50 rounded-full px-3 py-2 transition-all duration-500 overflow-hidden w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-18rem)] ${
         isScrolled
           ? "glass-card shadow-lg shadow-neural/10 md:scale-95"
           : "glass-card scale-100"
@@ -65,7 +65,7 @@ export function Navigation({ onMenuClick }: NavigationProps) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
     >
-      <BorderBeam size={120} duration={8} colorFrom="#00d4ff" colorTo="#9b59ff" />
+      <BorderBeam size={120} duration={8} colorFrom="#00E5FF" colorTo="#7C3AED" />
       <div className="flex items-center gap-2">
         {/* Mobile: avatar menu button opens the drawer */}
         <button

@@ -13,6 +13,8 @@ import { CertificationsSection } from "@/components/sections/certifications-sect
 import { GithubSection } from "@/components/sections/github-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { CursorGlow } from "@/components/effects/cursor-glow"
+import { AuroraBackground } from "@/components/effects/aurora-background"
 import { motion, useScroll, useSpring } from "framer-motion"
 
 export default function Home() {
@@ -27,16 +29,20 @@ export default function Home() {
 
   return (
     <div className="flex">
+      {/* Global ambient effects */}
+      <AuroraBackground className="fixed inset-0 z-0 opacity-60" />
+      <CursorGlow />
+
       <Sidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
 
-      <main className="flex-1 ml-0 md:ml-64 transition-all duration-300 min-w-0">
+      <main className="flex-1 ml-0 md:ml-64 transition-all duration-300 min-w-0 relative z-10">
         {/* Scroll progress bar */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-neural via-neural-purple to-neural-green transform origin-left z-[60]"
           style={{ scaleX }}
         />
 
-        <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
+        <div className="min-h-screen">
           <div className="relative z-10">
             <Navigation onMenuClick={() => setSidebarOpen(true)} />
 

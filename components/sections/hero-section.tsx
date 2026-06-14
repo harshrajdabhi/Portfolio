@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Brain, Zap, Network } from "lucide-react"
+import { Zap, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useRef } from "react"
 import { Particles } from "@/components/ui/particles"
@@ -12,6 +12,7 @@ import { WordRotate } from "@/components/ui/word-rotate"
 import { Marquee } from "@/components/ui/marquee"
 import { PulsatingButton } from "@/components/ui/pulsating-button"
 import { Parallax } from "@/components/scroll-reveal"
+import { AuroraBackground } from "@/components/effects/aurora-background"
 import portfolioData from "@/data/portfolio.json"
 
 type Neuron = { x: number; y: number; radius: number; connections: number[]; pulseDelay: number }
@@ -61,9 +62,9 @@ export function HeroSection() {
           const o = neurons[j]
           const pulse = (t + n.pulseDelay) % 1
           const grad = ctx.createLinearGradient(n.x, n.y, o.x, o.y)
-          grad.addColorStop(0, "rgba(0,212,255,0.05)")
-          grad.addColorStop(pulse, "rgba(0,212,255,0.45)")
-          grad.addColorStop(1, "rgba(155,89,255,0.05)")
+          grad.addColorStop(0, "rgba(0,229,255,0.05)")
+          grad.addColorStop(pulse, "rgba(0,229,255,0.45)")
+          grad.addColorStop(1, "rgba(124,58,237,0.05)")
           ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(o.x, o.y)
           ctx.strokeStyle = grad; ctx.lineWidth = 0.5; ctx.stroke()
         })
@@ -71,13 +72,13 @@ export function HeroSection() {
       neurons.forEach(n => {
         const pulse = Math.sin(t + n.pulseDelay) * 0.5 + 0.5
         const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 5)
-        glow.addColorStop(0, `rgba(0,212,255,${0.35 * pulse})`)
-        glow.addColorStop(0.5, `rgba(155,89,255,${0.15 * pulse})`)
+        glow.addColorStop(0, `rgba(0,229,255,${0.35 * pulse})`)
+        glow.addColorStop(0.5, `rgba(124,58,237,${0.15 * pulse})`)
         glow.addColorStop(1, "rgba(0,0,0,0)")
         ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * 2.5, 0, Math.PI * 2)
         ctx.fillStyle = glow; ctx.fill()
         ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * (0.8 + pulse * 0.4), 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,212,255,${0.5 + pulse * 0.5})`; ctx.fill()
+        ctx.fillStyle = `rgba(0,229,255,${0.5 + pulse * 0.5})`; ctx.fill()
       })
       animationRef.current = requestAnimationFrame(animate)
     }
@@ -100,8 +101,9 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       </div>
-      <Particles className="absolute inset-0 z-0" quantity={60} color="#00d4ff" ease={80} size={0.4} />
+      <Particles className="absolute inset-0 z-0" quantity={60} color="#00E5FF" ease={80} size={0.4} />
       <Meteors number={8} className="absolute inset-0 z-0" />
+      <AuroraBackground className="z-0 opacity-50" />
       <motion.div
         className="absolute inset-0 z-0 bg-gradient-to-t from-background via-background/60 to-background/10"
         initial={{ opacity: 0 }}
@@ -115,29 +117,60 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Icon */}
-          <motion.div
-            className="flex justify-center mb-8"
-            animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.08, 1] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="relative">
+          {/* Holographic profile */}
+          <div className="flex justify-center mb-8">
+            <div className="relative h-36 w-36 sm:h-40 sm:w-40">
+              {/* Pulsing aura */}
               <motion.div
-                className="absolute -inset-6 rounded-full blur-xl"
+                className="absolute -inset-6 rounded-full blur-2xl"
                 animate={{
                   background: [
-                    "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)",
-                    "radial-gradient(circle, rgba(155,89,255,0.4) 0%, transparent 70%)",
-                    "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,229,255,0.45) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(124,58,237,0.45) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,255,163,0.4) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,229,255,0.45) 0%, transparent 70%)",
                   ],
                 }}
-                transition={{ duration: 4, repeat: Infinity }}
+                transition={{ duration: 6, repeat: Infinity }}
               />
-              <div className="relative z-10 p-4 rounded-full neon-border-cyan bg-neural/5">
-                <Network className="h-16 w-16 text-neural" />
-              </div>
+              {/* Rotating holographic conic ring */}
+              <motion.div
+                className="absolute inset-0 rounded-full p-[2px]"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, #00E5FF, #7C3AED, #00FFA3, #00E5FF)",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <div className="h-full w-full rounded-full bg-background" />
+              </motion.div>
+              {/* Counter-rotating dashed ring */}
+              <motion.div
+                className="absolute -inset-2 rounded-full border border-dashed border-neural/30"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+              />
+              {/* Profile image */}
+              <motion.div
+                className="absolute inset-[6px] rounded-full overflow-hidden glow-cyan"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img
+                  src={portfolioData.profile.image}
+                  alt={portfolioData.profile.name}
+                  className="h-full w-full object-cover"
+                />
+                {/* Scan sheen */}
+                <motion.div
+                  className="absolute inset-x-0 h-1/3 bg-gradient-to-b from-neural/30 to-transparent mix-blend-screen"
+                  animate={{ y: ["-120%", "320%"] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                />
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Name */}
           <div className="mb-4">
@@ -149,16 +182,26 @@ export function HeroSection() {
             </HyperText>
           </div>
 
-          {/* Rotating role */}
-          <div className="mb-6 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+          {/* Subtitle roles */}
+          <div className="mb-3 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
             <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
             <WordRotate
               className="text-base sm:text-xl md:text-2xl font-semibold text-neural/90 terminal-text text-center"
-              words={["AI Systems Engineer", "LLM Pipeline Builder", "Forward-Deployed Engineer", "RAG Architect", "Multi-Agent Developer"]}
+              words={["AI Engineer", "Full-Stack Developer", "Forward-Deployed Engineer", "RAG Architect", "LLM Pipeline Builder"]}
               duration={2500}
             />
             <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
           </div>
+
+          {/* Tagline */}
+          <motion.p
+            className="mb-6 text-sm sm:text-base md:text-lg font-medium tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural-green"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            Building Intelligent Systems with Code
+          </motion.p>
 
           {/* Bio */}
           <motion.p
@@ -179,11 +222,25 @@ export function HeroSection() {
           >
             <PulsatingButton
               className="bg-gradient-to-r from-neural to-neural-purple text-background font-semibold px-8 py-3 rounded-full terminal-text text-sm"
-              pulseColor="#00d4ff"
+              pulseColor="#00E5FF"
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             >
-              View Projects
+              Explore Projects
             </PulsatingButton>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-neural-green/40 hover:border-neural-green hover:bg-neural-green/10 hover:text-neural-green transition-all duration-300 rounded-full terminal-text text-sm glow-accent"
+              onClick={() => {
+                const a = document.createElement("a")
+                a.href = portfolioData.profile.resumePath
+                a.download = "Harsh_Dabhi_CV.pdf"
+                a.click()
+              }}
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download Resume
+            </Button>
             <Button
               variant="outline"
               size="lg"

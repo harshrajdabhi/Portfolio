@@ -5,6 +5,7 @@ import { MagicCard } from "@/components/ui/magic-card"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { Button } from "@/components/ui/button"
+import { TiltCard } from "@/components/effects/tilt-card"
 import { Github, ExternalLink } from "lucide-react"
 import portfolioData from "@/data/portfolio.json"
 
@@ -26,12 +27,13 @@ export function ProjectsSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {portfolioData.projects.map((project, i) => (
             <BlurFade key={project.title} delay={0.1 + i * 0.07} inView>
+              <TiltCard className="h-full transition-shadow duration-300 rounded-xl hover:[box-shadow:0_0_30px_rgba(0,229,255,0.25),0_0_60px_rgba(124,58,237,0.15)]">
               <MagicCard
-                className="h-full glass-card rounded-xl overflow-hidden flex flex-col group cursor-pointer"
-                gradientColor="#00d4ff"
+                className="h-full glass-card rounded-xl overflow-hidden flex flex-col group cursor-pointer hover:border-neural/40 transition-colors duration-300"
+                gradientColor="#00E5FF"
                 gradientOpacity={0.06}
               >
-                <BorderBeam size={100} duration={8 + i} colorFrom="#00d4ff" colorTo="#9b59ff" />
+                <BorderBeam size={100} duration={8 + i} colorFrom="#00E5FF" colorTo="#7C3AED" />
 
                 {/* Image with scanline overlay */}
                 <div className="relative h-40 overflow-hidden scanline-overlay">
@@ -86,6 +88,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               </MagicCard>
+              </TiltCard>
             </BlurFade>
           ))}
         </div>

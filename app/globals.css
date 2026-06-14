@@ -27,25 +27,25 @@
   }
 
   .dark {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 95%;
-    --card: 222 74% 7%;
-    --card-foreground: 210 40% 95%;
-    --popover: 222 74% 7%;
-    --popover-foreground: 210 40% 95%;
-    --primary: 195 100% 50%;
-    --primary-foreground: 222 84% 5%;
-    --secondary: 217 33% 14%;
-    --secondary-foreground: 210 40% 95%;
-    --muted: 217 33% 14%;
-    --muted-foreground: 215 20% 55%;
-    --accent: 263 70% 60%;
-    --accent-foreground: 210 40% 95%;
+    --background: 222 60% 4%;
+    --foreground: 210 40% 96%;
+    --card: 222 47% 7%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 47% 7%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 187 100% 50%;
+    --primary-foreground: 222 60% 4%;
+    --secondary: 217 33% 13%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 33% 13%;
+    --muted-foreground: 215 20% 58%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 96%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 14%;
-    --input: 217 33% 14%;
-    --ring: 195 100% 50%;
+    --border: 217 33% 13%;
+    --input: 217 33% 13%;
+    --ring: 187 100% 50%;
   }
   .theme {
     --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
@@ -266,24 +266,24 @@ html, body {
 /* ── Neural / AI Design System ─────────────────────────────────── */
 
 .neural-grid {
-  background-image: radial-gradient(circle, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 229, 255, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25), 0 0 40px rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.25), 0 0 40px rgba(0, 229, 255, 0.1);
 }
 
 .glow-purple {
-  box-shadow: 0 0 20px rgba(155, 89, 255, 0.25), 0 0 40px rgba(155, 89, 255, 0.1);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 40px rgba(124, 58, 237, 0.12);
 }
 
 .glow-text-cyan {
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.6), 0 0 30px rgba(0, 212, 255, 0.3);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6), 0 0 30px rgba(0, 229, 255, 0.3);
 }
 
 .data-flow-bar {
-  background: linear-gradient(90deg, #00d4ff, #9b59ff, #00ff88, #00d4ff);
+  background: linear-gradient(90deg, #00E5FF, #7C3AED, #00FFA3, #00E5FF);
   background-size: 300% 100%;
   animation: dataFlow 3s linear infinite;
 }
@@ -309,20 +309,24 @@ html, body {
 }
 
 .neon-border-cyan {
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.05), 0 0 20px rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05), 0 0 20px rgba(0, 229, 255, 0.1);
 }
 
 .neon-border-purple {
-  border: 1px solid rgba(155, 89, 255, 0.3);
-  box-shadow: inset 0 0 20px rgba(155, 89, 255, 0.05), 0 0 20px rgba(155, 89, 255, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.06), 0 0 20px rgba(124, 58, 237, 0.12);
 }
 
 .glass-card {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  background: rgba(8, 14, 30, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(0, 255, 163, 0.28), 0 0 40px rgba(0, 255, 163, 0.12);
 }
 
 @keyframes dataFlow {

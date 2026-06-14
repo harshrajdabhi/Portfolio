@@ -1,17 +1,16 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { MagicCard } from "@/components/ui/magic-card"
+import { useRef } from "react"
 import { Marquee } from "@/components/ui/marquee"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import portfolioData from "@/data/portfolio.json"
 
 const categoryColors: Record<string, string> = {
-  "AI/LLM": "#00d4ff",
-  "Backend": "#9b59ff",
-  "Infrastructure": "#00ff88",
+  "AI/LLM": "#00E5FF",
+  "Backend": "#7C3AED",
+  "Infrastructure": "#00FFA3",
   "ML/Vision": "#f59e0b",
   "Data": "#ec4899",
   "Frontend": "#6366f1",
@@ -19,28 +18,34 @@ const categoryColors: Record<string, string> = {
 
 function SkillBar({ skill, index, color }: { skill: { name: string; level: number }; index: number; color: string }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+  const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
     <motion.div
       ref={ref}
-      className="space-y-1"
-      initial={{ opacity: 0, y: 10 }}
+      className="space-y-1.5"
+      initial={{ opacity: 0, y: 8 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
+      transition={{ delay: index * 0.04, duration: 0.4 }}
     >
       <div className="flex justify-between items-center">
         <span className="text-xs terminal-text text-foreground/90">{skill.name}</span>
         <span className="text-xs terminal-text" style={{ color }}>{skill.level}%</span>
       </div>
-      <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+      <div className="h-2 rounded-full bg-white/5 overflow-hidden relative">
         <motion.div
-          className="h-full rounded-full"
-          style={{ background: `linear-gradient(90deg, ${color}aa, ${color})` }}
+          className="h-full rounded-full relative"
+          style={{
+            background: `linear-gradient(90deg, ${color}55, ${color})`,
+            boxShadow: `0 0 8px ${color}88, 0 0 16px ${color}44`,
+          }}
           initial={{ width: 0 }}
           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-          transition={{ delay: index * 0.05 + 0.2, duration: 0.8, ease: "easeOut" }}
-        />
+          transition={{ delay: index * 0.04 + 0.15, duration: 0.9, ease: "easeOut" }}
+        >
+          {/* moving shimmer */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer bg-[length:200%_100%]" />
+        </motion.div>
       </div>
     </motion.div>
   )
@@ -48,20 +53,19 @@ function SkillBar({ skill, index, color }: { skill: { name: string; level: numbe
 
 export function SkillsSection() {
   const categories = Object.keys(portfolioData.skills) as Array<keyof typeof portfolioData.skills>
-  const [activeCategory, setActiveCategory] = useState(categories[0])
   const allSkills = categories.flatMap(cat => portfolioData.skills[cat])
 
   return (
     <section id="skills" className="section-spacing relative overflow-hidden">
       <div className="absolute inset-0 neural-grid opacity-20 pointer-events-none" />
 
-      <div className="container px-6 mx-auto relative">
+      <div className="container px-4 md:px-6 mx-auto relative">
         <BlurFade delay={0.1} inView>
           <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
             // Technical Skills
           </h2>
-          <p className="text-center text-muted-foreground mb-8 terminal-text text-sm">
-            <span className="text-neural">{">"}</span> Full-stack AI engineering across LLMs, backend, infra & ML
+          <p className="text-center text-muted-foreground mb-10 terminal-text text-sm">
+            <span className="text-neural">{">"}</span> Full-stack AI engineering across LLMs, backend, infra &amp; ML
           </p>
         </BlurFade>
 
@@ -85,49 +89,38 @@ export function SkillsSection() {
           </Marquee>
         </div>
 
-        {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categories.map((cat) => (
-            <motion.button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-xs terminal-text font-medium transition-all duration-300 relative overflow-hidden ${
-                activeCategory === cat
-                  ? "text-background"
-                  : "text-muted-foreground hover:text-foreground border border-white/10"
-              }`}
-              style={activeCategory === cat ? { background: categoryColors[cat] } : {}}
-              whileTap={{ scale: 0.95 }}
-            >
-              {cat}
-            </motion.button>
-          ))}
+        {/* All categories as glowing panels */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {categories.map((cat, ci) => {
+            const color = categoryColors[cat]
+            return (
+              <BlurFade key={cat} delay={0.1 + ci * 0.08} inView>
+                <div className="relative h-full rounded-xl glass-card p-5 overflow-hidden">
+                  <BorderBeam size={120} duration={9 + ci} colorFrom={color} colorTo="#7C3AED" />
+                  {/* Category header */}
+                  <div className="flex items-center gap-2 mb-5">
+                    <span
+                      className="h-2.5 w-2.5 rounded-full animate-node-pulse"
+                      style={{ background: color, boxShadow: `0 0 10px ${color}` }}
+                    />
+                    <h3 className="text-sm font-semibold terminal-text tracking-wide uppercase" style={{ color }}>
+                      {cat}
+                    </h3>
+                    <span className="ml-auto text-[10px] terminal-text text-muted-foreground/60">
+                      {portfolioData.skills[cat].length} skills
+                    </span>
+                  </div>
+                  {/* Bars */}
+                  <div className="space-y-3">
+                    {portfolioData.skills[cat].map((skill, i) => (
+                      <SkillBar key={skill.name} skill={skill} index={i} color={color} />
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )
+          })}
         </div>
-
-        {/* Skills grid */}
-        <motion.div
-          key={activeCategory}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          {portfolioData.skills[activeCategory].map((skill, i) => (
-            <BlurFade key={skill.name} delay={i * 0.04} inView>
-              <MagicCard
-                className="p-5 glass-card rounded-xl"
-                gradientColor={categoryColors[activeCategory]}
-                gradientOpacity={0.06}
-              >
-                <SkillBar
-                  skill={skill}
-                  index={i}
-                  color={categoryColors[activeCategory]}
-                />
-              </MagicCard>
-            </BlurFade>
-          ))}
-        </motion.div>
       </div>
     </section>
   )

@@ -22,7 +22,7 @@ export function AboutSection() {
           className="w-full h-full"
           squareSize={4}
           gridGap={6}
-          color="#00d4ff"
+          color="#00E5FF"
           maxOpacity={0.3}
           flickerChance={0.1}
         />
@@ -55,7 +55,7 @@ export function AboutSection() {
 
             <BlurFade delay={0.35} inView>
               <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={150} duration={10} colorFrom="#00d4ff" colorTo="#9b59ff" />
+                <BorderBeam size={150} duration={10} colorFrom="#00E5FF" colorTo="#7C3AED" />
                 <div className="glass-card p-6 space-y-4">
                   <div className="flex items-center gap-2 mb-4">
                     <GraduationCap className="h-4 w-4 text-neural" />
@@ -98,7 +98,7 @@ export function AboutSection() {
                 <BlurFade key={stat.label} delay={0.1 + i * 0.1} inView>
                   <MagicCard
                     className="p-6 text-center glass-card rounded-xl cursor-pointer"
-                    gradientColor="#00d4ff"
+                    gradientColor="#00E5FF"
                     gradientOpacity={0.08}
                   >
                     <motion.div
@@ -126,7 +126,7 @@ export function AboutSection() {
             {/* Achievements mini list */}
             <BlurFade delay={0.5} inView>
               <div className="mt-6 relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={14} colorFrom="#9b59ff" colorTo="#00ff88" />
+                <BorderBeam size={120} duration={14} colorFrom="#7C3AED" colorTo="#00FFA3" />
                 <div className="glass-card p-5 space-y-3">
                   <div className="flex items-center gap-2 mb-3">
                     <Award className="h-4 w-4 text-neural-purple" />

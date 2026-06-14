@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, Twitter, MapPin, Calendar, Download, X } from "
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BorderBeam } from "@/components/ui/border-beam";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import portfolioData from "@/data/portfolio.json";
 
@@ -15,8 +15,6 @@ interface SidebarProps {
 }
 
 export function Sidebar({ open, onOpenChange }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
   // Lock body scroll while the mobile drawer is open
   useEffect(() => {
     if (open) {
@@ -51,18 +49,15 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
 
       <motion.aside
         className={cn(
-          "fixed left-0 top-0 h-screen glass-card border-r border-neural/10 z-50 overflow-visible",
-          "transition-[width,transform] duration-300",
-          // width: full on mobile drawer, collapsible on desktop
-          "w-64",
-          isCollapsed ? "md:w-20" : "md:w-64",
+          "fixed left-0 top-0 h-screen w-64 glass-card border-r border-neural/10 z-50 overflow-hidden",
+          "transition-transform duration-300",
           // drawer slide on mobile, always visible on desktop
           open ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0"
         )}
         initial={false}
       >
-        <BorderBeam size={200} duration={12} colorFrom="#00d4ff" colorTo="#9b59ff" />
+        <BorderBeam size={200} duration={12} colorFrom="#00E5FF" colorTo="#7C3AED" />
 
         {/* Neural grid background */}
         <div className="absolute inset-0 neural-grid opacity-30 pointer-events-none" />
@@ -82,18 +77,6 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
           ))}
         </div>
 
-        {/* Avatar toggle button (replaces hamburger) */}
-        <button
-          aria-label="Toggle sidebar"
-          onClick={() => {
-            setIsCollapsed((c) => !c); // desktop width collapse
-            onOpenChange(false); // mobile close
-          }}
-          className="absolute -right-5 top-6 z-20 rounded-full overflow-hidden border-2 border-neural/50 glow-cyan w-10 h-10 bg-card hover:scale-105 transition-transform duration-300"
-        >
-          <img src={portfolioData.profile.image} alt="Menu" className="w-full h-full object-cover" />
-        </button>
-
         {/* Mobile close (X) */}
         <button
           aria-label="Close sidebar"
@@ -108,10 +91,7 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
             {/* Profile */}
             <div className="space-y-4 text-center">
               <motion.div
-                className={cn(
-                  "relative mx-auto overflow-hidden rounded-full border-2 border-neural/40 glow-cyan",
-                  isCollapsed ? "md:w-12 md:h-12 w-24 h-24" : "w-24 h-24"
-                )}
+                className="relative mx-auto overflow-hidden rounded-full border-2 border-neural/40 glow-cyan w-24 h-24"
                 whileHover={{ scale: 1.05 }}
               >
                 <img src={portfolioData.profile.image} alt="Profile" className="w-full h-full object-cover" />
@@ -122,7 +102,7 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
                 />
               </motion.div>
 
-              <div className={cn("space-y-3", isCollapsed && "md:hidden")}>
+              <div className="space-y-3">
                 <div className="space-y-2">
                   <h2 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple">
                     {portfolioData.profile.name}
@@ -154,8 +134,8 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
               </div>
             </div>
 
-            {/* Social + Education (hidden when desktop-collapsed) */}
-            <div className={cn("space-y-8", isCollapsed && "md:hidden")}>
+            {/* Social + Education */}
+            <div className="space-y-8">
               <div className="space-y-2">
                 <h3 className="text-xs font-semibold text-neural terminal-text tracking-widest uppercase">// Connect</h3>
                 {socialLinks.map((link, i) => (
@@ -194,21 +174,6 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
                 ))}
               </div>
             </div>
-
-            {/* Collapsed desktop icons */}
-            {isCollapsed && (
-              <div className="hidden md:block space-y-4">
-                {socialLinks.map((link) => (
-                  <motion.div key={link.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                    <Button variant="ghost" size="icon" className="w-full hover:bg-neural/10 hover:text-neural transition-all duration-300" asChild>
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        <link.icon className={cn("h-4 w-4", link.color)} />
-                      </a>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </motion.aside>
