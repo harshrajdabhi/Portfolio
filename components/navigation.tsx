@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
-import { ThemeToggle } from "./theme-toggle"
 import { BorderBeam } from "@/components/ui/border-beam"
 import portfolioData from "@/data/portfolio.json"
 
@@ -100,7 +99,6 @@ export function Navigation({ onMenuClick }: NavigationProps) {
             </li>
           ))}
         </ul>
-        <ThemeToggle />
       </div>
     </motion.nav>
   )

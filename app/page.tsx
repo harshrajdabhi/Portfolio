@@ -3,19 +3,28 @@
 import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Sidebar } from "@/components/sidebar"
-import { Footer } from "@/components/footer"
+import dynamic from "next/dynamic"
 import { HeroSection } from "@/components/sections/hero-section"
-import { AboutSection } from "@/components/sections/about-section"
-import { ExperienceSection } from "@/components/sections/experience-section"
-import { SkillsSection } from "@/components/sections/skills-section"
-import { ProjectsSection } from "@/components/sections/projects-section"
-import { CertificationsSection } from "@/components/sections/certifications-section"
-import { GithubSection } from "@/components/sections/github-section"
-import { ContactSection } from "@/components/sections/contact-section"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { CursorGlow } from "@/components/effects/cursor-glow"
 import { AuroraBackground } from "@/components/effects/aurora-background"
 import { motion, useScroll, useSpring } from "framer-motion"
+
+// Below-the-fold sections are code-split + lazy loaded for a smoother first paint.
+const sectionLoader = () => (
+  <div className="min-h-[40vh] flex items-center justify-center">
+    <div className="h-6 w-6 rounded-full border-2 border-neural/30 border-t-neural animate-spin" />
+  </div>
+)
+
+const AboutSection = dynamic(() => import("@/components/sections/about-section").then(m => m.AboutSection), { loading: sectionLoader })
+const SkillsSection = dynamic(() => import("@/components/sections/skills-section").then(m => m.SkillsSection), { loading: sectionLoader })
+const ExperienceSection = dynamic(() => import("@/components/sections/experience-section").then(m => m.ExperienceSection), { loading: sectionLoader })
+const ProjectsSection = dynamic(() => import("@/components/sections/projects-section").then(m => m.ProjectsSection), { loading: sectionLoader })
+const CertificationsSection = dynamic(() => import("@/components/sections/certifications-section").then(m => m.CertificationsSection), { loading: sectionLoader })
+const GithubSection = dynamic(() => import("@/components/sections/github-section").then(m => m.GithubSection), { loading: sectionLoader })
+const ContactSection = dynamic(() => import("@/components/sections/contact-section").then(m => m.ContactSection), { loading: sectionLoader })
+const Footer = dynamic(() => import("@/components/footer").then(m => m.Footer))
 
 export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(false)

@@ -225,7 +225,7 @@
       "title": "AI-Powered SRE & Root Cause Analysis Platform",
       "description": "AI-driven RCA system for Blue Yonder that reduced incident resolution time from several hours to under 20 minutes (80%+ improvement), ingesting observability data from Zabbix and AppDynamics into a RAG pipeline with LangGraph multi-agent orchestration on Azure OpenAI.",
       "tags": ["Python", "Azure OpenAI", "LangGraph", "RAG", "Langfuse", "FastAPI", "Docker", "Azure"],
-      "image": "https://images.unsplash.com/photo-1676299081847-5c7fe8b15015?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
@@ -238,7 +238,7 @@
       "title": "AI Workflow Automation — Forward-Deployed Engineering",
       "description": "Embedded within Dentsu's teams to ship LLM-powered workflow automation pipelines spanning content generation, data enrichment, and approval routing — collapsing multi-step manual processes into single triggered runs connected to CRM, ad, and analytics APIs.",
       "tags": ["Python", "OpenAI GPT", "Claude API", "LangChain", "FastAPI", "Docker"],
-      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
@@ -251,7 +251,7 @@
       "title": "ozar.ai — AI Test Case Generation SaaS",
       "description": "LLM-powered SaaS that generates context-aware test cases directly from Jira tickets using a RAG pipeline with RLHF scoring loop and no-code automation engine. Deployed serverless on AWS with Celery for async LLM processing.",
       "tags": ["Django REST Framework", "LangGraph", "RAG", "RLHF", "AWS", "Celery", "Docker"],
-      "image": "https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "https://ozar.ai",
       "highlights": [
@@ -264,7 +264,7 @@
       "title": "testautomationx.com — Test Management Platform",
       "description": "Full test-case management platform with an isolated execution engine on AWS SQS and Celery scaling to 1000+ concurrent parallel jobs. Deployed on Kubernetes with Docker, GitHub Actions CI/CD, Selenium, and Allure Reports.",
       "tags": ["Python", "Django REST Framework", "AWS SQS", "Celery", "Kubernetes", "Docker", "Selenium", "PyTest"],
-      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "https://testautomationx.com",
       "highlights": [
@@ -277,7 +277,7 @@
       "title": "GenAI Multi-LLM Question Generation Framework",
       "description": "Multi-LLM routing framework dispatching prompts across OpenAI GPT, Claude API, and Gemini using a custom model-ranking algorithm. Built modular prompt templates for MCQ, descriptive, and scenario-based formats with Hugging Face semantic similarity scoring.",
       "tags": ["FastAPI", "LangChain", "OpenAI", "Claude API", "Gemini", "Hugging Face", "RAG"],
-      "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
@@ -290,7 +290,7 @@
       "title": "ResNet-Based Multilingual OCR Classifier",
       "description": "ResNet deep learning model for multilingual handwriting classification achieving ~80% accuracy across multiple scripts. Built a full preprocessing pipeline with Tesseract OCR as baseline, evaluated with F1 score, confusion matrix, and per-class accuracy.",
       "tags": ["Python", "TensorFlow", "Keras", "ResNet", "Tesseract OCR", "OpenCV", "scikit-learn"],
-      "image": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
@@ -303,7 +303,7 @@
       "title": "Intelligent Eye-Motion Anti-Cheating System",
       "description": "Real-time gaze and motion detection pipeline with OpenCV and TensorFlow monitoring live online assessments and flagging suspicious behaviour. Low-latency live video streaming via Flask and WebRTC enabling real-time inference without buffering.",
       "tags": ["Python", "OpenCV", "TensorFlow", "Flask", "WebRTC", "WebSockets"],
-      "image": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [
@@ -316,7 +316,7 @@
       "title": "Real-Time Financial ETL & Analytics Platform",
       "description": "Scalable ETL pipelines ingesting 10,000+ financial tickers per second via WebSockets for Select Equity Group, normalising data across 50 tables from 4–5 source systems into Snowflake and BigQuery. Automated with Jenkins/JAMS and containerised on GCP.",
       "tags": ["Python", "Snowflake", "BigQuery", "WebSockets", "GCP", "Docker", "Pandas", "PyTest", "SQL"],
-      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
       "github": "#",
       "demo": "#",
       "highlights": [

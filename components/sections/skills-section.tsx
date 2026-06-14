@@ -2,7 +2,6 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { Marquee } from "@/components/ui/marquee"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
 import portfolioData from "@/data/portfolio.json"
@@ -53,7 +52,6 @@ function SkillBar({ skill, index, color }: { skill: { name: string; level: numbe
 
 export function SkillsSection() {
   const categories = Object.keys(portfolioData.skills) as Array<keyof typeof portfolioData.skills>
-  const allSkills = categories.flatMap(cat => portfolioData.skills[cat])
 
   return (
     <section id="skills" className="section-spacing relative overflow-hidden">
@@ -68,26 +66,6 @@ export function SkillsSection() {
             <span className="text-neural">{">"}</span> Full-stack AI engineering across LLMs, backend, infra &amp; ML
           </p>
         </BlurFade>
-
-        {/* Skill tag marquee */}
-        <div className="relative mb-12">
-          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-          <Marquee className="[--duration:25s]" pauseOnHover>
-            {allSkills.map((s, i) => (
-              <span key={i} className="mx-3 text-xs terminal-text text-muted-foreground border border-neural/10 rounded-full px-3 py-1 hover:border-neural/40 hover:text-neural transition-all duration-200">
-                {s.name}
-              </span>
-            ))}
-          </Marquee>
-          <Marquee className="[--duration:35s] mt-2" reverse pauseOnHover>
-            {allSkills.map((s, i) => (
-              <span key={i} className="mx-3 text-xs terminal-text text-muted-foreground border border-neural-purple/10 rounded-full px-3 py-1 hover:border-neural-purple/40 hover:text-neural-purple transition-all duration-200">
-                {s.name}
-              </span>
-            ))}
-          </Marquee>
-        </div>
 
         {/* All categories as glowing panels */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
