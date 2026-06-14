@@ -11,6 +11,7 @@ import { HyperText } from "@/components/ui/hyper-text"
 import { WordRotate } from "@/components/ui/word-rotate"
 import { Marquee } from "@/components/ui/marquee"
 import { PulsatingButton } from "@/components/ui/pulsating-button"
+import { Parallax } from "@/components/scroll-reveal"
 import portfolioData from "@/data/portfolio.json"
 
 type Neuron = { x: number; y: number; radius: number; connections: number[]; pulseDelay: number }
@@ -93,9 +94,9 @@ export function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
       {/* Layered backgrounds */}
-      <div className="absolute inset-0 z-0">
+      <Parallax className="absolute inset-0 z-0" offset={60}>
         <RetroGrid className="opacity-20" />
-      </div>
+      </Parallax>
       <div className="absolute inset-0 z-0">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       </div>
@@ -141,7 +142,7 @@ export function HeroSection() {
           {/* Name */}
           <div className="mb-4">
             <HyperText
-              className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural"
+              className="text-3xl sm:text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural break-words"
               duration={1200}
             >
               {portfolioData.profile.name}
@@ -149,19 +150,19 @@ export function HeroSection() {
           </div>
 
           {/* Rotating role */}
-          <div className="mb-6 flex items-center justify-center gap-3">
-            <Zap className="h-4 w-4 text-neural animate-node-pulse" />
+          <div className="mb-6 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+            <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
             <WordRotate
-              className="text-xl md:text-2xl font-semibold text-neural/90 terminal-text"
+              className="text-base sm:text-xl md:text-2xl font-semibold text-neural/90 terminal-text text-center"
               words={["AI Systems Engineer", "LLM Pipeline Builder", "Forward-Deployed Engineer", "RAG Architect", "Multi-Agent Developer"]}
               duration={2500}
             />
-            <Zap className="h-4 w-4 text-neural animate-node-pulse" />
+            <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
           </div>
 
           {/* Bio */}
           <motion.p
-            className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed px-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}

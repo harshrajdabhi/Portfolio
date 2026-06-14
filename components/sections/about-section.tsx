@@ -7,6 +7,7 @@ import { NumberTicker } from "@/components/ui/number-ticker"
 import { FlickeringGrid } from "@/components/ui/flickering-grid"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { BorderBeam } from "@/components/ui/border-beam"
+import { Parallax } from "@/components/scroll-reveal"
 import { GraduationCap, Award } from "lucide-react"
 import portfolioData from "@/data/portfolio.json"
 
@@ -15,8 +16,8 @@ export function AboutSection() {
 
   return (
     <section id="about" className="section-spacing relative overflow-hidden">
-      {/* Flickering neural grid background */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      {/* Flickering neural grid background (parallax) */}
+      <Parallax className="absolute -inset-y-24 inset-x-0 opacity-20 pointer-events-none" offset={50}>
         <FlickeringGrid
           className="w-full h-full"
           squareSize={4}
@@ -25,7 +26,7 @@ export function AboutSection() {
           maxOpacity={0.3}
           flickerChance={0.1}
         />
-      </div>
+      </Parallax>
 
       <div className="container px-6 mx-auto relative" ref={containerRef}>
         <BlurFade delay={0.1} inView>

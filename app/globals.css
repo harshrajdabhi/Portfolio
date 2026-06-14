@@ -212,11 +212,28 @@ html {
 
 /* Section spacing */
 .section-spacing {
-  padding: 6rem 0;
+  padding: 4rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding: 6rem 0;
+  }
 }
 
 .section-spacing-sm {
-  padding: 4rem 0;
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-spacing-sm {
+    padding: 4rem 0;
+  }
+}
+
+/* Prevent horizontal overflow on small screens */
+html, body {
+  overflow-x: hidden;
 }
 
 /* Card hover effects */

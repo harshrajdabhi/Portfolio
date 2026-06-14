@@ -4,10 +4,15 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { ThemeToggle } from "./theme-toggle"
 import { BorderBeam } from "@/components/ui/border-beam"
+import portfolioData from "@/data/portfolio.json"
 
 const navItems = ["Home", "About", "Skills", "Experience", "Projects", "Certifications", "GitHub", "Contact"]
 
-export function Navigation() {
+interface NavigationProps {
+  onMenuClick?: () => void
+}
+
+export function Navigation({ onMenuClick }: NavigationProps) {
   const [activeSection, setActiveSection] = useState("Home")
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -51,9 +56,9 @@ export function Navigation() {
 
   return (
     <motion.nav
-      className={`fixed top-6 right-6 z-50 rounded-full px-4 py-2 transition-all duration-500 relative overflow-hidden ${
+      className={`fixed top-4 right-4 md:top-6 md:right-6 z-50 rounded-full px-3 py-2 transition-all duration-500 relative overflow-hidden max-w-[calc(100vw-2rem)] ${
         isScrolled
-          ? "glass-card shadow-lg shadow-neural/10 scale-95"
+          ? "glass-card shadow-lg shadow-neural/10 md:scale-95"
           : "glass-card scale-100"
       }`}
       initial={{ y: -20, opacity: 0 }}
@@ -61,8 +66,18 @@ export function Navigation() {
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
     >
       <BorderBeam size={120} duration={8} colorFrom="#00d4ff" colorTo="#9b59ff" />
-      <div className="flex items-center space-x-3">
-        <ul className="flex space-x-1 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-2">
+        {/* Mobile: avatar menu button opens the drawer */}
+        <button
+          aria-label="Open menu"
+          onClick={onMenuClick}
+          className="md:hidden rounded-full overflow-hidden border-2 border-neural/50 glow-cyan w-9 h-9 shrink-0 hover:scale-105 transition-transform"
+        >
+          <img src={portfolioData.profile.image} alt="Menu" className="w-full h-full object-cover" />
+        </button>
+
+        {/* Desktop nav list */}
+        <ul className="hidden md:flex space-x-1 overflow-x-auto scrollbar-hide">
           {navItems.map((item) => (
             <li key={item}>
               <button
