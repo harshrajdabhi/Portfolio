@@ -1,311 +1,212 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Brain } from "lucide-react"
+import { Brain, Zap, Network } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef } from "react"
+import { Particles } from "@/components/ui/particles"
+import { RetroGrid } from "@/components/ui/retro-grid"
+import { Meteors } from "@/components/ui/meteors"
+import { HyperText } from "@/components/ui/hyper-text"
+import { WordRotate } from "@/components/ui/word-rotate"
+import { Marquee } from "@/components/ui/marquee"
+import { PulsatingButton } from "@/components/ui/pulsating-button"
 import portfolioData from "@/data/portfolio.json"
 
-// Neural Network Node type
-type Neuron = {
-  x: number
-  y: number
-  radius: number
-  connections: number[]
-  pulseDelay: number
-}
+type Neuron = { x: number; y: number; radius: number; connections: number[]; pulseDelay: number }
 
 export function HeroSection() {
-  const [neurons, setNeurons] = useState<Neuron[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>(0)
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-  
-  // Generate neural network
+  const neuronsRef = useRef<Neuron[]>([])
+
   useEffect(() => {
-    const handleResize = () => {
-      if (canvasRef.current) {
-        const canvas = canvasRef.current
-        const parent = canvas.parentElement
-        if (parent) {
-          const { width, height } = parent.getBoundingClientRect()
-          setDimensions({ width, height })
-          canvas.width = width
-          canvas.height = height
-          
-          // Generate neurons
-          const neuronCount = Math.floor((width * height) / 20000) // Adjust density
-          const newNeurons: Neuron[] = []
-          
-          for (let i = 0; i < neuronCount; i++) {
-            const neuron: Neuron = {
-              x: Math.random() * width,
-              y: Math.random() * height,
-              radius: Math.random() * 2 + 1,
-              connections: [],
-              pulseDelay: Math.random() * 5
-            }
-            
-            // Connect to nearby neurons
-            for (let j = 0; j < newNeurons.length; j++) {
-              const other = newNeurons[j]
-              const distance = Math.sqrt(
-                Math.pow(neuron.x - other.x, 2) + Math.pow(neuron.y - other.y, 2)
-              )
-              
-              if (distance < width / 6) { // Connection distance threshold
-                neuron.connections.push(j)
-                other.connections.push(newNeurons.length)
-              }
-            }
-            
-            newNeurons.push(neuron)
-          }
-          
-          setNeurons(newNeurons)
-        }
-      }
-    }
-    
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-  
-  // Animate neural network
-  useEffect(() => {
-    if (!canvasRef.current || neurons.length === 0) return
-    
     const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
+    if (!canvas) return
+
+    const setup = () => {
+      const parent = canvas.parentElement
+      if (!parent) return
+      const { width, height } = parent.getBoundingClientRect()
+      canvas.width = width
+      canvas.height = height
+
+      const count = Math.floor((width * height) / 18000)
+      const neurons: Neuron[] = []
+      for (let i = 0; i < count; i++) {
+        const n: Neuron = { x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 2 + 1, connections: [], pulseDelay: Math.random() * 5 }
+        for (let j = 0; j < neurons.length; j++) {
+          const d = Math.hypot(n.x - neurons[j].x, n.y - neurons[j].y)
+          if (d < width / 6) { n.connections.push(j); neurons[j].connections.push(i) }
+        }
+        neurons.push(n)
+      }
+      neuronsRef.current = neurons
+    }
+
+    setup()
+    window.addEventListener("resize", setup)
+
+    const ctx = canvas.getContext("2d")
     if (!ctx) return
-    
-    let time = 0
-    
+    let t = 0
     const animate = () => {
-      time += 0.01
+      t += 0.008
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      // Draw connections
-      neurons.forEach((neuron, i) => {
-        neuron.connections.forEach(j => {
-          if (j < i) return // Avoid drawing connections twice
-          
-          const other = neurons[j]
-          const distance = Math.sqrt(
-            Math.pow(neuron.x - other.x, 2) + Math.pow(neuron.y - other.y, 2)
-          )
-          
-          // Pulse effect along connections
-          const pulse = Math.sin(time + neuron.pulseDelay) * 0.5 + 0.5
-          const pulsePos = (time + neuron.pulseDelay) % 1
-          
-          ctx.beginPath()
-          ctx.moveTo(neuron.x, neuron.y)
-          ctx.lineTo(other.x, other.y)
-          
-          // Create gradient for connection
-          const gradient = ctx.createLinearGradient(neuron.x, neuron.y, other.x, other.y)
-          gradient.addColorStop(0, 'rgba(59, 130, 246, 0.1)')
-          gradient.addColorStop(pulsePos, 'rgba(59, 130, 246, 0.5)')
-          gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)')
-          
-          ctx.strokeStyle = gradient
-          ctx.lineWidth = 0.5
-          ctx.stroke()
+      const neurons = neuronsRef.current
+      neurons.forEach((n, i) => {
+        n.connections.forEach(j => {
+          if (j < i) return
+          const o = neurons[j]
+          const pulse = (t + n.pulseDelay) % 1
+          const grad = ctx.createLinearGradient(n.x, n.y, o.x, o.y)
+          grad.addColorStop(0, "rgba(0,212,255,0.05)")
+          grad.addColorStop(pulse, "rgba(0,212,255,0.45)")
+          grad.addColorStop(1, "rgba(155,89,255,0.05)")
+          ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(o.x, o.y)
+          ctx.strokeStyle = grad; ctx.lineWidth = 0.5; ctx.stroke()
         })
       })
-      
-      // Draw neurons
-      neurons.forEach((neuron) => {
-        const pulse = Math.sin(time + neuron.pulseDelay) * 0.5 + 0.5
-        
-        // Glow effect
-        const glow = ctx.createRadialGradient(
-          neuron.x, neuron.y, 0,
-          neuron.x, neuron.y, neuron.radius * 4
-        )
-        glow.addColorStop(0, `rgba(59, 130, 246, ${0.3 * pulse})`)
-        glow.addColorStop(1, 'rgba(59, 130, 246, 0)')
-        
-        ctx.beginPath()
-        ctx.arc(neuron.x, neuron.y, neuron.radius * 2, 0, Math.PI * 2)
-        ctx.fillStyle = glow
-        ctx.fill()
-        
-        // Neuron core
-        ctx.beginPath()
-        ctx.arc(neuron.x, neuron.y, neuron.radius * (0.8 + pulse * 0.4), 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(59, 130, 246, ${0.5 + pulse * 0.5})`
-        ctx.fill()
+      neurons.forEach(n => {
+        const pulse = Math.sin(t + n.pulseDelay) * 0.5 + 0.5
+        const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 5)
+        glow.addColorStop(0, `rgba(0,212,255,${0.35 * pulse})`)
+        glow.addColorStop(0.5, `rgba(155,89,255,${0.15 * pulse})`)
+        glow.addColorStop(1, "rgba(0,0,0,0)")
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * 2.5, 0, Math.PI * 2)
+        ctx.fillStyle = glow; ctx.fill()
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * (0.8 + pulse * 0.4), 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(0,212,255,${0.5 + pulse * 0.5})`; ctx.fill()
       })
-      
       animationRef.current = requestAnimationFrame(animate)
     }
-    
     animate()
-    return () => cancelAnimationFrame(animationRef.current)
-  }, [neurons])
+    return () => { cancelAnimationFrame(animationRef.current); window.removeEventListener("resize", setup) }
+  }, [])
+
+  const allSkills = [
+    ...portfolioData.skills["AI/LLM"],
+    ...portfolioData.skills["Backend"],
+    ...portfolioData.skills["Infrastructure"],
+  ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
-      {/* Neural Network Canvas */}
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
+      {/* Layered backgrounds */}
       <div className="absolute inset-0 z-0">
-        <canvas 
-          ref={canvasRef} 
-          className="absolute inset-0"
-        />
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-        />
+        <RetroGrid className="opacity-20" />
       </div>
-      
+      <div className="absolute inset-0 z-0">
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      </div>
+      <Particles className="absolute inset-0 z-0" quantity={60} color="#00d4ff" ease={80} size={0.4} />
+      <Meteors number={8} className="absolute inset-0 z-0" />
+      <motion.div
+        className="absolute inset-0 z-0 bg-gradient-to-t from-background via-background/60 to-background/10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      />
+
       <div className="container relative z-10 px-6 mx-auto text-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="stagger-children"
         >
-          <motion.div 
-            className="flex justify-center mb-10"
-            animate={{ 
-              rotate: [0, 5, -5, 0],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ 
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+          {/* Icon */}
+          <motion.div
+            className="flex justify-center mb-8"
+            animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.08, 1] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
-            {/* Glowing Brain Icon */}
             <div className="relative">
               <motion.div
-                className="absolute -inset-4 rounded-full blur-lg"
+                className="absolute -inset-6 rounded-full blur-xl"
                 animate={{
                   background: [
-                    'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%)',
-                    'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(59, 130, 246, 0) 70%)',
-                    'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%)'
-                  ]
+                    "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(155,89,255,0.4) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)",
+                  ],
                 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                transition={{ duration: 4, repeat: Infinity }}
               />
-              <Brain className="h-24 w-24 text-primary relative z-10" />
+              <div className="relative z-10 p-4 rounded-full neon-border-cyan bg-neural/5">
+                <Network className="h-16 w-16 text-neural" />
+              </div>
             </div>
           </motion.div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient">
-            {portfolioData.profile.name}
-          </h1>
-          
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 animate-gradient"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            Building Intelligent Systems with Code
-          </motion.h2>
-          
-          <motion.p 
-            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
+
+          {/* Name */}
+          <div className="mb-4">
+            <HyperText
+              className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural"
+              duration={1200}
+            >
+              {portfolioData.profile.name}
+            </HyperText>
+          </div>
+
+          {/* Rotating role */}
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <Zap className="h-4 w-4 text-neural animate-node-pulse" />
+            <WordRotate
+              className="text-xl md:text-2xl font-semibold text-neural/90 terminal-text"
+              words={["AI Systems Engineer", "LLM Pipeline Builder", "Forward-Deployed Engineer", "RAG Architect", "Multi-Agent Developer"]}
+              duration={2500}
+            />
+            <Zap className="h-4 w-4 text-neural animate-node-pulse" />
+          </div>
+
+          {/* Bio */}
+          <motion.p
+            className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            {portfolioData.profile.title} specializing in Machine Learning, Deep Learning, and AI innovations
+            {portfolioData.profile.bio}
           </motion.p>
-          
-          <motion.div 
-            className="flex gap-6 justify-center"
+
+          {/* CTAs */}
+          <motion.div
+            className="flex gap-4 justify-center flex-wrap"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
           >
-            <Button 
-              variant="default" 
-              size="lg"
-              className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 transition-all duration-300 relative group"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            <PulsatingButton
+              className="bg-gradient-to-r from-neural to-neural-purple text-background font-semibold px-8 py-3 rounded-full terminal-text text-sm"
+              pulseColor="#00d4ff"
+              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <motion.span
-                className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-100 bg-blue-500/20 blur-lg"
-                animate={{
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <span className="relative z-10">View Projects</span>
-            </Button>
-            <Button 
-              variant="outline" 
+              View Projects
+            </PulsatingButton>
+            <Button
+              variant="outline"
               size="lg"
-              className="border-blue-500/50 hover:border-blue-500 transition-all duration-300 relative group"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="border-neural/40 hover:border-neural hover:bg-neural/10 hover:text-neural transition-all duration-300 rounded-full terminal-text text-sm glow-cyan"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <motion.span
-                className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-100 bg-blue-500/10 blur-lg"
-                animate={{
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <span className="relative z-10">Contact Me</span>
+              Contact Me
             </Button>
           </motion.div>
-          
-          {/* Floating Tech Keywords */}
-          <div className="mt-20 relative h-16 overflow-hidden">
-            <motion.div
-              className="absolute whitespace-nowrap"
-              animate={{
-                x: [0, -1000]
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            >
-              {[...Array(2)].map((_, i) => (
-                <span key={i} className="inline-block">
-                  {portfolioData.skills["AI/LLM"].concat(portfolioData.skills["Backend"]).map((skill, index) => (
-                    <motion.span
-                      key={index}
-                      className="inline-block mx-4 text-blue-500/70"
-                      animate={{
-                        opacity: [0.5, 1, 0.5]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: index * 0.2,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      {skill.name}
-                    </motion.span>
-                  ))}
+
+          {/* Skill marquee */}
+          <div className="mt-16 relative">
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+            <Marquee className="py-2 [--duration:30s]" pauseOnHover>
+              {allSkills.map((skill, i) => (
+                <span
+                  key={i}
+                  className="mx-4 text-sm terminal-text text-neural/60 hover:text-neural transition-colors duration-200 border border-neural/10 rounded-full px-3 py-1"
+                >
+                  {skill.name}
                 </span>
               ))}
-            </motion.div>
+            </Marquee>
           </div>
         </motion.div>
       </div>

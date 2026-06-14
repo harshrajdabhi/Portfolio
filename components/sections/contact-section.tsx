@@ -1,135 +1,152 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react"
+import { Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Card } from "@/components/ui/card"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { RetroGrid } from "@/components/ui/retro-grid"
+import { PulsatingButton } from "@/components/ui/pulsating-button"
+import { BlurFade } from "@/components/ui/blur-fade"
 import portfolioData from "@/data/portfolio.json"
 
 export function ContactSection() {
   const contactInfo = [
-    { icon: Mail, text: portfolioData.profile.social.email, label: "Email" },
-    { icon: Phone, text: portfolioData.profile.contact_number , label: "Phone" },
-    { icon: MapPin, text: portfolioData.profile.location, label: "Location" }
+    { icon: Mail, text: "harshrajdabhir@gmail.com", label: "Email", color: "#00d4ff" },
+    { icon: Phone, text: portfolioData.profile.contact_number, label: "Phone", color: "#9b59ff" },
+    { icon: MapPin, text: portfolioData.profile.location, label: "Location", color: "#00ff88" },
   ]
 
   const socialLinks = [
-    { icon: Github, href: portfolioData.profile.social.github, label: "GitHub" },
-    { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn" },
-    { icon: Mail, href: `mailto:${portfolioData.profile.social.email}`, label: "Email" }
+    { icon: Github, href: portfolioData.profile.social.github, label: "GitHub", color: "#ffffff" },
+    { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn", color: "#0ea5e9" },
+    { icon: Twitter, href: portfolioData.profile.social.twitter, label: "Twitter", color: "#38bdf8" },
+    { icon: Mail, href: portfolioData.profile.social.email, label: "Email", color: "#00d4ff" },
   ]
 
   return (
-    <section className="section-spacing">
-      <div className="container px-6 mx-auto">
-        <motion.h2 
-          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Get in Touch
-        </motion.h2>
+    <section id="contact" className="section-spacing relative overflow-hidden">
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        <RetroGrid />
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+      <div className="container px-6 mx-auto relative">
+        <BlurFade delay={0.1} inView>
+          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
+            // Get in Touch
+          </h2>
+          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
+            <span className="text-neural">{">"}</span> Open to new opportunities and collaborations
+          </p>
+        </BlurFade>
+
+        <div className="grid md:grid-cols-2 gap-8">
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 card-hover">
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Name</label>
-                    <Input 
-                      placeholder="John Doe"
-                      className="bg-background/50 border-blue-500/20 focus:border-blue-500/40"
+          <BlurFade delay={0.2} inView>
+            <div className="relative rounded-xl overflow-hidden">
+              <BorderBeam size={200} duration={10} colorFrom="#00d4ff" colorTo="#9b59ff" />
+              <div className="glass-card p-6 space-y-5">
+                <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Send a Message</h3>
+                <form className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs terminal-text text-muted-foreground">Name</label>
+                      <Input
+                        placeholder="Your name"
+                        className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs terminal-text text-muted-foreground">Email</label>
+                      <Input
+                        type="email"
+                        placeholder="your@email.com"
+                        className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs terminal-text text-muted-foreground">Subject</label>
+                    <Input
+                      placeholder="Project Discussion / Collaboration"
+                      className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Email</label>
-                    <Input 
-                      type="email"
-                      placeholder="john@example.com"
-                      className="bg-background/50 border-blue-500/20 focus:border-blue-500/40"
+                  <div className="space-y-1.5">
+                    <label className="text-xs terminal-text text-muted-foreground">Message</label>
+                    <Textarea
+                      placeholder="Tell me about your project..."
+                      className="min-h-[140px] bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300 resize-none"
                     />
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Subject</label>
-                  <Input 
-                    placeholder="Project Discussion"
-                    className="bg-background/50 border-blue-500/20 focus:border-blue-500/40"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Message</label>
-                  <Textarea 
-                    placeholder="Your message here..."
-                    className="min-h-[180px] bg-background/50 border-blue-500/20 focus:border-blue-500/40"
-                  />
-                </div>
-                <Button 
-                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500"
-                >
-                  <Send className="mr-2 h-4 w-4" />
-                  Send Message
-                </Button>
-              </form>
-            </Card>
-          </motion.div>
-
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-10"
-          >
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 card-hover">
-              <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                {contactInfo.map((info) => (
-                  <motion.div
-                    key={info.label}
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
+                  <PulsatingButton
+                    className="w-full bg-gradient-to-r from-neural to-neural-purple text-background font-semibold terminal-text text-sm rounded-lg py-2.5 flex items-center justify-center gap-2"
+                    pulseColor="#00d4ff"
                   >
-                    <div className="p-3 rounded-full bg-blue-500/10">
-                      <info.icon className="h-5 w-5 text-blue-500" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">{info.label}</p>
-                      <p className="text-muted-foreground">{info.text}</p>
-                    </div>
-                  </motion.div>
-                ))}
+                    <Send className="h-4 w-4" />
+                    Send Message
+                  </PulsatingButton>
+                </form>
               </div>
-            </Card>
+            </div>
+          </BlurFade>
 
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 card-hover">
-              <h3 className="text-xl font-semibold mb-6">Connect on Social Media</h3>
-              <div className="flex gap-6">
-                {socialLinks.map((link) => (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-4 rounded-full bg-blue-500/10 hover:bg-blue-500/20 transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <link.icon className="h-6 w-6 text-blue-500" />
-                  </motion.a>
-                ))}
+          {/* Contact info + socials */}
+          <div className="space-y-5">
+            <BlurFade delay={0.3} inView>
+              <div className="relative rounded-xl overflow-hidden">
+                <BorderBeam size={120} duration={14} colorFrom="#9b59ff" colorTo="#00ff88" />
+                <div className="glass-card p-6 space-y-4">
+                  <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Contact Info</h3>
+                  {contactInfo.map((info, i) => (
+                    <motion.div
+                      key={info.label}
+                      className="flex items-center gap-3"
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ background: `${info.color}15`, border: `1px solid ${info.color}30` }}
+                      >
+                        <info.icon className="h-4 w-4" style={{ color: info.color }} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground terminal-text">{info.label}</p>
+                        <p className="text-sm text-foreground">{info.text}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </Card>
-          </motion.div>
+            </BlurFade>
+
+            <BlurFade delay={0.4} inView>
+              <div className="relative rounded-xl overflow-hidden">
+                <BorderBeam size={120} duration={16} colorFrom="#00ff88" colorTo="#00d4ff" />
+                <div className="glass-card p-6 space-y-4">
+                  <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Connect</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {socialLinks.map((link, i) => (
+                      <motion.a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 p-3 rounded-lg border border-white/5 hover:border-neural/30 hover:bg-neural/5 transition-all duration-300"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <link.icon className="h-4 w-4" style={{ color: link.color }} />
+                        <span className="text-xs terminal-text text-muted-foreground">{link.label}</span>
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </BlurFade>
+          </div>
         </div>
       </div>
     </section>

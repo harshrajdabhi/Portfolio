@@ -1,101 +1,92 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, ExternalLink } from "lucide-react"
+import { MagicCard } from "@/components/ui/magic-card"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { BlurFade } from "@/components/ui/blur-fade"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
+import { Github, ExternalLink } from "lucide-react"
 import portfolioData from "@/data/portfolio.json"
 
 export function ProjectsSection() {
   return (
-    <section className="section-spacing bg-card/50 backdrop-blur-sm">
-      <div className="container px-6 mx-auto">
-        <motion.h2 
-          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Featured Projects
-        </motion.h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {portfolioData.projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -8 }}
-              className="hover-lift"
-            >
-              <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group h-full flex flex-col">
-                <div className="relative">
+    <section id="projects" className="section-spacing relative overflow-hidden">
+      <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
+
+      <div className="container px-6 mx-auto relative">
+        <BlurFade delay={0.1} inView>
+          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
+            // Projects
+          </h2>
+          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
+            <span className="text-neural">{">"}</span> Production AI systems shipped for enterprise clients
+          </p>
+        </BlurFade>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {portfolioData.projects.map((project, i) => (
+            <BlurFade key={project.title} delay={0.1 + i * 0.07} inView>
+              <MagicCard
+                className="h-full glass-card rounded-xl overflow-hidden flex flex-col group cursor-pointer"
+                gradientColor="#00d4ff"
+                gradientOpacity={0.06}
+              >
+                <BorderBeam size={100} duration={8 + i} colorFrom="#00d4ff" colorTo="#9b59ff" />
+
+                {/* Image with scanline overlay */}
+                <div className="relative h-40 overflow-hidden scanline-overlay">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
-                  
-                  {/* Project Highlights */}
-                  {project.highlights && (
-                    <ul className="mb-5 space-y-2">
-                      {project.highlights.map((highlight, i) => (
-                        <motion.li
-                          key={i}
-                          className="text-sm text-muted-foreground flex items-center gap-2"
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 * i }}
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-blue-500/50" />
-                          {highlight}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  )}
-                  
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {project.tags.map((tag) => (
-                      <Badge 
-                        key={tag} 
-                        variant="outline" 
-                        className="border-blue-500/30 bg-blue-500/5"
-                      >
-                        {tag}
-                      </Badge>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                  <div className="absolute bottom-3 left-3 flex flex-wrap gap-1">
+                    {project.highlights.map((h, hi) => (
+                      <span key={hi} className="text-xs terminal-text text-neural/90 bg-neural/10 border border-neural/20 rounded px-2 py-0.5">
+                        {h}
+                      </span>
                     ))}
                   </div>
-                  
-                  <div className="flex gap-3 mt-auto">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 border-blue-500/30 hover:border-blue-500/60 disabled:opacity-50 disabled:cursor-not-allowed"
-                      disabled={!project.github}
-                      onClick={() => project.github && window.open(project.github, '_blank')}
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      GitHub
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      className="flex-1 border-blue-500/30 hover:border-blue-500/60 disabled:opacity-50 disabled:cursor-not-allowed"
-                      disabled={!project.demo}
-                      onClick={() => project.demo && window.open(project.demo, '_blank')}
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
-                    </Button>
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-5 space-y-3">
+                  <h3 className="font-bold text-sm text-foreground leading-tight">{project.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed flex-1">{project.description}</p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.slice(0, 5).map((tag, ti) => (
+                      <span key={ti} className="text-xs terminal-text px-2 py-0.5 rounded border border-neural/15 text-muted-foreground">
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 5 && (
+                      <span className="text-xs terminal-text text-muted-foreground/50">+{project.tags.length - 5}</span>
+                    )}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-2 pt-1">
+                    {project.github && project.github !== "#" && (
+                      <Button variant="ghost" size="sm" className="h-7 px-3 text-xs hover:text-neural hover:bg-neural/10 terminal-text" asChild>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-3 w-3 mr-1" /> Code
+                        </a>
+                      </Button>
+                    )}
+                    {project.demo && project.demo !== "#" && (
+                      <Button variant="ghost" size="sm" className="h-7 px-3 text-xs hover:text-neural-purple hover:bg-neural-purple/10 terminal-text" asChild>
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-3 w-3 mr-1" /> Demo
+                        </a>
+                      </Button>
+                    )}
                   </div>
                 </div>
-              </Card>
-            </motion.div>
+              </MagicCard>
+            </BlurFade>
           ))}
         </div>
       </div>

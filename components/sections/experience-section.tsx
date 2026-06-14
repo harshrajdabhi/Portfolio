@@ -1,175 +1,123 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
-import { Card } from "@/components/ui/card"
+import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin } from "lucide-react"
-import { useRef } from "react"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { BlurFade } from "@/components/ui/blur-fade"
+import { Calendar, MapPin, Building2, ChevronRight } from "lucide-react"
+import { useRef, useState } from "react"
 import portfolioData from "@/data/portfolio.json"
 
-export function ExperienceSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
+const companyColors = ["#00d4ff", "#9b59ff", "#00ff88"]
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1])
+export function ExperienceSection() {
+  const [expanded, setExpanded] = useState<number | null>(0)
 
   return (
-    <section className="section-spacing relative overflow-hidden" ref={containerRef}>
-      {/* Futuristic Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background"
-          style={{ opacity }}
-        />
-        
-        {/* Animated Circuit Lines */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-px w-full"
-            style={{
-              top: `${(i + 1) * 20}%`,
-              background: "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent)",
-              transform: "translateX(-100%)"
-            }}
-            animate={{
-              x: ["0%", "200%"]
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+    <section id="experience" className="section-spacing relative overflow-hidden">
+      <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
 
       <div className="container px-6 mx-auto relative">
-        <motion.h2 
-          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Professional Experience
-        </motion.h2>
-        
-        <div className="relative">
-          {/* Timeline line with glowing effect */}
-          <motion.div 
-            className="absolute left-0 md:left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-blue-500/20"
-            style={{
-              background: "linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.2), transparent)"
-            }}
-          >
-            <motion.div
-              className="absolute inset-0"
-              animate={{
-                opacity: [0.3, 1, 0.3],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
-          
-          {portfolioData.experience.map((exp, index) => (
-            <motion.div
-              key={index}
-              className={`relative mb-16 ${
-                index % 2 === 0 ? 'md:pr-16 md:ml-auto md:w-1/2' : 'md:pl-16 md:w-1/2'
-              }`}
-              initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              {/* Timeline dot with pulse effect */}
-              <motion.div 
-                className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full z-10"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 1, 0.5],
-                  boxShadow: [
-                    "0 0 0 0 rgba(59, 130, 246, 0.4)",
-                    "0 0 0 10px rgba(59, 130, 246, 0)",
-                    "0 0 0 0 rgba(59, 130, 246, 0.4)"
-                  ]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              
-              <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group card-hover">
-                <motion.div 
-                  className="flex flex-col space-y-4"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+        <BlurFade delay={0.1} inView>
+          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
+            // Work Experience
+          </h2>
+          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
+            <span className="text-neural">{">"}</span> 5+ years shipping production AI systems across enterprise clients
+          </p>
+        </BlurFade>
+
+        <div className="relative max-w-3xl mx-auto">
+          {/* Timeline line */}
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-neural/50 via-neural-purple/30 to-transparent" />
+
+          {portfolioData.experience.map((exp, index) => {
+            const color = companyColors[index % companyColors.length]
+            const isOpen = expanded === index
+
+            return (
+              <BlurFade key={index} delay={0.15 + index * 0.12} inView>
+                <motion.div
+                  className="relative pl-16 mb-10"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <h3 className="text-xl font-bold">{exp.title}</h3>
-                    <Badge variant="outline" className="border-blue-500/30">
-                      <Calendar className="mr-1 h-3 w-3" />
-                      {exp.period}
-                    </Badge>
+                  {/* Timeline node */}
+                  <div className="absolute left-3 top-6">
+                    <motion.div
+                      className="w-5 h-5 rounded-full z-10"
+                      style={{ background: color, boxShadow: `0 0 14px ${color}88` }}
+                      animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
+                      transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.4 }}
+                    />
                   </div>
-                  
-                  <div className="flex items-center text-muted-foreground">
-                    <h4 className="font-semibold">{exp.company}</h4>
-                    <span className="mx-2">•</span>
-                    <span className="flex items-center">
-                      <MapPin className="mr-1 h-3 w-3" />
-                      {exp.location}
-                    </span>
-                  </div>
-                  
-                  <p className="text-muted-foreground">{exp.description}</p>
-                  
-                  <ul className="space-y-3 mt-2">
-                    {exp.achievements.map((achievement, i) => (
-                      <motion.li
-                        key={i}
-                        className="flex items-start"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                      >
-                        <motion.span 
-                          className="mr-2 text-blue-500 mt-1"
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.5, 1, 0.5]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.2
-                          }}
+
+                  {/* Card */}
+                  <div
+                    className="relative rounded-xl overflow-hidden cursor-pointer"
+                    onClick={() => setExpanded(isOpen ? null : index)}
+                  >
+                    <BorderBeam size={120} duration={10 + index * 2} colorFrom={color} colorTo="#9b59ff" />
+                    <div className="glass-card p-6">
+                      {/* Header */}
+                      <div className="flex items-start justify-between gap-4 flex-wrap">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Building2 className="h-4 w-4" style={{ color }} />
+                            <h3 className="font-bold text-base" style={{ color }}>{exp.company}</h3>
+                          </div>
+                          <p className="font-semibold text-foreground text-sm terminal-text">{exp.title}</p>
+                          <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {exp.period}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <MapPin className="h-3 w-3" />
+                              {exp.location}
+                            </span>
+                          </div>
+                        </div>
+                        <motion.div
+                          animate={{ rotate: isOpen ? 90 : 0 }}
+                          transition={{ duration: 0.2 }}
                         >
-                          •
-                        </motion.span>
-                        {achievement}
-                      </motion.li>
-                    ))}
-                  </ul>
+                          <ChevronRight className="h-5 w-5 text-muted-foreground mt-1" />
+                        </motion.div>
+                      </div>
+
+                      <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{exp.description}</p>
+
+                      {/* Expandable achievements */}
+                      <motion.div
+                        initial={false}
+                        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <ul className="mt-4 space-y-2 border-t border-white/5 pt-4">
+                          {exp.achievements.map((achievement, ai) => (
+                            <motion.li
+                              key={ai}
+                              className="flex gap-2 text-xs text-muted-foreground leading-relaxed"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={isOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                              transition={{ delay: ai * 0.04, duration: 0.3 }}
+                            >
+                              <span className="mt-0.5 shrink-0 terminal-text" style={{ color }}>▹</span>
+                              {achievement}
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    </div>
+                  </div>
                 </motion.div>
-              </Card>
-            </motion.div>
-          ))}
+              </BlurFade>
+            )
+          })}
         </div>
       </div>
     </section>

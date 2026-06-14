@@ -2,159 +2,81 @@
 
 import { motion } from "framer-motion"
 import { Award, ExternalLink, Medal } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { MagicCard } from "@/components/ui/magic-card"
+import { ShineBorder } from "@/components/ui/shine-border"
+import { BlurFade } from "@/components/ui/blur-fade"
 import portfolioData from "@/data/portfolio.json"
+
+const certColors = ["#00d4ff", "#9b59ff", "#00ff88", "#f59e0b"]
 
 export function CertificationsSection() {
   return (
-    <section className="section-spacing relative overflow-hidden">
-      {/* Futuristic Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
-        
-        {/* Animated circuit lines */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-px w-full"
-            style={{
-              top: `${(i + 1) * 20}%`,
-              background: "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent)",
-              transform: "translateX(-100%)"
-            }}
-            animate={{
-              x: ["0%", "200%"]
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+    <section id="certifications" className="section-spacing relative overflow-hidden">
+      <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
 
       <div className="container px-6 mx-auto relative">
-        <motion.h2 
-          className="text-3xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Certifications & Achievements
-        </motion.h2>
+        <BlurFade delay={0.1} inView>
+          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
+            // Certifications & Awards
+          </h2>
+          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
+            <span className="text-neural">{">"}</span> Credentials and recognition
+          </p>
+        </BlurFade>
 
         {/* Certifications */}
-        <div className="mb-20">
-          <motion.h3 
-            className="text-xl font-semibold mb-10 flex items-center"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Award className="mr-3 text-blue-500" />
-            Professional Certifications
-          </motion.h3>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {portfolioData.certifications.map((cert, index) => (
-              <motion.div
-                key={cert.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="hover-lift"
-              >
-                <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 h-full flex flex-col">
-                  <div className="relative h-48">
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <Badge variant="outline" className="bg-blue-500/10 border-blue-500/30">
-                        {cert.date}
-                      </Badge>
-                    </div>
+        <div className="mb-12">
+          <h3 className="text-lg font-semibold text-neural terminal-text mb-6 flex items-center gap-2">
+            <Medal className="h-4 w-4" /> Certifications
+          </h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {portfolioData.certifications.map((cert, i) => (
+              <BlurFade key={cert.title} delay={0.1 + i * 0.08} inView>
+                <div className="relative h-full rounded-xl glass-card p-5 flex flex-col gap-3 overflow-hidden">
+                  <ShineBorder shineColor={[certColors[i % certColors.length], "#9b59ff"]} borderWidth={1} />
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center"
+                    style={{ background: `${certColors[i % certColors.length]}15`, border: `1px solid ${certColors[i % certColors.length]}30` }}
+                  >
+                    <Award className="h-5 w-5" style={{ color: certColors[i % certColors.length] }} />
                   </div>
-                  
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h4 className="font-semibold mb-2">{cert.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      Issued by {cert.issuer}
-                    </p>
-                    <div className="mt-auto">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="w-full border-blue-500/30 hover:border-blue-500/60"
-                        onClick={() => window.open(cert.url, '_blank')}
-                      >
-                        <ExternalLink className="mr-2 h-3 w-3" />
-                        View Certificate
-                      </Button>
-                    </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-sm text-foreground leading-tight">{cert.title}</h4>
+                    <p className="text-xs text-muted-foreground mt-1">{cert.issuer}</p>
+                    <p className="text-xs terminal-text mt-1" style={{ color: certColors[i % certColors.length] }}>{cert.date}</p>
                   </div>
-                </Card>
-              </motion.div>
+                </div>
+              </BlurFade>
             ))}
           </div>
         </div>
 
-        {/* Achievements */}
+        {/* Awards */}
         <div>
-          <motion.h3 
-            className="text-xl font-semibold mb-10 flex items-center"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Medal className="mr-3 text-blue-500" />
-            Notable Achievements
-          </motion.h3>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {portfolioData.achievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="hover-lift"
-              >
-                <Card className="p-8 bg-card/50 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 h-full">
-                  <div className="flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="font-semibold">{achievement.title}</h4>
-                      <Badge variant="outline" className="bg-blue-500/10 border-blue-500/30">
-                        {achievement.year}
-                      </Badge>
+          <h3 className="text-lg font-semibold text-neural-purple terminal-text mb-6 flex items-center gap-2">
+            <Award className="h-4 w-4" /> Awards & Recognition
+          </h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {portfolioData.achievements.map((achievement, i) => (
+              <BlurFade key={achievement.title} delay={0.2 + i * 0.1} inView>
+                <MagicCard
+                  className="p-6 glass-card rounded-xl"
+                  gradientColor="#9b59ff"
+                  gradientOpacity={0.08}
+                >
+                  <div className="space-y-3">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center"
+                      style={{ background: "#9b59ff15", border: "1px solid #9b59ff30" }}
+                    >
+                      <Medal className="h-5 w-5 text-neural-purple" />
                     </div>
-                    <p className="text-muted-foreground mb-6 flex-grow">
-                      {achievement.description}
-                    </p>
-                    {achievement.url && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="w-fit text-blue-500 hover:text-blue-600 p-0 h-auto mt-auto"
-                        onClick={() => window.open(achievement.url, '_blank')}
-                      >
-                        <ExternalLink className="mr-1 h-3 w-3" />
-                        Learn more
-                      </Button>
-                    )}
+                    <h4 className="font-bold text-sm text-foreground">{achievement.title}</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{achievement.description}</p>
+                    <p className="text-xs terminal-text text-neural-purple">{achievement.year}</p>
                   </div>
-                </Card>
-              </motion.div>
+                </MagicCard>
+              </BlurFade>
             ))}
           </div>
         </div>

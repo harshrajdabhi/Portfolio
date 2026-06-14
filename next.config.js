@@ -5,9 +5,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
-  experimental: {
-    optimizeFonts: true,
-  },
 };
 
 module.exports = nextConfig;

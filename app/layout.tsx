@@ -1,5 +1,5 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 
@@ -14,9 +14,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'AI Engineer Portfolio',
-  description: 'Python & AI Engineer Portfolio showcasing expertise in Machine Learning, Deep Learning, and AI innovations',
-  viewport: 'width=device-width, initial-scale=1',
+  title: 'Harshraj Dabhi — Senior AI Engineer Portfolio',
+  description: 'Senior Software Engineer with 5+ years shipping production AI systems, LLM applications, RAG pipelines, and multi-agent orchestration.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
