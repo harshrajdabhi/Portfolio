@@ -286,7 +286,7 @@ export function HeroSection() {
             >
               {[...Array(2)].map((_, i) => (
                 <span key={i} className="inline-block">
-                  {portfolioData.skills["AI/ML"].concat(portfolioData.skills["Languages"]).map((skill, index) => (
+                  {portfolioData.skills["AI/LLM"].concat(portfolioData.skills["Backend"]).map((skill, index) => (
                     <motion.span
                       key={index}
                       className="inline-block mx-4 text-blue-500/70"
