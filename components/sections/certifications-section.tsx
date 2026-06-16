@@ -14,14 +14,12 @@ export function CertificationsSection() {
     <section id="certifications" className="section-spacing relative overflow-hidden">
       <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
 
-      <div className="container px-6 mx-auto relative">
+      <div className="container px-4 md:px-6 mx-auto relative">
         <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
-            // Certifications & Awards
+          <p className="text-center text-neural terminal-text text-xs tracking-widest uppercase mb-2">// Credentials</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Certifications &amp; <span className="bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple">Awards</span>
           </h2>
-          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
-            <span className="text-neural">{">"}</span> Credentials and recognition
-          </p>
         </BlurFade>
 
         {/* Certifications */}

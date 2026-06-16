@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Brain, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { Code2, Github, Linkedin, Mail, Twitter, ArrowUp } from "lucide-react"
 import portfolioData from "@/data/portfolio.json"
 
 export function Footer() {
@@ -10,64 +10,64 @@ export function Footer() {
     { icon: Github, href: portfolioData.profile.social.github, label: "GitHub" },
     { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn" },
     { icon: Twitter, href: portfolioData.profile.social.twitter, label: "Twitter" },
-    { icon: Mail, href: portfolioData.profile.social.email, label: "Email" }
+    { icon: Mail, href: portfolioData.profile.social.email, label: "Email" },
   ]
 
   return (
-    <footer className="relative overflow-hidden bg-card/50 backdrop-blur-sm border-t border-blue-500/20 py-16">
-      {/* AI Circuit Pattern */}
+    <footer className="relative overflow-hidden border-t border-neural/10 py-10">
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" />
         <motion.div
-          className="absolute h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent w-full top-0"
-          animate={{
-            scaleX: [0, 1, 0],
-            x: ["-100%", "0%", "100%"]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear"
-          }}
+          className="absolute h-px bg-gradient-to-r from-transparent via-neural/50 to-transparent w-full top-0"
+          animate={{ x: ["-100%", "100%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         />
       </div>
 
-      <div className="container px-6 mx-auto relative z-10">
-        <div className="grid md:grid-cols-3 gap-10 items-center">
-          <div className="text-center md:text-left">
-            <motion.div 
-              className="flex items-center justify-center md:justify-start gap-3 mb-4"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Brain className="h-6 w-6 text-blue-500" />
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400">
-                {portfolioData.profile.name}
-              </span>
-            </motion.div>
-            <p className="text-sm text-muted-foreground">
-              Building the future with AI and code
-            </p>
+      <div className="container px-4 md:px-6 mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <span className="grid place-items-center w-8 h-8 rounded-lg neon-border-cyan bg-neural/5">
+              <Code2 className="h-4 w-4 text-neural" />
+            </span>
+            <span className="font-bold text-sm text-foreground">
+              {portfolioData.profile.name.split(" ")[0]} <span className="text-neural">{portfolioData.profile.name.split(" ")[1]}</span>
+            </span>
           </div>
 
-          <div className="flex justify-center gap-6">
+          {/* Socials */}
+          <div className="flex gap-3">
             {socialLinks.map((link) => (
               <motion.a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/10 transition-colors"
-                whileHover={{ scale: 1.1 }}
+                aria-label={link.label}
+                className="grid place-items-center w-9 h-9 rounded-full border border-neural/20 text-muted-foreground hover:text-neural hover:border-neural/50 hover:bg-neural/10 transition-colors"
+                whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <link.icon className="h-5 w-5" />
+                <link.icon className="h-4 w-4" />
               </motion.a>
             ))}
           </div>
 
-          <div className="text-center md:text-right text-sm text-muted-foreground">
-            <p>© {currentYear} All rights reserved</p>
-            <p>Designed with 💙 by {portfolioData.profile.name}</p>
+          {/* Copyright + back to top */}
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-muted-foreground text-center terminal-text">
+              © {currentYear} {portfolioData.profile.name}. Crafted with{" "}
+              <span className="text-red-400">♥</span> &amp; <span className="text-neural">{"</>"}</span>
+            </p>
+            <motion.button
+              aria-label="Back to top"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="grid place-items-center w-9 h-9 rounded-full bg-gradient-to-r from-neural to-neural-purple text-background"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ArrowUp className="h-4 w-4" />
+            </motion.button>
           </div>
         </div>
       </div>

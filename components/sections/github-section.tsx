@@ -1,145 +1,130 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, GitFork, Star, GitCommit } from "lucide-react"
+import { Github, Star, Users, GitCommit, FolderGit2 } from "lucide-react"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { MagicCard } from "@/components/ui/magic-card"
 import { BorderBeam } from "@/components/ui/border-beam"
-import { Ripple } from "@/components/ui/ripple"
-import { Button } from "@/components/ui/button"
-import { useRef, useEffect } from "react"
+import { NumberTicker } from "@/components/ui/number-ticker"
 import portfolioData from "@/data/portfolio.json"
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const WEEKS = 53
+const DAYS = 7
+
+// Deterministic pseudo-random intensity grid (seeded) so SSR + client match.
+function buildGrid() {
+  const monthly = portfolioData.githubContributions.contributionsByMonth
+  const grid: number[][] = []
+  let seed = 1337
+  const rand = () => {
+    seed = (seed * 16807) % 2147483647
+    return seed / 2147483647
+  }
+  for (let w = 0; w < WEEKS; w++) {
+    const col: number[] = []
+    const monthIdx = Math.min(11, Math.floor((w / WEEKS) * 12))
+    const monthFactor = monthly[monthIdx].count / 300
+    for (let d = 0; d < DAYS; d++) {
+      const r = rand() * monthFactor
+      const level = r < 0.12 ? 0 : r < 0.3 ? 1 : r < 0.55 ? 2 : r < 0.8 ? 3 : 4
+      col.push(level)
+    }
+    grid.push(col)
+  }
+  return grid
+}
+
+const levelColor = ["rgba(255,255,255,0.05)", "rgba(0,229,255,0.25)", "rgba(0,229,255,0.5)", "rgba(0,229,255,0.75)", "#00E5FF"]
+
 export function GithubSection() {
-  const chartRef = useRef<HTMLCanvasElement | null>(null)
-
-  useEffect(() => {
-    if (!chartRef.current) return
-    const canvas = chartRef.current
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-    const parent = canvas.parentElement
-    if (!parent) return
-    const width = parent.clientWidth
-    const height = 200
-    canvas.width = width
-    canvas.height = height
-
-    const data = portfolioData.githubContributions.contributionsByMonth
-    const max = Math.max(...data.map(d => d.count))
-    const barW = (width - 60) / data.length
-    const actualBW = barW - 8
-
-    ctx.strokeStyle = "rgba(0,229,255,0.2)"; ctx.lineWidth = 1
-    ctx.beginPath(); ctx.moveTo(30, height - 30); ctx.lineTo(width - 10, height - 30); ctx.stroke()
-    ctx.beginPath(); ctx.moveTo(30, 10); ctx.lineTo(30, height - 30); ctx.stroke()
-
-    for (let i = 1; i <= 5; i++) {
-      const y = height - 30 - ((height - 40) / 5) * i
-      ctx.strokeStyle = "rgba(0,229,255,0.07)"; ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(width - 10, y); ctx.stroke()
-      ctx.fillStyle = "rgba(0,229,255,0.4)"; ctx.font = "10px monospace"; ctx.textAlign = "right"; ctx.textBaseline = "middle"
-      ctx.fillText(Math.round((max / 5) * i).toString(), 25, y)
-    }
-
-    let progress = 0
-    const animate = () => {
-      progress = Math.min(progress + 0.02, 1)
-      ctx.clearRect(31, 0, width - 41, height - 30)
-
-      data.forEach((d, i) => {
-        const barH = ((height - 40) * (d.count / max)) * progress
-        const x = 30 + i * barW + 4
-        const y = height - 30 - barH
-        const grad = ctx.createLinearGradient(x, y, x, height - 30)
-        grad.addColorStop(0, "rgba(0,229,255,0.9)")
-        grad.addColorStop(1, "rgba(124,58,237,0.4)")
-        ctx.fillStyle = grad
-        ctx.fillRect(x, y, actualBW, barH)
-        ctx.fillStyle = "rgba(0,229,255,0.5)"; ctx.font = "9px monospace"; ctx.textAlign = "center"; ctx.textBaseline = "top"
-        ctx.fillText(d.month, x + actualBW / 2, height - 25)
-      })
-
-      if (progress < 1) requestAnimationFrame(animate)
-    }
-    animate()
-  }, [])
-
+  const grid = buildGrid()
   const stats = portfolioData.githubContributions
+
+  const statCards = [
+    { icon: GitCommit, value: stats.totalContributions, suffix: "+", label: "Total Contributions", color: "#00E5FF" },
+    { icon: FolderGit2, value: 120, suffix: "+", label: "Public Repositories", color: "#7C3AED" },
+    { icon: Star, value: stats.starsEarned, suffix: "+", label: "Stars Earned", color: "#f59e0b" },
+    { icon: Users, value: 90, suffix: "+", label: "Followers", color: "#00FFA3" },
+  ]
 
   return (
     <section id="github" className="section-spacing relative overflow-hidden">
       <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
 
-      <div className="container px-6 mx-auto relative">
+      <div className="container px-4 md:px-6 mx-auto relative">
         <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
-            // GitHub Activity
+          <p className="text-center text-neural terminal-text text-xs tracking-widest uppercase mb-2">// GitHub Activity</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Building in <span className="bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple">Public</span>
           </h2>
-          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
-            <span className="text-neural">{">"}</span> Open source contributions and repositories
-          </p>
         </BlurFade>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Chart */}
-          <div className="lg:col-span-2">
-            <BlurFade delay={0.2} inView>
-              <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={200} duration={12} colorFrom="#00E5FF" colorTo="#7C3AED" />
-                <div className="glass-card p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <GitCommit className="h-4 w-4 text-neural" />
-                    <h3 className="text-sm font-semibold text-neural terminal-text">Monthly Contributions</h3>
-                    <span className="ml-auto text-xs terminal-text text-muted-foreground">{stats.totalContributions.toLocaleString()} total</span>
-                  </div>
-                  <div className="relative">
-                    <canvas ref={chartRef} className="w-full" style={{ height: 200 }} />
+        <div className="grid lg:grid-cols-3 gap-6 items-start">
+          {/* Heatmap */}
+          <BlurFade delay={0.2} inView className="lg:col-span-2">
+            <div className="relative rounded-xl overflow-hidden">
+              <BorderBeam size={200} duration={12} colorFrom="#00E5FF" colorTo="#7C3AED" />
+              <div className="glass-card p-5 md:p-6">
+                {/* month labels */}
+                <div className="flex justify-between text-[10px] text-muted-foreground terminal-text mb-2 px-1">
+                  {MONTHS.map((m) => <span key={m}>{m}</span>)}
+                </div>
+                {/* grid */}
+                <div className="flex gap-[3px] overflow-x-auto scrollbar-hide pb-1">
+                  {grid.map((col, w) => (
+                    <div key={w} className="flex flex-col gap-[3px]">
+                      {col.map((level, d) => (
+                        <motion.span
+                          key={d}
+                          className="h-2.5 w-2.5 rounded-[2px] shrink-0"
+                          style={{ background: levelColor[level] }}
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: (w * DAYS + d) * 0.0008, duration: 0.2 }}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                {/* legend */}
+                <div className="flex items-center justify-between mt-4">
+                  <p className="text-xs text-muted-foreground terminal-text">
+                    <span className="text-neural font-semibold">{stats.totalContributions.toLocaleString()}</span> contributions in the last year
+                  </p>
+                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground terminal-text">
+                    Less
+                    {levelColor.map((c, i) => <span key={i} className="h-2.5 w-2.5 rounded-[2px]" style={{ background: c }} />)}
+                    More
                   </div>
                 </div>
               </div>
-            </BlurFade>
-          </div>
+            </div>
+          </BlurFade>
 
-          {/* Stats + repos */}
-          <div className="space-y-4">
-            {/* Quick stats */}
-            <BlurFade delay={0.3} inView>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: Star, label: "Stars", value: stats.starsEarned.toLocaleString(), color: "#f59e0b" },
-                  { icon: GitCommit, label: "Commits", value: stats.totalContributions.toLocaleString(), color: "#00E5FF" },
-                ].map((s, i) => (
-                  <MagicCard key={i} className="p-4 glass-card rounded-xl text-center" gradientColor={s.color} gradientOpacity={0.07}>
-                    <s.icon className="h-5 w-5 mx-auto mb-1" style={{ color: s.color }} />
-                    <div className="text-lg font-bold" style={{ color: s.color }}>{s.value}</div>
-                    <div className="text-xs text-muted-foreground terminal-text">{s.label}</div>
-                  </MagicCard>
-                ))}
-              </div>
-            </BlurFade>
-
-            {/* Top repos */}
-            {stats.topRepositories.map((repo, i) => (
-              <BlurFade key={repo.name} delay={0.4 + i * 0.08} inView>
-                <MagicCard className="p-4 glass-card rounded-xl" gradientColor="#7C3AED" gradientOpacity={0.06}>
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-neural terminal-text">{repo.name}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{repo.description}</p>
-                    <div className="flex gap-3 text-xs text-muted-foreground terminal-text">
-                      <span className="flex items-center gap-1"><Star className="h-3 w-3 text-yellow-400" />{repo.stars}</span>
-                      <span className="flex items-center gap-1"><GitFork className="h-3 w-3 text-neural-purple" />{repo.forks}</span>
-                    </div>
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-3">
+            {statCards.map((s, i) => (
+              <BlurFade key={s.label} delay={0.3 + i * 0.08} inView>
+                <div className="glass-card rounded-xl p-4 h-full">
+                  <s.icon className="h-5 w-5 mb-2" style={{ color: s.color }} />
+                  <div className="flex items-baseline gap-0.5 text-xl font-bold" style={{ color: s.color }}>
+                    <NumberTicker value={s.value} style={{ color: s.color }} />
+                    <span>{s.suffix}</span>
                   </div>
-                </MagicCard>
+                  <p className="text-[11px] text-muted-foreground terminal-text mt-0.5">{s.label}</p>
+                </div>
               </BlurFade>
             ))}
-
-            <BlurFade delay={0.6} inView>
-              <Button variant="outline" className="w-full border-neural/30 hover:border-neural hover:bg-neural/10 hover:text-neural terminal-text text-xs transition-all duration-300" asChild>
-                <a href={portfolioData.profile.social.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4 mr-2" /> View GitHub Profile
-                </a>
-              </Button>
+            <BlurFade delay={0.7} inView className="col-span-2">
+              <a
+                href={portfolioData.profile.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold neon-border-cyan text-foreground hover:bg-neural/10 hover:text-neural transition-all"
+              >
+                <Github className="h-4 w-4" /> View GitHub Profile
+              </a>
             </BlurFade>
           </div>
         </div>

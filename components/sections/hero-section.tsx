@@ -1,16 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Zap, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Sparkles, Download, ArrowRight, Mail, MousePointerClick, Cpu, Braces, Activity } from "lucide-react"
 import { useEffect, useRef } from "react"
 import { Particles } from "@/components/ui/particles"
 import { RetroGrid } from "@/components/ui/retro-grid"
 import { Meteors } from "@/components/ui/meteors"
-import { HyperText } from "@/components/ui/hyper-text"
-import { WordRotate } from "@/components/ui/word-rotate"
-import { Marquee } from "@/components/ui/marquee"
-import { PulsatingButton } from "@/components/ui/pulsating-button"
 import { Parallax } from "@/components/scroll-reveal"
 import { AuroraBackground } from "@/components/effects/aurora-background"
 import portfolioData from "@/data/portfolio.json"
@@ -33,7 +28,7 @@ export function HeroSection() {
       canvas.width = width
       canvas.height = height
 
-      const count = Math.floor((width * height) / 18000)
+      const count = Math.floor((width * height) / 22000)
       const neurons: Neuron[] = []
       for (let i = 0; i < count; i++) {
         const n: Neuron = { x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 2 + 1, connections: [], pulseDelay: Math.random() * 5 }
@@ -63,7 +58,7 @@ export function HeroSection() {
           const pulse = (t + n.pulseDelay) % 1
           const grad = ctx.createLinearGradient(n.x, n.y, o.x, o.y)
           grad.addColorStop(0, "rgba(0,229,255,0.05)")
-          grad.addColorStop(pulse, "rgba(0,229,255,0.45)")
+          grad.addColorStop(pulse, "rgba(0,229,255,0.4)")
           grad.addColorStop(1, "rgba(124,58,237,0.05)")
           ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(o.x, o.y)
           ctx.strokeStyle = grad; ctx.lineWidth = 0.5; ctx.stroke()
@@ -72,8 +67,8 @@ export function HeroSection() {
       neurons.forEach(n => {
         const pulse = Math.sin(t + n.pulseDelay) * 0.5 + 0.5
         const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 5)
-        glow.addColorStop(0, `rgba(0,229,255,${0.35 * pulse})`)
-        glow.addColorStop(0.5, `rgba(124,58,237,${0.15 * pulse})`)
+        glow.addColorStop(0, `rgba(0,229,255,${0.3 * pulse})`)
+        glow.addColorStop(0.5, `rgba(124,58,237,${0.12 * pulse})`)
         glow.addColorStop(1, "rgba(0,0,0,0)")
         ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * 2.5, 0, Math.PI * 2)
         ctx.fillStyle = glow; ctx.fill()
@@ -86,14 +81,16 @@ export function HeroSection() {
     return () => { cancelAnimationFrame(animationRef.current); window.removeEventListener("resize", setup) }
   }, [])
 
-  const allSkills = [
-    ...portfolioData.skills["AI/LLM"],
-    ...portfolioData.skills["Backend"],
-    ...portfolioData.skills["Infrastructure"],
-  ]
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+  const downloadCV = () => {
+    const a = document.createElement("a")
+    a.href = portfolioData.profile.resumePath
+    a.download = "Harsh_Dabhi_CV.pdf"
+    a.click()
+  }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
       {/* Layered backgrounds */}
       <Parallax className="absolute inset-0 z-0" offset={60}>
         <RetroGrid className="opacity-20" />
@@ -101,68 +98,137 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       </div>
-      <Particles className="absolute inset-0 z-0" quantity={60} color="#00E5FF" ease={80} size={0.4} />
-      <Meteors number={8} className="absolute inset-0 z-0" />
+      <Particles className="absolute inset-0 z-0" quantity={50} color="#00E5FF" ease={80} size={0.4} />
+      <Meteors number={6} className="absolute inset-0 z-0" />
       <AuroraBackground className="z-0 opacity-50" />
-      <motion.div
-        className="absolute inset-0 z-0 bg-gradient-to-t from-background via-background/60 to-background/10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
 
-      <div className="container relative z-10 px-6 mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Holographic profile */}
-          <div className="flex justify-center mb-8">
-            <div className="relative h-36 w-36 sm:h-40 sm:w-40">
-              {/* Pulsing aura */}
+      <div className="container relative z-10 px-4 md:px-6 mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT — copy */}
+          <motion.div
+            className="text-center lg:text-left order-2 lg:order-1"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 rounded-full neon-border-cyan bg-neural/5 px-4 py-1.5 mb-6 text-xs terminal-text text-neural"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              AI Engineer &amp; Full-Stack Developer
+            </motion.div>
+
+            {/* Name */}
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-bold leading-[1.05] mb-4">
+              <span className="text-foreground">{portfolioData.profile.name.split(" ")[0]}</span>{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural glow-text-cyan">
+                {portfolioData.profile.name.split(" ").slice(1).join(" ")}
+              </span>
+            </h1>
+
+            {/* Tagline */}
+            <p className="text-lg sm:text-2xl font-semibold text-neural mb-5">
+              Building Intelligent Systems with Code
+            </p>
+
+            {/* Bio */}
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
+              {portfolioData.profile.bio}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <button
+                onClick={() => scrollTo("projects")}
+                className="group flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-background bg-gradient-to-r from-neural to-neural-purple hover:opacity-90 transition-all glow-cyan"
+              >
+                Explore Projects
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                onClick={downloadCV}
+                className="flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold neon-border-cyan text-foreground hover:bg-neural/10 hover:text-neural transition-all"
+              >
+                <Download className="h-4 w-4" />
+                View Resume
+              </button>
+              <button
+                onClick={() => scrollTo("contact")}
+                className="flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold neon-border-purple text-foreground hover:bg-neural-purple/10 hover:text-neural-purple transition-all"
+              >
+                <Mail className="h-4 w-4" />
+                Contact Me
+              </button>
+            </div>
+
+            {/* Scroll-down indicator */}
+            <motion.button
+              onClick={() => scrollTo("stats")}
+              className="hidden lg:flex items-center gap-2 mt-12 text-xs terminal-text text-muted-foreground hover:text-neural transition-colors"
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <MousePointerClick className="h-4 w-4" />
+              Scroll Down
+            </motion.button>
+          </motion.div>
+
+          {/* RIGHT — holographic profile + HUD cards */}
+          <motion.div
+            className="relative flex justify-center items-center order-1 lg:order-2 h-[340px] sm:h-[440px]"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {/* Outer rotating rings */}
+            <motion.div
+              className="absolute h-[300px] w-[300px] sm:h-[380px] sm:w-[380px] rounded-full border border-neural/20"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            >
+              <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-neural glow-cyan" />
+            </motion.div>
+            <motion.div
+              className="absolute h-[240px] w-[240px] sm:h-[310px] sm:w-[310px] rounded-full border border-dashed border-neural-purple/30"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+            >
+              <span className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-neural-purple glow-purple" />
+            </motion.div>
+
+            {/* Conic glow ring + photo */}
+            <div className="relative h-52 w-52 sm:h-64 sm:w-64">
               <motion.div
-                className="absolute -inset-6 rounded-full blur-2xl"
+                className="absolute -inset-4 rounded-full blur-2xl"
                 animate={{
                   background: [
-                    "radial-gradient(circle, rgba(0,229,255,0.45) 0%, transparent 70%)",
-                    "radial-gradient(circle, rgba(124,58,237,0.45) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(124,58,237,0.5) 0%, transparent 70%)",
                     "radial-gradient(circle, rgba(0,255,163,0.4) 0%, transparent 70%)",
-                    "radial-gradient(circle, rgba(0,229,255,0.45) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)",
                   ],
                 }}
                 transition={{ duration: 6, repeat: Infinity }}
               />
-              {/* Rotating holographic conic ring */}
               <motion.div
-                className="absolute inset-0 rounded-full p-[2px]"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, #00E5FF, #7C3AED, #00FFA3, #00E5FF)",
-                }}
+                className="absolute inset-0 rounded-full p-[3px]"
+                style={{ background: "conic-gradient(from 0deg, #00E5FF, #7C3AED, #00FFA3, #00E5FF)" }}
                 animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
               >
                 <div className="h-full w-full rounded-full bg-background" />
               </motion.div>
-              {/* Counter-rotating dashed ring */}
               <motion.div
-                className="absolute -inset-2 rounded-full border border-dashed border-neural/30"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              />
-              {/* Profile image */}
-              <motion.div
-                className="absolute inset-[6px] rounded-full overflow-hidden glow-cyan"
-                animate={{ y: [0, -6, 0] }}
+                className="absolute inset-[8px] rounded-full overflow-hidden glow-cyan"
+                animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <img
-                  src={portfolioData.profile.image}
-                  alt={portfolioData.profile.name}
-                  className="h-full w-full object-cover"
-                />
-                {/* Scan sheen */}
+                <img src={portfolioData.profile.image} alt={portfolioData.profile.name} className="h-full w-full object-cover" />
                 <motion.div
                   className="absolute inset-x-0 h-1/3 bg-gradient-to-b from-neural/30 to-transparent mix-blend-screen"
                   animate={{ y: ["-120%", "320%"] }}
@@ -170,104 +236,57 @@ export function HeroSection() {
                 />
               </motion.div>
             </div>
-          </div>
 
-          {/* Name */}
-          <div className="mb-4">
-            <HyperText
-              className="text-3xl sm:text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural break-words"
-              duration={1200}
+            {/* Floating HUD cards */}
+            <FloatingCard className="top-2 left-0 sm:left-2" delay={0}>
+              <Cpu className="h-3.5 w-3.5 text-neural" />
+              <span>RAG Pipelines</span>
+            </FloatingCard>
+            <FloatingCard className="top-14 right-0 sm:right-2" delay={0.6}>
+              <Braces className="h-3.5 w-3.5 text-neural-purple" />
+              <span>Multi-Agent</span>
+            </FloatingCard>
+            <FloatingCard className="bottom-20 left-0" delay={1.2}>
+              <Activity className="h-3.5 w-3.5 text-neural-green" />
+              <span>Production AI</span>
+            </FloatingCard>
+
+            {/* Available for work badge */}
+            <motion.div
+              className="absolute bottom-2 right-0 sm:right-4 glass-card rounded-xl px-4 py-2.5 flex items-center gap-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
             >
-              {portfolioData.profile.name}
-            </HyperText>
-          </div>
-
-          {/* Subtitle roles */}
-          <div className="mb-3 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-            <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
-            <WordRotate
-              className="text-base sm:text-xl md:text-2xl font-semibold text-neural/90 terminal-text text-center"
-              words={["AI Engineer", "Full-Stack Developer", "Forward-Deployed Engineer", "RAG Architect", "LLM Pipeline Builder"]}
-              duration={2500}
-            />
-            <Zap className="h-4 w-4 text-neural animate-node-pulse shrink-0" />
-          </div>
-
-          {/* Tagline */}
-          <motion.p
-            className="mb-6 text-sm sm:text-base md:text-lg font-medium tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-neural via-neural-purple to-neural-green"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            Building Intelligent Systems with Code
-          </motion.p>
-
-          {/* Bio */}
-          <motion.p
-            className="text-sm sm:text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed px-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            {portfolioData.profile.bio}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            className="flex gap-4 justify-center flex-wrap"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
-            <PulsatingButton
-              className="bg-gradient-to-r from-neural to-neural-purple text-background font-semibold px-8 py-3 rounded-full terminal-text text-sm"
-              pulseColor="#00E5FF"
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Explore Projects
-            </PulsatingButton>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-neural-green/40 hover:border-neural-green hover:bg-neural-green/10 hover:text-neural-green transition-all duration-300 rounded-full terminal-text text-sm glow-accent"
-              onClick={() => {
-                const a = document.createElement("a")
-                a.href = portfolioData.profile.resumePath
-                a.download = "Harsh_Dabhi_CV.pdf"
-                a.click()
-              }}
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Download Resume
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-neural/40 hover:border-neural hover:bg-neural/10 hover:text-neural transition-all duration-300 rounded-full terminal-text text-sm glow-cyan"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Contact Me
-            </Button>
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-neural-green opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-neural-green" />
+              </span>
+              <div className="text-left">
+                <p className="text-xs font-semibold text-foreground leading-tight">Available for Work</p>
+                <p className="text-[10px] text-muted-foreground leading-tight">{portfolioData.profile.availability}</p>
+              </div>
+            </motion.div>
           </motion.div>
-
-          {/* Skill marquee */}
-          <div className="mt-16 relative">
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
-            <Marquee className="py-2 [--duration:30s]" pauseOnHover>
-              {allSkills.map((skill, i) => (
-                <span
-                  key={i}
-                  className="mx-4 text-sm terminal-text text-neural/60 hover:text-neural transition-colors duration-200 border border-neural/10 rounded-full px-3 py-1"
-                >
-                  {skill.name}
-                </span>
-              ))}
-            </Marquee>
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
+  )
+}
+
+function FloatingCard({ children, className, delay }: { children: React.ReactNode; className: string; delay: number }) {
+  return (
+    <motion.div
+      className={`absolute glass-card rounded-lg px-3 py-2 flex items-center gap-2 text-xs terminal-text text-foreground/90 ${className}`}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+      transition={{
+        opacity: { delay: delay + 0.8, duration: 0.4 },
+        scale: { delay: delay + 0.8, duration: 0.4 },
+        y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay },
+      }}
+    >
+      {children}
+    </motion.div>
   )
 }

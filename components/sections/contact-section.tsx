@@ -1,154 +1,135 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Github, Linkedin, Mail, MapPin, Send } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { BorderBeam } from "@/components/ui/border-beam"
-import { RetroGrid } from "@/components/ui/retro-grid"
 import { PulsatingButton } from "@/components/ui/pulsating-button"
 import { BlurFade } from "@/components/ui/blur-fade"
 import portfolioData from "@/data/portfolio.json"
 
 export function ContactSection() {
   const contactInfo = [
-    { icon: Mail, text: "harshrajdabhir@gmail.com", label: "Email", color: "#00E5FF" },
-    { icon: Phone, text: portfolioData.profile.contact_number, label: "Phone", color: "#7C3AED" },
-    { icon: MapPin, text: portfolioData.profile.location, label: "Location", color: "#00FFA3" },
-  ]
-
-  const socialLinks = [
-    { icon: Github, href: portfolioData.profile.social.github, label: "GitHub", color: "#ffffff" },
-    { icon: Linkedin, href: portfolioData.profile.social.linkedin, label: "LinkedIn", color: "#0ea5e9" },
-    { icon: Twitter, href: portfolioData.profile.social.twitter, label: "Twitter", color: "#38bdf8" },
-    { icon: Mail, href: portfolioData.profile.social.email, label: "Email", color: "#00E5FF" },
+    { icon: Mail, label: "Email", value: portfolioData.profile.social.email.replace("mailto:", ""), href: portfolioData.profile.social.email, color: "#00E5FF" },
+    { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/harshrajdabhi", href: portfolioData.profile.social.linkedin, color: "#7C3AED" },
+    { icon: Github, label: "GitHub", value: "github.com/harshrajdabhi", href: portfolioData.profile.social.github, color: "#00FFA3" },
+    { icon: MapPin, label: "Location", value: portfolioData.profile.location, href: "#", color: "#f59e0b" },
   ]
 
   return (
     <section id="contact" className="section-spacing relative overflow-hidden">
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
-        <RetroGrid />
-      </div>
+      <div className="absolute inset-0 neural-grid opacity-15 pointer-events-none" />
 
-      <div className="container px-6 mx-auto relative">
+      <div className="container px-4 md:px-6 mx-auto relative">
         <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
-            // Get in Touch
+          <p className="text-center text-neural terminal-text text-xs tracking-widest uppercase mb-2">// Contact</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Let&apos;s Build Something{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple">Amazing!</span>
           </h2>
-          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
-            <span className="text-neural">{">"}</span> Open to new opportunities and collaborations
-          </p>
         </BlurFade>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Form */}
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          {/* Left — info + globe */}
           <BlurFade delay={0.2} inView>
-            <div className="relative rounded-xl overflow-hidden">
-              <BorderBeam size={200} duration={10} colorFrom="#00E5FF" colorTo="#7C3AED" />
-              <div className="glass-card p-6 space-y-5">
-                <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Send a Message</h3>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs terminal-text text-muted-foreground">Name</label>
-                      <Input
-                        placeholder="Your name"
-                        className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs terminal-text text-muted-foreground">Email</label>
-                      <Input
-                        type="email"
-                        placeholder="your@email.com"
-                        className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs terminal-text text-muted-foreground">Subject</label>
-                    <Input
-                      placeholder="Project Discussion / Collaboration"
-                      className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs terminal-text text-muted-foreground">Message</label>
-                    <Textarea
-                      placeholder="Tell me about your project..."
-                      className="min-h-[140px] bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 terminal-text text-sm transition-all duration-300 resize-none"
-                    />
-                  </div>
-                  <PulsatingButton
-                    className="w-full bg-gradient-to-r from-neural to-neural-purple text-background font-semibold terminal-text text-sm rounded-lg py-2.5 flex items-center justify-center gap-2"
-                    pulseColor="#00E5FF"
+            <div className="space-y-6">
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
+                I&apos;m always open to discussing new opportunities, innovative projects, or just having a chat about AI and engineering.
+              </p>
+
+              <div className="space-y-3">
+                {contactInfo.map((info, i) => (
+                  <motion.a
+                    key={info.label}
+                    href={info.href}
+                    target={info.href.startsWith("http") || info.href.startsWith("mailto") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 group"
+                    initial={{ opacity: 0, x: -16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    whileHover={{ x: 4 }}
                   >
-                    <Send className="h-4 w-4" />
-                    Send Message
-                  </PulsatingButton>
-                </form>
+                    <div className="grid place-items-center w-10 h-10 rounded-lg shrink-0" style={{ background: `${info.color}15`, border: `1px solid ${info.color}35` }}>
+                      <info.icon className="h-4 w-4" style={{ color: info.color }} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] text-muted-foreground terminal-text uppercase tracking-wide">{info.label}</p>
+                      <p className="text-sm text-foreground group-hover:text-neural transition-colors truncate">{info.value}</p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Holographic globe */}
+              <div className="hidden md:flex justify-center pt-6">
+                <HoloGlobe />
               </div>
             </div>
           </BlurFade>
 
-          {/* Contact info + socials */}
-          <div className="space-y-5">
-            <BlurFade delay={0.3} inView>
-              <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={14} colorFrom="#7C3AED" colorTo="#00FFA3" />
-                <div className="glass-card p-6 space-y-4">
-                  <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Contact Info</h3>
-                  {contactInfo.map((info, i) => (
-                    <motion.div
-                      key={info.label}
-                      className="flex items-center gap-3"
-                      whileHover={{ x: 4 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div
-                        className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: `${info.color}15`, border: `1px solid ${info.color}30` }}
-                      >
-                        <info.icon className="h-4 w-4" style={{ color: info.color }} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground terminal-text">{info.label}</p>
-                        <p className="text-sm text-foreground">{info.text}</p>
-                      </div>
-                    </motion.div>
-                  ))}
+          {/* Right — form */}
+          <BlurFade delay={0.3} inView>
+            <div className="relative rounded-2xl overflow-hidden">
+              <BorderBeam size={220} duration={10} colorFrom="#00E5FF" colorTo="#7C3AED" />
+              <form className="glass-card p-6 md:p-8 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <div className="space-y-1.5">
+                  <label className="text-xs terminal-text text-muted-foreground">Your Name</label>
+                  <Input placeholder="Enter your name" className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 text-sm transition-all" />
                 </div>
-              </div>
-            </BlurFade>
-
-            <BlurFade delay={0.4} inView>
-              <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={16} colorFrom="#00FFA3" colorTo="#00E5FF" />
-                <div className="glass-card p-6 space-y-4">
-                  <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest">// Connect</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {socialLinks.map((link, i) => (
-                      <motion.a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-3 rounded-lg border border-white/5 hover:border-neural/30 hover:bg-neural/5 transition-all duration-300"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        <link.icon className="h-4 w-4" style={{ color: link.color }} />
-                        <span className="text-xs terminal-text text-muted-foreground">{link.label}</span>
-                      </motion.a>
-                    ))}
-                  </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs terminal-text text-muted-foreground">Your Email</label>
+                  <Input type="email" placeholder="Enter your email" className="bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 text-sm transition-all" />
                 </div>
-              </div>
-            </BlurFade>
-          </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs terminal-text text-muted-foreground">Message</label>
+                  <Textarea placeholder="Write your message..." className="min-h-[150px] bg-background/40 border-neural/20 focus:border-neural/60 focus:ring-neural/20 text-sm transition-all resize-none" />
+                </div>
+                <PulsatingButton
+                  className="w-full bg-gradient-to-r from-neural to-neural-purple text-background font-semibold text-sm rounded-lg py-2.5 flex items-center justify-center gap-2"
+                  pulseColor="#00E5FF"
+                >
+                  Send Message <Send className="h-4 w-4" />
+                </PulsatingButton>
+              </form>
+            </div>
+          </BlurFade>
         </div>
       </div>
     </section>
+  )
+}
+
+function HoloGlobe() {
+  return (
+    <div className="relative h-44 w-44 [perspective:600px]">
+      <div className="absolute inset-0 rounded-full bg-neural/20 blur-3xl" />
+      {/* sphere */}
+      <motion.div
+        className="absolute inset-0 rounded-full border border-neural/40 overflow-hidden [transform-style:preserve-3d]"
+        style={{ background: "radial-gradient(circle at 35% 30%, rgba(0,229,255,0.35), rgba(124,58,237,0.15) 60%, transparent 75%)" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+      >
+        {/* latitude lines */}
+        {[20, 40, 60, 80].map((p) => (
+          <div key={p} className="absolute left-0 right-0 border-t border-neural/20" style={{ top: `${p}%` }} />
+        ))}
+        {/* longitude ellipses */}
+        {[0, 30, 60, 90, 120, 150].map((deg) => (
+          <div
+            key={deg}
+            className="absolute inset-0 rounded-full border-x border-neural/20"
+            style={{ transform: `rotateY(${deg}deg)` }}
+          />
+        ))}
+      </motion.div>
+      {/* orbiting dot */}
+      <motion.div className="absolute inset-0" animate={{ rotate: 360 }} transition={{ duration: 6, repeat: Infinity, ease: "linear" }}>
+        <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-neural-green glow-accent" />
+      </motion.div>
+    </div>
   )
 }

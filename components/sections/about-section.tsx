@@ -1,45 +1,37 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useRef } from "react"
-import { MagicCard } from "@/components/ui/magic-card"
-import { NumberTicker } from "@/components/ui/number-ticker"
-import { FlickeringGrid } from "@/components/ui/flickering-grid"
 import { BlurFade } from "@/components/ui/blur-fade"
-import { BorderBeam } from "@/components/ui/border-beam"
 import { Parallax } from "@/components/scroll-reveal"
-import { GraduationCap, Award } from "lucide-react"
+import { FlickeringGrid } from "@/components/ui/flickering-grid"
+import { User, MapPin, Mail, BadgeCheck, ArrowRight } from "lucide-react"
 import portfolioData from "@/data/portfolio.json"
 
 export function AboutSection() {
-  const containerRef = useRef(null)
+  const info = [
+    { icon: User, label: "Name", value: portfolioData.profile.name },
+    { icon: MapPin, label: "Location", value: portfolioData.profile.location },
+    { icon: Mail, label: "Email", value: portfolioData.profile.social.email.replace("mailto:", "") },
+    { icon: BadgeCheck, label: "Availability", value: portfolioData.profile.availability },
+  ]
 
   return (
     <section id="about" className="section-spacing relative overflow-hidden">
-      {/* Flickering neural grid background (parallax) */}
       <Parallax className="absolute -inset-y-24 inset-x-0 opacity-20 pointer-events-none" offset={50}>
-        <FlickeringGrid
-          className="w-full h-full"
-          squareSize={4}
-          gridGap={6}
-          color="#00E5FF"
-          maxOpacity={0.3}
-          flickerChance={0.1}
-        />
+        <FlickeringGrid className="w-full h-full" squareSize={4} gridGap={6} color="#00E5FF" maxOpacity={0.3} flickerChance={0.1} />
       </Parallax>
 
-      <div className="container px-6 mx-auto relative" ref={containerRef}>
+      <div className="container px-4 md:px-6 mx-auto relative">
         <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple terminal-text">
-            // About Me
+          <p className="text-center text-neural terminal-text text-xs tracking-widest uppercase mb-2">// About Me</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Turning Ideas into{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neural to-neural-purple">Intelligent Solutions</span>
           </h2>
-          <p className="text-center text-muted-foreground mb-16 terminal-text text-sm">
-            <span className="text-neural">{">"}</span> Senior Software Engineer · AI Systems · Forward-Deployed Engineering
-          </p>
         </BlurFade>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Left — bio + education */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left — bio + CTA */}
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, x: -40 }}
@@ -47,113 +39,96 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <BlurFade delay={0.2} inView>
-              <p className="text-muted-foreground leading-relaxed text-base">
-                {portfolioData.profile.bio}
-              </p>
-            </BlurFade>
+            <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+              {portfolioData.profile.bio}
+            </p>
 
-            <BlurFade delay={0.35} inView>
-              <div className="relative rounded-xl overflow-hidden">
-                <BorderBeam size={150} duration={10} colorFrom="#00E5FF" colorTo="#7C3AED" />
-                <div className="glass-card p-6 space-y-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <GraduationCap className="h-4 w-4 text-neural" />
-                    <h3 className="text-sm font-semibold text-neural terminal-text tracking-widest uppercase">Education</h3>
+            {/* Info grid */}
+            <div className="grid sm:grid-cols-2 gap-3">
+              {info.map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  className="flex items-center gap-3 glass-card rounded-lg p-3"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <div className="grid place-items-center w-9 h-9 rounded-lg neon-border-cyan bg-neural/5 shrink-0">
+                    <item.icon className="h-4 w-4 text-neural" />
                   </div>
-                  {portfolioData.profile.education.map((edu, i) => (
-                    <motion.div
-                      key={i}
-                      className="relative pl-6"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.15 }}
-                    >
-                      <motion.span
-                        className="absolute left-0 top-2 h-3 w-3 rounded-full bg-neural"
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                      <h4 className="font-semibold text-sm text-foreground">{edu.degree}</h4>
-                      <p className="text-muted-foreground text-sm">{edu.school}</p>
-                      <p className="text-xs text-neural/70 terminal-text">{edu.focus}</p>
-                      <p className="text-xs text-muted-foreground/60 mt-1">{edu.year}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </BlurFade>
-          </motion.div>
-
-          {/* Right — stats grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {portfolioData.stats.map((stat, i) => (
-                <BlurFade key={stat.label} delay={0.1 + i * 0.1} inView>
-                  <MagicCard
-                    className="p-6 text-center glass-card rounded-xl cursor-pointer"
-                    gradientColor="#00E5FF"
-                    gradientOpacity={0.08}
-                  >
-                    <motion.div
-                      animate={{ scale: [1, 1.04, 1] }}
-                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
-                    >
-                      <div className="flex items-baseline justify-center gap-1">
-                        <span className="text-4xl font-bold text-neural">
-                          <NumberTicker
-                            value={parseInt(stat.value) || 0}
-                            className="text-neural"
-                          />
-                        </span>
-                        {stat.value.includes("+") && (
-                          <span className="text-2xl font-bold text-neural">+</span>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-2 terminal-text">{stat.label}</p>
-                    </motion.div>
-                  </MagicCard>
-                </BlurFade>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-muted-foreground terminal-text uppercase tracking-wide">{item.label}</p>
+                    <p className="text-xs text-foreground truncate">{item.value}</p>
+                  </div>
+                </motion.div>
               ))}
             </div>
 
-            {/* Achievements mini list */}
-            <BlurFade delay={0.5} inView>
-              <div className="mt-6 relative rounded-xl overflow-hidden">
-                <BorderBeam size={120} duration={14} colorFrom="#7C3AED" colorTo="#00FFA3" />
-                <div className="glass-card p-5 space-y-3">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Award className="h-4 w-4 text-neural-purple" />
-                    <h3 className="text-sm font-semibold text-neural-purple terminal-text tracking-widest uppercase">Awards</h3>
-                  </div>
-                  {portfolioData.achievements.map((a, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-start gap-2 text-xs"
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      <span className="text-neural mt-0.5">▹</span>
-                      <div>
-                        <span className="text-foreground font-medium">{a.title}</span>
-                        <span className="text-muted-foreground ml-1">({a.year})</span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </BlurFade>
+            <button
+              onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+              className="group flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold neon-border-cyan text-foreground hover:bg-neural/10 hover:text-neural transition-all"
+            >
+              More About Me
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+
+          {/* Right — 3D holographic cube */}
+          <motion.div
+            className="relative flex items-center justify-center h-[320px] [perspective:1000px]"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="absolute bottom-10 h-10 w-48 rounded-full bg-neural/30 blur-3xl" />
+            <HoloCube />
+            <motion.div
+              className="absolute bottom-6 h-40 w-40 rounded-full border border-neural/20"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+            />
           </motion.div>
         </div>
       </div>
     </section>
+  )
+}
+
+function HoloCube() {
+  const size = 130
+  const half = size / 2
+  const faces = [
+    `rotateY(0deg) translateZ(${half}px)`,
+    `rotateY(90deg) translateZ(${half}px)`,
+    `rotateY(180deg) translateZ(${half}px)`,
+    `rotateY(270deg) translateZ(${half}px)`,
+    `rotateX(90deg) translateZ(${half}px)`,
+    `rotateX(-90deg) translateZ(${half}px)`,
+  ]
+  return (
+    <motion.div
+      className="relative [transform-style:preserve-3d]"
+      style={{ width: size, height: size }}
+      animate={{ rotateX: 15, rotateY: 360 }}
+      transition={{ rotateY: { duration: 14, repeat: Infinity, ease: "linear" } }}
+    >
+      {faces.map((t, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 border border-neural/60 bg-neural/5 backdrop-blur-sm"
+          style={{ transform: t, boxShadow: "inset 0 0 30px rgba(0,229,255,0.35), 0 0 20px rgba(124,58,237,0.25)" }}
+        >
+          <div className="absolute inset-0 grid place-items-center">
+            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-neural to-neural-purple opacity-60 blur-[2px]" />
+          </div>
+        </div>
+      ))}
+      <div
+        className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full bg-neural"
+        style={{ boxShadow: "0 0 30px 10px rgba(0,229,255,0.6)" }}
+      />
+    </motion.div>
   )
 }
